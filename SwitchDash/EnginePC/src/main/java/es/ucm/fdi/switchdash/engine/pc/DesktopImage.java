@@ -1,10 +1,10 @@
 package es.ucm.fdi.engine.desktop;
 
-public class Image implements es.ucm.fdi.switchdash.engine.Image
+public class DesktopImage implements es.ucm.fdi.switchdash.engine.Image
 {
     private int width, height;
 
-    public Image()
+    public DesktopImage()
     {
 
     }
@@ -19,5 +19,11 @@ public class Image implements es.ucm.fdi.switchdash.engine.Image
     public  int getHeight()
     {
         return  0;
+    }
+
+    @Override
+    public void dispose()
+    {
+
     }
 }

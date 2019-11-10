@@ -1,5 +1,7 @@
 package es.ucm.fdi.switchdash.engine;
 
+import es.ucm.fdi.switchdash.engine.utils.MyRect;
+
 /**
  * Wraps a bitmap image to then be used like an sprite.
  */
@@ -17,6 +19,7 @@ public interface Image
      */
     int getHeight();
 
+    MyRect getFullRect();
     /**
      * disposes the image
      */

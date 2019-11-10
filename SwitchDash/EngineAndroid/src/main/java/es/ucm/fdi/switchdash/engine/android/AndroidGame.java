@@ -18,9 +18,9 @@ import es.ucm.fdi.switchdash.engine.Input;
 public abstract class AndroidGame extends Activity implements Game
 {
     AndroidFastRenderView renderView;
-    Graphics graphics;
-    Input input;
-    FileIO fileIO;
+    AndroidGraphics graphics;
+    AndroidInput input;
+    AndroidFileIO fileIO;
     GameState gameState;
 
 

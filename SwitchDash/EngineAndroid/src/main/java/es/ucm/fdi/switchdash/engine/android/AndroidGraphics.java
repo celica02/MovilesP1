@@ -93,12 +93,14 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
 
 
     @Override
-    public void drawImagePrivate(Image image, MyRect src, MyRect dst)
+    public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)
     {
         Rect srcRect = transformRect(src);
         Rect dstRect =transformRect(dst);
 
-        canvas.drawBitmap(((AndroidImage)image).getBitmap(), srcRect, dstRect, null);
+        Paint paint = new Paint();
+        paint.setAlpha(alpha);
+        canvas.drawBitmap(((AndroidImage)image).getBitmap(), srcRect, dstRect, paint);
     }
 
 

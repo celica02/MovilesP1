@@ -2,6 +2,7 @@ package es.ucm.fdi.switchdash.engine.android;
 
 import android.graphics.Bitmap;
 import es.ucm.fdi.switchdash.engine.Graphics.ImageFormat;
+import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class AndroidImage implements es.ucm.fdi.switchdash.engine.Image
 {
@@ -26,6 +27,9 @@ public class AndroidImage implements es.ucm.fdi.switchdash.engine.Image
 
     @Override
     public int getHeight() { return bitmap.getHeight(); }
+
+    @Override
+    public MyRect getFullRect() { return new MyRect(0, 0, getWidth(), getHeight()); }
 
     @Override
     public void dispose() { bitmap.recycle(); }

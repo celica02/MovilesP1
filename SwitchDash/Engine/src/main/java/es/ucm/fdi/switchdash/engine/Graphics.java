@@ -32,14 +32,14 @@ public interface Graphics
      * @param x the destiny x
      * @param y the destiny y
      */
-    public void drawImage(Image image, int x, int y);
+    public void drawImage(Image image, int x, int y, int alpha);
 
     /**
      *
      * @param image
      * @param dest
      */
-    void drawImage(Image image, MyRect dest);
+    void drawImage(Image image, MyRect dest, int alpha);
 
     /**
      *
@@ -49,7 +49,7 @@ public interface Graphics
      * @param destWidth
      * @param destHeight
      */
-    void drawImage(Image image, int destX, int destY, int destWidth, int destHeight);
+    void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, int alpha);
 
     /**
      * Draws a given part of the image.
@@ -58,7 +58,7 @@ public interface Graphics
      * @param source the source rect from the image which will be drawn
      * @param dest the dest rect where will be drawn
      */
-    void drawImage(Image image, MyRect source, MyRect dest);
+    void drawImage(Image image, MyRect source, MyRect dest, int alpha);
 
 
     /**

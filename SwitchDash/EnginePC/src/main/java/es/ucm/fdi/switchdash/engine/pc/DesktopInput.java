@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.pc.events.KeyboardHandler;
 
-public class Input implements es.ucm.fdi.switchdash.engine.Input
+public class DesktopInput implements es.ucm.fdi.switchdash.engine.Input
 {
 
     // ----------ATTRIBUTES---------- //
@@ -14,7 +14,7 @@ public class Input implements es.ucm.fdi.switchdash.engine.Input
 
     // ----------FUNCTIONS---------- //
 
-    public Input()
+    public DesktopInput()
     {
         keyHandler = new KeyboardHandler();
     }

@@ -13,8 +13,9 @@ public class LoadingState extends GameState
         super(game);
     }
 
+
     @Override
-    public void update(float deltaTime)
+    protected void init()
     {
         Graphics g = game.getGraphics();
         Assets.logo = g.newImage("switchdashlogo.png", ImageFormat.ARGB4444);
@@ -31,27 +32,27 @@ public class LoadingState extends GameState
         Assets.balls = g.newImage("balls.png", ImageFormat.ARGB4444);
         Assets.players = g.newImage("players.png", ImageFormat.ARGB4444);
         Assets.buttons = g.newImage("buttons.png", ImageFormat.ARGB4444);
+    }
 
+    @Override
+    public void update(float deltaTime)
+    {
+        // Loading Screen
         game.setState(new MainMenuState(game));
     }
 
     @Override
-    public void render(float deltaTime) {
-
-    }
+    public void render(float deltaTime) { }
 
     @Override
-    public void pause() {
-
-    }
+    public void handleInput(float deltaTime) { }
 
     @Override
-    public void resume() {
-
-    }
+    public void pause() { }
 
     @Override
-    public void dispose() {
+    public void resume() { }
 
-    }
+    @Override
+    public void dispose() { }
 }

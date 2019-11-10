@@ -6,43 +6,43 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 public abstract class AbstractGraphics implements Graphics
 {
     @Override
-    public void drawImage(Image image, int x, int y)
+    public void drawImage(Image image, int x, int y, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
         MyRect dstRect = new MyRect(x, y, image.getWidth(), image.getHeight());
 
-        drawImagePrivate(image,srcRect , dstRect);
+        drawImagePrivate(image,srcRect , dstRect, alpha);
     }
 
     @Override
-    public void drawImage(Image image, MyRect dest)
+    public void drawImage(Image image, MyRect dest, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect source = new MyRect(0, 0, image.getWidth(), image.getHeight());
 
-        drawImagePrivate(image, source, dest);
+        drawImagePrivate(image, source, dest, alpha);
     }
 
     @Override
-    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight)
+    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
         MyRect dstRect = new MyRect(destX, destY, destWidth, destHeight);
 
-        drawImagePrivate(image,srcRect , dstRect);
+        drawImagePrivate(image,srcRect , dstRect, alpha);
     }
 
     @Override
-    public void drawImage(Image image, MyRect source, MyRect dest)
+    public void drawImage(Image image, MyRect source, MyRect dest, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        drawImagePrivate(image, source, dest);
+        drawImagePrivate(image, source, dest, alpha);
     }
 
 
 
     //abstract public void drawImagePrivate(Image image, int srcX, int srcY, int srcWidth, int srcHeight, int dstX, int dstY, int dstWidth, int destHeight, int alpha);
-    abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst);
+    abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha);
 }
