@@ -1,0 +1,48 @@
+package es.ucm.fdi.switchdash.engine;
+
+import org.w3c.dom.css.Rect;
+
+import es.ucm.fdi.switchdash.engine.utils.MyRect;
+public abstract class AbstractGraphics implements Graphics
+{
+    @Override
+    public void drawImage(Image image, int x, int y)
+    {
+        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
+        MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
+        MyRect dstRect = new MyRect(x, y, image.getWidth(), image.getHeight());
+
+        drawImagePrivate(image,srcRect , dstRect);
+    }
+
+    @Override
+    public void drawImage(Image image, MyRect dest)
+    {
+        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
+        MyRect source = new MyRect(0, 0, image.getWidth(), image.getHeight());
+
+        drawImagePrivate(image, source, dest);
+    }
+
+    @Override
+    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight)
+    {
+        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
+        MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
+        MyRect dstRect = new MyRect(destX, destY, destWidth, destHeight);
+
+        drawImagePrivate(image,srcRect , dstRect);
+    }
+
+    @Override
+    public void drawImage(Image image, MyRect source, MyRect dest)
+    {
+        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
+        drawImagePrivate(image, source, dest);
+    }
+
+
+
+    //abstract public void drawImagePrivate(Image image, int srcX, int srcY, int srcWidth, int srcHeight, int dstX, int dstY, int dstWidth, int destHeight, int alpha);
+    abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst);
+}

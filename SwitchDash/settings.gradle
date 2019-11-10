@@ -1,0 +1,2 @@
+include ':LauncherAndroid', ':EngineAndroid', ':Logic', ':Engine', ':EnginePC', ':LauncherPC'
+rootProject.name='SwitchDash'
