@@ -1,23 +1,21 @@
 package es.ucm.fdi.switchdash.engine.android;
 
 import android.graphics.Bitmap;
-import es.ucm.fdi.switchdash.engine.Graphics.ImageFormat;
+
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class AndroidImage implements es.ucm.fdi.switchdash.engine.Image
 {
     // ATRIBUTES:
 
-    private ImageFormat format;
     private Bitmap bitmap;
 
     // ------------------------------------------------ //
 
 
-    public AndroidImage(Bitmap bitmap, ImageFormat format)
+    public AndroidImage(Bitmap bitmap)
     {
-    this.bitmap = bitmap;
-    this.format = format;
+        this.bitmap = bitmap;
     }
 
     public Bitmap getBitmap() { return  bitmap; }

@@ -1,8 +1,8 @@
-package es.ucm.fdi.switchdash.engine.pc;
+package es.ucm.fdi.switchdash.engine.desktop;
 
 import java.util.List;
 
-import es.ucm.fdi.switchdash.engine.pc.events.KeyboardHandler;
+import es.ucm.fdi.switchdash.engine.desktop.events.KeyboardHandler;
 
 public class DesktopInput implements es.ucm.fdi.switchdash.engine.Input
 {

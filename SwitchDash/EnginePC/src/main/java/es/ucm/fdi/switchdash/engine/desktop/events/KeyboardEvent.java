@@ -1,4 +1,4 @@
-package es.ucm.fdi.switchdash.engine.pc.events;
+package es.ucm.fdi.switchdash.engine.desktop.events;
 
 import es.ucm.fdi.switchdash.engine.Input;
 

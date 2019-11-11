@@ -36,17 +36,9 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
 
 
     @Override
-    public Image newImage(String filename, ImageFormat format)
+    public Image newImage(String filename)
     {
-        Config config = null;
-        if (format == ImageFormat.RGB565)
-            config = Config.RGB_565;
-        else if (format == ImageFormat.ARGB4444)
-            config = Config.ARGB_4444;
-        else
-            config = Config.ARGB_8888;
         Options options = new Options();
-        options.inPreferredConfig = config;
         InputStream in = null;
         Bitmap bitmap = null;
         try {
@@ -62,18 +54,10 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
             if (in != null) {
                 try {
                     in.close();
-                } catch (IOException e) {
-                }
+                } catch (IOException e) { }
             }
         }
-        if (bitmap.getConfig() == Config.RGB_565)
-            format = ImageFormat.RGB565;
-        else if (bitmap.getConfig() == Config.ARGB_4444)
-            format = ImageFormat.ARGB4444;
-        else
-            format = ImageFormat.ARGB8888;
-
-        return new AndroidImage(bitmap, format);
+        return new AndroidImage(bitmap);
     }
 
     @Override

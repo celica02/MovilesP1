@@ -8,21 +8,13 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public interface Graphics
 {
-
-    public static enum ImageFormat
-    {
-        ARGB8888, ARGB4444, RGB565
-    }
-
-
     /**
      * Loads an image from its name stored in the application's resource container.
      *
      * @param name the pathname of the image to load
-     * @param format the format of the image given that will be stored in RAM
      * @return the loaded image
      */
-    Image newImage(String name, ImageFormat format);
+    Image newImage(String name);
 
 
     /**
