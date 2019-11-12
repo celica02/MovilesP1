@@ -1,5 +1,7 @@
 package es.ucm.fdi.switchdash.engine;
 
+import java.io.IOException;
+
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 /**
@@ -14,7 +16,7 @@ public interface Graphics
      * @param name the pathname of the image to load
      * @return the loaded image
      */
-    Image newImage(String name);
+    Image newImage(String name) throws IOException;
 
 
     /**
