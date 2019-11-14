@@ -17,7 +17,7 @@ public class LoadingState extends GameState
     @Override
     protected void init()
     {
-        Graphics g = game.getGraphics();
+        /*Graphics g = game.getGraphics();
         Assets.logo = g.newImage("switchdashlogo.png");
         Assets.instructions = g.newImage("instructions.png");
         Assets.howToPlay = g.newImage("howtoplay.png");
@@ -31,7 +31,7 @@ public class LoadingState extends GameState
         Assets.backgrounds = g.newImage("backgrounds.png");
         Assets.balls = g.newImage("balls.png");
         Assets.players = g.newImage("players.png");
-        Assets.buttons = g.newImage("buttons.png");
+        Assets.buttons = g.newImage("buttons.png");*/
     }
 
     @Override

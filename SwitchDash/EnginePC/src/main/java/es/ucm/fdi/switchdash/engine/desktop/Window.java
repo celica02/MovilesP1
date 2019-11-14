@@ -9,14 +9,8 @@ public class Window extends JFrame {
     }
 
     public void /*boolean*/ init(int width, int weight) {
-
         setSize(width, weight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIgnoreRepaint(true);
-        setVisible(true);
-        System.out.println(width);
-
-
     }
 }
 

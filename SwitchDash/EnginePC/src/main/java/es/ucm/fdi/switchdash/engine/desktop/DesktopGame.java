@@ -1,5 +1,7 @@
 package es.ucm.fdi.switchdash.engine.desktop;
 
+import java.io.IOException;
+
 import es.ucm.fdi.switchdash.engine.FileIO;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
@@ -11,8 +13,32 @@ public class DesktopGame implements Game {
     DesktopInput input;
     GameState gameState;
 
-    public void DesktopGame(){
-        //graphics.newImage();
+    public DesktopGame() {
+        Window ventana = new Window("Window");
+
+        ventana.setIgnoreRepaint(true);
+        ventana.setVisible(true);
+
+        try {
+            ventana.createBufferStrategy(2);
+        }
+        catch(Exception e) {
+            System.err.println(e);
+        }
+
+        java.awt.image.BufferStrategy strategy = ventana.getBufferStrategy();
+
+        java.awt.Graphics g = strategy.getDrawGraphics();
+        graphics = new DesktopGraphics(g);
+        graphics.drawLine();
+        /*try{
+            graphics.newImage("switchDashLogo.png");
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }*/
+
+        ventana.init(500, 500);
     }
 
     @Override
