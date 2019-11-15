@@ -53,6 +53,8 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable
         }
     }
 
+
+
     public void pause()
     {
         running = false;

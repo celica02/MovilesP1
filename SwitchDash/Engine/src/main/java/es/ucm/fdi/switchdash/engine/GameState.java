@@ -9,7 +9,7 @@ public abstract class GameState
 {
     protected final Game game;
 
-    List<Entity> entities;
+    protected List<Entity> entities;
 
     public GameState(Game game)
     {

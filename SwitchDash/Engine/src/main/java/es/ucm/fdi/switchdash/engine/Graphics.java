@@ -16,7 +16,7 @@ public interface Graphics
      * @param name the pathname of the image to load
      * @return the loaded image
      */
-    Image newImage(String name) throws IOException;
+    Image newImage(String name);
 
 
     /**

@@ -1,11 +1,7 @@
 package es.ucm.fdi.switchdash.logic.states;
 
-import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
-import es.ucm.fdi.switchdash.engine.Graphics;
-import es.ucm.fdi.switchdash.engine.Input;
-import es.ucm.fdi.switchdash.engine.Input.InputEvent;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.MainMenu;
@@ -28,6 +24,12 @@ public class MainMenuState extends GameState
     }
 
 
+    @Override
+    public void render(float deltaTime)
+    {
+        game.getGraphics().clear(0x0000FF00);
+        super.render(deltaTime);
+    }
 
     @Override
     public void pause() {

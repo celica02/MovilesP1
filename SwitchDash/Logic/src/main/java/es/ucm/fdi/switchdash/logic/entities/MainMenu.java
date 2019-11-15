@@ -24,15 +24,16 @@ public class MainMenu extends Entity
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void update(float deltaTime)
+    {
 
+        posX = (posX+=5 * deltaTime);
     }
 
     @Override
     public void render(float deltaTime)
     {
-        MyRect dst = new MyRect(posX, posY, width, height);
-        g.drawImage(img, src, dst, alpha);
+        super.render(deltaTime);
     }
 
     @Override

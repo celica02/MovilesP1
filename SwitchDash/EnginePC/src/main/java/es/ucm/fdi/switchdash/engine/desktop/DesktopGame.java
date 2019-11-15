@@ -8,66 +8,87 @@ import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input;
 
-public class DesktopGame implements Game {
+public class DesktopGame implements Game
+{
     DesktopGraphics graphics;
     DesktopInput input;
     GameState gameState;
 
-    public DesktopGame() {
-        Window ventana = new Window("Window");
+    java.awt.image.BufferStrategy renderBuffer;
 
-        ventana.setIgnoreRepaint(true);
-        ventana.setVisible(true);
+    public DesktopGame()
+    {
+        Window window = new Window("Window");
+        window.init(500, 500);
+
 
         try {
-            ventana.createBufferStrategy(2);
+            window.createBufferStrategy(2);
         }
         catch(Exception e) {
             System.err.println(e);
         }
 
-        java.awt.image.BufferStrategy strategy = ventana.getBufferStrategy();
+        renderBuffer = window.getBufferStrategy();
 
-        java.awt.Graphics g = strategy.getDrawGraphics();
-        graphics = new DesktopGraphics(g);
-        graphics.drawLine();
-        /*try{
-            graphics.newImage("switchDashLogo.png");
+        graphics = new DesktopGraphics(renderBuffer.getDrawGraphics(),window);
+        input = new DesktopInput();
+
+        gameState = getStartState();
+    }
+
+
+    public void run()
+    {
+        long startTime = System.nanoTime();
+
+
+        while (true)
+        {
+            float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;
+            startTime = System.nanoTime();
+
+            update(deltaTime);
+            render(deltaTime);
+            handleInput(deltaTime);
         }
-        catch (Exception e){
-            System.err.println(e);
-        }*/
+    }
 
-        ventana.init(500, 500);
+
+    private void update(float deltaTime)
+    {
+        getCurrentState().update(deltaTime);
+    }
+
+   private void render(float deltaTime)
+    {
+        getCurrentState().render(deltaTime);
+        renderBuffer.show();
+    }
+
+    private void handleInput(float deltaTime)
+    {
+        getCurrentState().handleInput(deltaTime);
     }
 
     @Override
-    public Graphics getGraphics() {
-        return graphics;
-    }
+    public Graphics getGraphics() { return graphics; }
 
     @Override
-    public Input getInput() {
-        return input;
-    }
+    public Input getInput() { return input; }
 
     @Override
-    public FileIO getFileIO() {
-        return null;
-    }
+    public FileIO getFileIO() { return null; }
 
     @Override
-    public GameState getStartState() {
-        return null;
-    }
+    public GameState getStartState() { return null; }
 
     @Override
-    public GameState getCurrentState() {
-        return gameState;
-    }
+    public GameState getCurrentState() { return gameState; }
 
     @Override
-    public void setState(GameState state) {
+    public void setState(GameState state)
+    {
         if (gameState == null)
             throw new IllegalArgumentException("GameState must not be null");
 
@@ -77,5 +98,6 @@ public class DesktopGame implements Game {
         state.resume();
         state.update(0);
 
-        this.gameState = state;    }
+        this.gameState = state;
+    }
 }

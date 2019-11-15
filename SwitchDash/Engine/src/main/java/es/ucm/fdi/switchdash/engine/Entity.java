@@ -13,8 +13,8 @@ public abstract class Entity
     protected MyRect src;
     protected int alpha;
 
-    protected int posX, posY;
-    protected int width, height;
+    protected float posX, posY;
+    protected float width, height;
 
     public Entity(Image image, MyRect source, Graphics graphics)
     {
@@ -30,6 +30,22 @@ public abstract class Entity
         width = source.right;
         height = source.bottom;
     }
+
+    public Entity(Image image, MyRect source, Graphics graphics, int numRows, int numCols)
+    {
+        img = image;
+        src = source;
+        g = graphics;
+
+        alpha = 255;
+
+        posX = 0;
+        posY = 0;
+
+        width = source.right/numCols;
+        height = source.bottom/numRows;
+    }
+
     public Entity(Image image, MyRect source, MyRect dest, Graphics graphics)
     {
         img = image;
@@ -61,20 +77,24 @@ public abstract class Entity
     }
 
     public abstract void update(float deltaTime);
-    public abstract void render(float deltaTime);
     public abstract void handleInput(List<InputEvent> events, float deltaTime);
+    public void render(float deltaTime)
+    {
+        MyRect dst = new MyRect((int)posX, (int)posY, (int)(posX + width), (int)(posY + height));
+        g.drawImage(img, src, dst, alpha);
+    }
 
     public abstract void drawCentered();
 
     public  void setAlpha(int a) { alpha = a; }
 
-    public int getPosX() { return  posX; }
-    public int getPosY() { return posY; }
+    public float getPosX() { return  posX; }
+    public float getPosY() { return posY; }
     public void setPosX(int x) { posX = x; }
     public void setPosY(int y) { posY = y; }
 
-    public int getWidth() { return width; }
-    public int getHeight() { return  height; }
+    public float getWidth() { return width; }
+    public float getHeight() { return  height; }
     public void setWidth(int w) { width = w; }
     public void setHeight(int h) { height = h; }
 

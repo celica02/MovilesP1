@@ -14,6 +14,10 @@ public class DesktopImage implements es.ucm.fdi.switchdash.engine.Image
         this.image = image;
     }
 
+
+    public Image getImage() { return image; }
+
+
     @Override
     public int getWidth()
     {
@@ -28,6 +32,7 @@ public class DesktopImage implements es.ucm.fdi.switchdash.engine.Image
 
     @Override
     public void dispose() { }
+
 
     @Override
     public MyRect getFullRect() { return new MyRect(0, 0, getWidth(), getHeight()); }

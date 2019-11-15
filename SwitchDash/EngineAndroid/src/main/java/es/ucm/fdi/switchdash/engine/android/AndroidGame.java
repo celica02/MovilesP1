@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -74,6 +75,21 @@ public abstract class AndroidGame extends Activity implements Game
         {
             gameState.dispose();
         }
+    }
+
+    private void update(float deltaTime)
+    {
+        getCurrentState().update(deltaTime);
+    }
+
+    private void render(float deltaTime)
+    {
+        getCurrentState().render(deltaTime);
+    }
+
+    private void handleInput(float deltaTime)
+    {
+        getCurrentState().handleInput(deltaTime);
     }
 
 

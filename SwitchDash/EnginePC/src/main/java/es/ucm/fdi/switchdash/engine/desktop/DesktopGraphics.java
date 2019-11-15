@@ -13,48 +13,61 @@ import es.ucm.fdi.switchdash.engine.Image;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 
+
+
 public class DesktopGraphics extends AbstractGraphics
 {
-    public DesktopGraphics(Graphics drawGraphics){
-        _graphics = drawGraphics;
+    private String path = "Assets/Sprites/";
+
+    private java.awt.Graphics canvas;
+    private Window window;
+
+    public DesktopGraphics(Graphics drawGraphics, Window window)
+    {
+        this.canvas = drawGraphics;
+        this.window = window;
     }
+
     @Override
     public Image newImage(String name){
-       /* try {
-            java.awt.Image img = javax.imageio.ImageIO.read(new File(name));
+        try {
+            java.awt.Image img = javax.imageio.ImageIO.read(new File(path+ name));
             return new DesktopImage(img);
         }
         catch(Exception e){
             System.err.println(e);
             return null;
-        }*/
-       return null;
+        }
+    }
+
+
+    public void drawLine(){
+        canvas.setColor(Color.black);
+        canvas.drawLine(1, 1, 400, 400);
     }
 
     @Override
-    public void clear(int color) {
-
+    public void clear(int color)
+    {
+        canvas.setColor(new Color((color)));
+        canvas.fillRect(0, 0, getWidth(), getHeight());
     }
 
     @Override
     public int getWidth() {
-        return 0;
+        return window.getWidth();
     }
 
     @Override
-    public int getHeight() {
-        return 0;
-    }
-    public void drawLine(){
-        _graphics.setColor(Color.black);
-        _graphics.drawLine(1, 1, 400, 400);
-        System.out.println("dibujando");
-    }
+    public int getHeight() { return window.getHeight(); }
+
+
 
     @Override
-    public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha) {
-
+    public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)
+    {
+        canvas.drawImage(((DesktopImage)image).getImage(), dst.left, dst.top, dst.right, dst.bottom,
+                src.left, src.top, src.right, src.bottom, null);
     }
-
-    private java.awt.Graphics _graphics;
 }
+
