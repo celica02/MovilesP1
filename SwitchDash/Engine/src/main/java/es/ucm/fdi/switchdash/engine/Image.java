@@ -20,6 +20,8 @@ public interface Image
     int getHeight();
 
     MyRect getFullRect();
+
+    MyRect getRect(int left, int top, int right, int bottom);
     /**
      * disposes the image
      */

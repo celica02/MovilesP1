@@ -61,7 +61,7 @@ public abstract class Entity
         height = dest.bottom;
     }
 
-    public Entity(Image image, MyRect source, int destX, int destY, Graphics graphics)
+    public Entity(Image image, MyRect source, float destX, float destY, Graphics graphics)
     {
         img = image;
         src = source;
@@ -84,20 +84,24 @@ public abstract class Entity
         g.drawImage(img, src, dst, alpha);
     }
 
-    public abstract void drawCentered();
+    public void setCentered() { posX = g.getWidth()/2 - getWidth()/2; }
 
     public  void setAlpha(int a) { alpha = a; }
 
     public float getPosX() { return  posX; }
     public float getPosY() { return posY; }
-    public void setPosX(int x) { posX = x; }
-    public void setPosY(int y) { posY = y; }
+    public void setPosX(float x) { posX = x; }
+    public void setPosY(float y) { posY = y; }
 
     public float getWidth() { return width; }
     public float getHeight() { return  height; }
-    public void setWidth(int w) { width = w; }
-    public void setHeight(int h) { height = h; }
+    public void setWidth(float w) { width = w; }
+    public void setHeight(float h) { height = h; }
 
+    public void setSize(float width, float height) { this.width = width; this.height = height; }
+
+
+    public void setSourceRect(MyRect src) { this.src = src; }
     public void setDestRect(MyRect dest)
     {
         posX = dest.left;

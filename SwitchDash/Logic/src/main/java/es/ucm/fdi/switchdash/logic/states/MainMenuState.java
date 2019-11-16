@@ -1,5 +1,6 @@
 package es.ucm.fdi.switchdash.logic.states;
 
+import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
@@ -17,10 +18,19 @@ public class MainMenuState extends GameState
     @Override
     protected void init()
     {
-        MyRect dest = new MyRect(0, 0, Assets.logo.getWidth()/2,Assets.logo.getWidth()/2);
-        MainMenu mainMenu = new MainMenu(Assets.logo, Assets.logo.getFullRect(), dest, game.getGraphics());
+        MainMenu mainMenu = new MainMenu(Assets.logo, Assets.logo.getFullRect(), game.getGraphics());
+        mainMenu.setSize(mainMenu.getWidth()/2,mainMenu.getHeight()/2);
 
+        mainMenu.setPosY(200);
+
+        MainMenu player = new MainMenu(Assets.players, Assets.players.getRect(0, 0,Assets.players.getWidth(),Assets.players.getHeight()/2), game.getGraphics());
+
+       // player.setPosY(100);
+        //addEntity(player);
         addEntity(mainMenu);
+
+        for (Entity e: entities)
+            e.setCentered();
     }
 
 

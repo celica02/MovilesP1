@@ -19,15 +19,14 @@ public class MainMenu extends Entity
         super(image, source, dest, graphics);
     }
 
-    public MainMenu(Image image, MyRect source, int destX, int destY, Graphics graphics) {
+    public MainMenu(Image image, MyRect source, float destX, float destY, Graphics graphics) {
         super(image, source, destX, destY, graphics);
     }
 
     @Override
     public void update(float deltaTime)
     {
-
-        posX = (posX+=5 * deltaTime);
+      //  posX = (posX+=5 * deltaTime);
     }
 
     @Override
@@ -37,12 +36,8 @@ public class MainMenu extends Entity
     }
 
     @Override
-    public void handleInput(List<Input.InputEvent> events, float deltaTime) {
-
-    }
-
-    @Override
-    public void drawCentered() {
+    public void handleInput(List<Input.InputEvent> events, float deltaTime)
+    {
 
     }
 }

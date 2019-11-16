@@ -36,4 +36,7 @@ public class DesktopImage implements es.ucm.fdi.switchdash.engine.Image
 
     @Override
     public MyRect getFullRect() { return new MyRect(0, 0, getWidth(), getHeight()); }
+
+    @Override
+    public MyRect getRect(int left, int top, int right, int bottom) { return new MyRect(left, top, right, bottom); }
 }
