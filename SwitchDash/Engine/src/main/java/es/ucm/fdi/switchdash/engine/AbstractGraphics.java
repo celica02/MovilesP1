@@ -38,10 +38,10 @@ public abstract class AbstractGraphics implements Graphics
     public void drawImage(Image image, MyRect source, MyRect dest, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        dest.left = (int)(dest.left / (1920.0 / getWidth()));
-        dest.top = (int)(dest.top / (1080.0 / getHeight()));
-        dest.right = (int)(dest.right / (1920.0 / getWidth()));
-        dest.bottom = (int)(dest.bottom / (1080.0 / getHeight()));
+        dest.left = (int)(dest.left / ((float)getResWidth() / getWidth()));
+        dest.top = (int)(dest.top / ((float)getResHeight() / getHeight()));
+        dest.right = (int)(dest.right / ((float)getResWidth() / getWidth()));
+        dest.bottom = (int)(dest.bottom / ((float)getResHeight() / getHeight()));
 
         drawImagePrivate(image, source, dest, alpha);
     }

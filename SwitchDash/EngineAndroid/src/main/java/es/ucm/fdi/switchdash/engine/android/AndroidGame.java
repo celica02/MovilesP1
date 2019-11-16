@@ -53,8 +53,16 @@ public abstract class AndroidGame extends Activity implements Game
         int resolutionHeight = metrics.heightPixels;
 
 
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            int swap = resolutionWidth;
+
+            resolutionHeight = resolutionWidth;
+            resolutionWidth = swap;
+        }
+
         renderView = new AndroidFastRenderView(this, frameBuffer);
-        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionHeight, resolutionWidth);
+        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight);
         fileIO = new AndroidFileIO(this);
         input = new AndroidInput(this, renderView, resolutionWidth, resolutionHeight);
 
@@ -62,6 +70,7 @@ public abstract class AndroidGame extends Activity implements Game
 
         setContentView(renderView);
     }
+
 
     @Override
     public void onResume()
