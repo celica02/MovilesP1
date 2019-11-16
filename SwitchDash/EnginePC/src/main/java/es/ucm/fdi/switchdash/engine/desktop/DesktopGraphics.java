@@ -17,8 +17,7 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class DesktopGraphics extends AbstractGraphics
 {
-    private String path = "Assets/Sprites/";
-
+    private  final String assetsPath = "Assets/";
     private java.awt.Graphics canvas;
     private Window window;
 
@@ -29,9 +28,9 @@ public class DesktopGraphics extends AbstractGraphics
     }
 
     @Override
-    public Image newImage(String name){
+    public Image newImage(String pathname){
         try {
-            java.awt.Image img = javax.imageio.ImageIO.read(new File(path+ name));
+            java.awt.Image img = javax.imageio.ImageIO.read(new File(assetsPath + pathname));
             return new DesktopImage(img);
         }
         catch(Exception e){

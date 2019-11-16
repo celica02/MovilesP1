@@ -16,10 +16,10 @@ public class DesktopGame implements Game
 
     java.awt.image.BufferStrategy renderBuffer;
 
-    public DesktopGame()
+    public DesktopGame(String title, int windowWidth, int windowHeight)
     {
-        Window window = new Window("Window");
-        window.init(500, 500);
+        Window window = new Window(title);
+        window.init(windowWidth, windowHeight);
 
 
         try {

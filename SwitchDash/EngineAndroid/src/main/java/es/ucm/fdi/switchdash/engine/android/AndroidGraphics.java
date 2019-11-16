@@ -36,20 +36,20 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
 
 
     @Override
-    public Image newImage(String filename)
+    public Image newImage(String pathname)
     {
         Options options = new Options();
         InputStream in = null;
         Bitmap bitmap = null;
         try {
-            in = assets.open(filename);
+            in = assets.open(pathname);
             bitmap = BitmapFactory.decodeStream(in);
             if (bitmap == null)
                 throw new RuntimeException("Couldn't load bitmap from asset '"
-                        + filename + "'");
+                        + pathname + "'");
         } catch (IOException e) {
             throw new RuntimeException("Couldn't load bitmap from asset '"
-                    + filename + "'");
+                    + pathname + "'");
         } finally {
             if (in != null) {
                 try {

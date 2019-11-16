@@ -13,10 +13,10 @@ public interface Graphics
     /**
      * Loads an image from its name stored in the application's resource container.
      *
-     * @param name the pathname of the image to load
+     * @param pathname the pathname of the image to load
      * @return the loaded image
      */
-    Image newImage(String name);
+    Image newImage(String pathname);
 
 
     /**
