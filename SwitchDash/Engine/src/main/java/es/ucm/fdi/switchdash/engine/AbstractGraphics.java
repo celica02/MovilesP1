@@ -12,7 +12,7 @@ public abstract class AbstractGraphics implements Graphics
         MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
         MyRect dstRect = new MyRect(x, y, image.getWidth(), image.getHeight());
 
-        drawImagePrivate(image,srcRect , dstRect, alpha);
+        drawImagePrivate(image, srcRect, dstRect, alpha);
     }
 
     @Override
@@ -38,11 +38,10 @@ public abstract class AbstractGraphics implements Graphics
     public void drawImage(Image image, MyRect source, MyRect dest, int alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        dest.left = dest.left * (1920 / getWidth());
-        dest.top = dest.top * (1080 / getHeight());
-        dest.right = dest.right * (1920 / getWidth());
-        dest.bottom = dest.bottom * (1080 / getHeight());
-
+        dest.left = (int)(dest.left / (1920.0 / getWidth()));
+        dest.top = (int)(dest.top / (1080.0 / getHeight()));
+        dest.right = (int)(dest.right / (1920.0 / getWidth()));
+        dest.bottom = (int)(dest.bottom / (1080.0 / getHeight()));
 
         drawImagePrivate(image, source, dest, alpha);
     }
