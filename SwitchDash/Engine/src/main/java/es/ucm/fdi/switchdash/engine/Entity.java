@@ -84,7 +84,7 @@ public abstract class Entity
         g.drawImage(img, src, dst, alpha);
     }
 
-    public void setCentered() { posX = g.getWidth()/2 - getWidth()/2; }
+    public void setCentered() { posX = (g.getResWidth()/2) - (getWidth()/2); }
 
     public  void setAlpha(int a) { alpha = a; }
 

@@ -21,10 +21,18 @@ public class DesktopGraphics extends AbstractGraphics
     private java.awt.Graphics canvas;
     private Window window;
 
-    public DesktopGraphics(Graphics drawGraphics, Window window)
+    int resolutionWidth;
+    int resolutionHeight;
+
+
+
+    public DesktopGraphics(Graphics drawGraphics, Window window, int resWidth, int resHeight)
     {
         this.canvas = drawGraphics;
         this.window = window;
+
+        this.resolutionWidth = resWidth;
+        this.resolutionHeight = resHeight;
     }
 
     @Override
@@ -59,6 +67,11 @@ public class DesktopGraphics extends AbstractGraphics
 
     @Override
     public int getHeight() { return window.getHeight(); }
+
+    @Override
+    public int getResWidth() { return resolutionWidth; }
+    @Override
+    public int getResHeight() { return resolutionHeight; }
 
 
 

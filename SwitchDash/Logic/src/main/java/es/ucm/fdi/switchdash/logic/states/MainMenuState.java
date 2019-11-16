@@ -19,7 +19,7 @@ public class MainMenuState extends GameState
     protected void init()
     {
         MainMenu mainMenu = new MainMenu(Assets.logo, Assets.logo.getFullRect(), game.getGraphics());
-        mainMenu.setSize(mainMenu.getWidth()/2,mainMenu.getHeight()/2);
+        //mainMenu.setSize(mainMenu.getWidth()/2,mainMenu.getHeight()/2);
 
         mainMenu.setPosY(1000);
 

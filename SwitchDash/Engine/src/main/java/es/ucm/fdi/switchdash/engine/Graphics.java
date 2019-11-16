@@ -74,4 +74,8 @@ public interface Graphics
      * @return  the height of the window
      */
     int getHeight();
+
+
+    int getResWidth();
+    int getResHeight();
 }

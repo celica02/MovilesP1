@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.util.DisplayMetrics;
+import android.graphics.Point;
+
 
 import es.ucm.fdi.switchdash.engine.FileIO;
 import es.ucm.fdi.switchdash.engine.Game;
@@ -42,15 +45,18 @@ public abstract class AndroidGame extends Activity implements Game
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
 
-        float scaleX = (float) frameBufferWidth
-                / getWindowManager().getDefaultDisplay().getWidth();
-        float scaleY = (float) frameBufferHeight
-                / getWindowManager().getDefaultDisplay().getHeight();
+
+        // Obtenemos la resolución del dispositivo
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int resolutionWidth = metrics.widthPixels;
+        int resolutionHeight = metrics.heightPixels;
+
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
-        graphics = new AndroidGraphics(getAssets(), frameBuffer);
+        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionHeight, resolutionWidth);
         fileIO = new AndroidFileIO(this);
-        input = new AndroidInput(this, renderView, scaleX, scaleY);
+        input = new AndroidInput(this, renderView, resolutionWidth, resolutionHeight);
 
         gameState = getStartState();
 

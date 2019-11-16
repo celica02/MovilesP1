@@ -5,9 +5,7 @@ import java.io.InputStream;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Rect;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -19,19 +17,24 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphics
 {
-
     AssetManager assets;
     Bitmap frameBuffer;
     Canvas canvas;
     Paint paint;
 
+    int resolutionWidth;
+    int resolutionHeight;
 
-    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer)
+
+    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight)
     {
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
+
+        this.resolutionWidth = resWidth;
+        this.resolutionHeight = resHeight;
     }
 
 
@@ -66,15 +69,6 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         canvas.drawRGB((color & 0xff0000) >> 16, (color & 0xff00) >> 8, (color & 0xff));
     }
 
-    @Override
-    public int getWidth() {
-        return frameBuffer.getWidth();
-    }
-
-    @Override
-    public int getHeight() { return frameBuffer.getHeight(); }
-
-
 
     @Override
     public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)
@@ -86,6 +80,16 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         paint.setAlpha(alpha);
         canvas.drawBitmap(((AndroidImage)image).getBitmap(), srcRect, dstRect, paint);
     }
+
+    @Override
+    public int getWidth() { return frameBuffer.getWidth(); }
+    @Override
+    public int getHeight() { return frameBuffer.getHeight(); }
+
+    @Override
+    public int getResWidth() { return resolutionWidth; }
+    @Override
+    public int getResHeight() { return resolutionHeight; }
 
 
     private Rect transformRect(MyRect rect) { return new Rect(rect.left, rect.top, rect.right, rect.bottom); }
