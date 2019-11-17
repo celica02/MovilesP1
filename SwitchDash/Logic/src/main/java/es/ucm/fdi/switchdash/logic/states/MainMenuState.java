@@ -6,6 +6,7 @@ import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
+import es.ucm.fdi.switchdash.logic.entities.ArrowsBG;
 
 public class MainMenuState extends GameState
 {
@@ -18,13 +19,16 @@ public class MainMenuState extends GameState
     @Override
     protected void init()
     {
+        ArrowsBG arrowsBackground = new ArrowsBG(0, -500, Assets.arrowsBackground, game.getGraphics());
+        arrowsBackground.setAlpha(180);
+        addEntity(arrowsBackground);
+
         Sprite logo = new Sprite(0, 356, Assets.logo, game.getGraphics());
-
-        SpriteSheet player = new SpriteSheet(0, 700, Assets.players, game.getGraphics(), 2, 1);
-        player.setActiveSprite(1, 0);
-
-        addEntity(player);
         addEntity(logo);
+
+        SpriteSheet player = new SpriteSheet(0, 1200, Assets.players, game.getGraphics(), 2, 1);
+        player.setActiveSprite(1, 0);
+        addEntity(player);
 
         for (Entity e: entities)
             e.setCentered();
