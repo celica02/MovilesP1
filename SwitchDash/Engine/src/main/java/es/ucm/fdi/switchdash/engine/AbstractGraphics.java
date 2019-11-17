@@ -40,6 +40,7 @@ public abstract class AbstractGraphics implements Graphics
     @Override
     public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, int alpha)
     {
+
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
         MyRect dstRect = new MyRect(destX, destY, destWidth, destHeight);
@@ -50,54 +51,45 @@ public abstract class AbstractGraphics implements Graphics
     @Override
     public void drawImage(Image image, MyRect source, MyRect dest, int alpha)
     {
-        float lAspectRatio = (float) resolutionHeight/resolutionWidth;
-        float pAspectRatio = (float) getHeight()/getWidth();
+        // 1) Primero obtenemos los ascpect ratio en función de la altura / anchura
+        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
+        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
 
-        float factor, scale;
+        float pResolution, scale;
         int left = 0;
         int top = 0;
 
-        // Tenemos que reescalar verticalmente
+        /*
+        2) En función de ello, vemos cúal de los valores es mayor para saber dónde se produce la sobreescala, si en la altura o en la anchura:
+
+            a) Obtendremos entonces el factor de escala en función de la dimensión que no se ha sobreescalado (es decir, la que mantendría la relación de aspect ratio).
+
+            b) Por último, para posicionarnos en el centro obtendremos el valor físico que le correspondería a la altura o anchura para mantener el aspect ratio lógico.
+              Es decir, generaríamos un "canvas interno" con dicho aspect ratio, y reescalaríamos la dimensión multiplicándola por el factor de escala obtenido.
+
+            c) Una vez obtenido, simplemente calculamos el centro de la ventana real, y le restamos la mitad de la "ventana interna" con el aspect ratio correcto
+              para obtener la nueva posición (0, 0) de la "ventana" donde realmente vamos a pintar. En función de la dimensiñón que se haya reescalado obtendremos
+              la coordenada X o la coordenada Y.
+         */
         if(pAspectRatio > lAspectRatio)
         {
-            factor = getWidth() * lAspectRatio;
-            scale = factor / resolutionHeight;
+            scale = (float) getWidth()/resolutionWidth;
+            pResolution = scale * resolutionHeight;
 
-             top = (int)(getHeight()/2 - factor/2);
+            top = (int)(getHeight()/2 - pResolution/2);
         }
-        // Tenemos que reescalar horizontalmente
         else
         {
-            /*  Obtenemos el escalado sobre el ancho usando una regla de 3 para obtener la correspondencia:
+            scale = (float) getHeight()/resolutionHeight;
+            pResolution = scale * resolutionWidth;
 
-                Al reescalar horizontalmente sabemos que la altura física tiene correspondencia directa con la altura lógica (en cuanto al aspect ratio)
-                puesto que ésta no cambia en este caso. Por tanto, lo que debemos obtener es el valor que le corresponde al ancho físico para mantener el aspect ratio lógico
-                despúes de haberlo reescalado:
-
-                Altura física (getHeight()) -----> Altura lógica (1920)
-                         Anchura física (X) -----> Anchura lógica (1080)
-
-                Con esto, lo que estamos obteniendo es una "ventana" o "canvas" interno (dentro de la ventana principal),
-                el cual está reescalado de tal manera que mantiene el mismo aspect ratio que el lógico.
-                Es decir, justo lo que buscamos.
-            */
-            factor = getHeight() / lAspectRatio;
-
-            // Una vez tenemos el valor del ancho reescalado, obtenemos cúanto se ha reescalado, lo cual usaremos para reposicionar las coordenadas de la imagen
-            scale = factor / resolutionWidth;
-
-            // Por último, tenemos que obtener la nueva posición de inicio en X (lo que sería la posición 0 de la ventana, pero reajustada al centro)
-            // Para ello, primero obtenemos el punto medio de la ventana, y a éste le restamos la mitad de la "ventana interna" reescalada.
-            // Así tendremos el extremo izquierdo de la ventana reescalada donde pintaremos realmente.
-             left = (int)(getWidth()/2 - factor/2);
+            left = (int)(getWidth()/2 - pResolution/2);
         }
 
-        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         dest.top = (int)(top + (dest.top * scale));
         dest.bottom = (int)(top + (dest.bottom * scale));
         dest.left = (int)(left + (dest.left * scale));
         dest.right = (int)(left + (dest.right * scale));
-
 
         drawImagePrivate(image, source, dest, alpha);
     }
