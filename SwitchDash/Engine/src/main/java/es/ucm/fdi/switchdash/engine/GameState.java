@@ -1,6 +1,6 @@
 package es.ucm.fdi.switchdash.engine;
 
-import es.ucm.fdi.switchdash.engine.Input.InputEvent;
+import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +32,8 @@ public abstract class GameState
     }
     public void handleInput(float deltaTime)
     {
-        List<InputEvent> events = game.getInput().getInputEvents();
-
         for(Entity e: entities)
-            e.handleInput(events, deltaTime);
+            e.handleInput(game.getInput().getTouchEvents(),game.getInput().getKeyEvents(), deltaTime);
     }
 
     public void addEntity(Entity e) { entities.add(e); }

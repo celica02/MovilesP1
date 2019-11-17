@@ -1,5 +1,7 @@
 package es.ucm.fdi.switchdash.engine;
 
+import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
+import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
 import java.util.List;
 
 public class SpriteSheet extends Sprite
@@ -26,7 +28,7 @@ public class SpriteSheet extends Sprite
     }
 
     @Override
-    public void handleInput(List<Input.InputEvent> events, float deltaTime) {
+    public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime) {
 
     }
 

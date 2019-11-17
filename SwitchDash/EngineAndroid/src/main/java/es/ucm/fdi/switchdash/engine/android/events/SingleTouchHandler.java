@@ -3,7 +3,7 @@ package es.ucm.fdi.switchdash.engine.android.events;
 import android.view.View;
 import android.view.MotionEvent;
 
-import es.ucm.fdi.switchdash.engine.Input.InputEvent;
+import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 import es.ucm.fdi.switchdash.engine.utils.Pool;
 
 import java.util.ArrayList;
@@ -16,51 +16,52 @@ public class SingleTouchHandler implements TouchHandler
     // ----------ATTRIBUTES---------- //
 
     // State of the touchscreen
-    boolean isTouched;
+    private boolean isTouched;
 
     // Position of the finger in the touchscreen
-    int touchX;
-    int touchY;
+    private int touchX;
+    private int touchY;
 
     // Pool of touch events
-    Pool<InputEvent> touchEventPool;
+    private Pool<TouchEvent> touchEventPool;
 
     // Lists to hold the incoming touch events and the ones to be processed next
-    List<InputEvent> touchEvents = new ArrayList<InputEvent>();
-    List<TouchEvent> touchEventsBuffer = new ArrayList<TouchEvent>();
+    private List<TouchEvent> touchEvents = new ArrayList<>();
+    private List<TouchEvent> touchEventsBuffer = new ArrayList<>();
 
     // Used to handle screen resolutions
-    float scaleX;
-    float scaleY;
+    private float resolutionWidth;
+    private float resolutionHeight;
 
 
     // ----------FUNCTIONS---------- //
 
+
     /**
      * Set up the handler to be used with touch events.
      * @param view the view where we register the handler as an OnTouchListener
-     * @param scaleX screen scale X
-     * @param scaleY screen scale Y
+     * @param resolutionWidth screen scale X
+     * @param resolutionHeight screen scale Y
      */
-    public SingleTouchHandler(View view, float scaleX, float scaleY)
+    public SingleTouchHandler(View view, float resolutionWidth, float resolutionHeight)
     {
 
         // 1) Set up the pool to be used with touch events
-        Pool.PoolObjectFactory<InputEvent> factory = new Pool.PoolObjectFactory<InputEvent>() {
+        Pool.PoolObjectFactory<TouchEvent> factory = new Pool.PoolObjectFactory<TouchEvent>() {
             @Override
-            public InputEvent createObject() {
+            public TouchEvent createObject() {
                 return new TouchEvent();
             }
         };
 
-        touchEventPool = new Pool<InputEvent>(factory, 100);
+        touchEventPool = new Pool<>(factory, 100);
 
         // 2) Register the handler as an OnTouchListener
         view.setOnTouchListener(this);
 
         // 3) Store the scale values
-        this.scaleX = scaleX;
-        this.scaleY = scaleY;
+        this.resolutionWidth = resolutionWidth;
+        this.resolutionHeight = resolutionHeight;
     }
 
 
@@ -76,23 +77,23 @@ public class SingleTouchHandler implements TouchHandler
         // 1) First, we make sure that it is not accessed in parallel
         synchronized (this)
         {
-            TouchEvent touchEvent = (TouchEvent) touchEventPool.newObject();
+            TouchEvent touchEvent = touchEventPool.newObject();
 
             // 2) Then, we set our touch event depending on the event received
             switch (event.getAction())
             {
                 case MotionEvent.ACTION_DOWN:
-                    touchEvent.type = TouchEvent.TOUCH_DOWN;
+                    touchEvent.type = TouchEvent.DOWN;
                     isTouched = true;
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    touchEvent.type = TouchEvent.TOUCH_UP;
+                    touchEvent.type = TouchEvent.UP;
                     isTouched = false;
                     break;
 
                 case MotionEvent.ACTION_MOVE:
-                    touchEvent.type = TouchEvent.TOUCH_DRAGGED;
+                    touchEvent.type = TouchEvent.DRAG;
                     isTouched = false;
                     break;
 
@@ -100,8 +101,8 @@ public class SingleTouchHandler implements TouchHandler
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = touchX = (int)(event.getX() * scaleX);
-            touchEvent.y = touchY = (int)(event.getY() * scaleY);
+            touchEvent.x = touchX = (int)(event.getX() * resolutionWidth);
+            touchEvent.y = touchY = (int)(event.getY() * resolutionHeight);
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             touchEventsBuffer.add(touchEvent);
@@ -145,12 +146,12 @@ public class SingleTouchHandler implements TouchHandler
      * Sets the old events free and returns the new events waiting in the events buffer.
      * @return the new events previously added to the events buffer
      */
-    public List<InputEvent> getTouchEvents()
+    public List<TouchEvent> getTouchEvents()
     {
         synchronized(this)
         {
             // 1) Sets the old events free adding them to the pool
-            for(InputEvent e: touchEvents)
+            for(TouchEvent e: touchEvents)
                 touchEventPool.free(e);
 
             // 2) Adds the new events previously waiting the events buffer

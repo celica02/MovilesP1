@@ -4,7 +4,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
-import es.ucm.fdi.switchdash.engine.Input.InputEvent;
+import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
 import es.ucm.fdi.switchdash.engine.utils.Pool;
 
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ public class KeyboardHandler extends JFrame implements KeyListener
     boolean[] pressedKeys = new boolean[128];
 
     // Pool of key events
-    Pool<InputEvent> keyEventPool;
+    Pool<KeyboardEvent> keyEventPool;
 
     // Lists to hold the incoming key events and the ones to be processed next
-    List<InputEvent> keyEventsBuffer = new ArrayList<InputEvent>();
-    List<InputEvent> keyEvents = new ArrayList<InputEvent>();
+    List<KeyboardEvent> keyEventsBuffer = new ArrayList<>();
+    List<KeyboardEvent> keyEvents = new ArrayList<>();
 
 
     // ----------FUNCTIONS---------- //
@@ -33,14 +33,14 @@ public class KeyboardHandler extends JFrame implements KeyListener
     public KeyboardHandler()
     {
         // 1) Set up the pool to be used with keyboard events
-        Pool.PoolObjectFactory<InputEvent> factory = new Pool.PoolObjectFactory<InputEvent>() {
+        Pool.PoolObjectFactory<KeyboardEvent> factory = new Pool.PoolObjectFactory<KeyboardEvent>(){
             @Override
-            public InputEvent createObject() {
+            public KeyboardEvent createObject() {
                 return new KeyboardEvent();
             }
         };
 
-        keyEventPool = new Pool<InputEvent>(factory, 100);
+        keyEventPool = new Pool<>(factory, 100);
 
         // 2) Register the handler as a key listener
         addKeyListener(this);
@@ -63,12 +63,12 @@ public class KeyboardHandler extends JFrame implements KeyListener
      * Sets the old events free and returns the new events waiting in the events buffer.
      * @return the new events previously added to the events buffer
      */
-    public List<InputEvent> getKeyEvents()
+    public List<KeyboardEvent> getKeyEvents()
     {
         synchronized (this)
         {
             // 1) Sets the old events free adding them to the pool
-            for(InputEvent e: keyEvents)
+            for(KeyboardEvent e: keyEvents)
                 keyEventPool.free(e);
 
             // 2) Adds the new events previously waiting in the events buffer
@@ -78,7 +78,7 @@ public class KeyboardHandler extends JFrame implements KeyListener
             keyEventsBuffer.clear();
 
             // 3) Finally, returns the new events list
-            return  keyEvents;
+            return keyEvents;
         }
     }
 
@@ -94,7 +94,7 @@ public class KeyboardHandler extends JFrame implements KeyListener
         // 1) First, we make sure that it is not accessed in parallel
         synchronized (this)
         {
-            KeyboardEvent keyEvent = (KeyboardEvent) keyEventPool.newObject();
+            KeyboardEvent keyEvent = keyEventPool.newObject();
 
             // 2) Then, we set our keyboard event depending on the event received
             int keyCode = keyEvent.keyCode = event.getKeyCode();
@@ -113,7 +113,7 @@ public class KeyboardHandler extends JFrame implements KeyListener
     @Override
     public void keyTyped(KeyEvent event)
     {
-        onKey(event,KeyboardEvent.KEY_DOWN,true);
+        onKey(event, KeyboardEvent.KEY_DOWN,true);
     }
 
 

@@ -6,6 +6,7 @@ import android.view.View;
 
 import java.util.List;
 
+import es.ucm.fdi.switchdash.engine.android.events.KeyboardHandler;
 import es.ucm.fdi.switchdash.engine.android.events.SingleTouchHandler;
 
 
@@ -16,25 +17,25 @@ public class AndroidInput implements es.ucm.fdi.switchdash.engine.Input
     // ----------ATTRIBUTES---------- //
 
     SingleTouchHandler touchHandler;
+    KeyboardHandler keyboardHandler;
+
 
 
     // ----------FUNCTIONS---------- //
 
-    public AndroidInput(Context context, View view, float scaleX, float scaleY)
+    public AndroidInput(Context context, View view, float resolutionWidth, float resolutionHeight)
     {
-        touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
+        touchHandler = new SingleTouchHandler(view, resolutionWidth, resolutionHeight);
     }
 
 
 
-    public boolean isTouchDown(int pointerID) { return touchHandler.isTouchDown(pointerID); }
-
-    public int getTouchX(int pointerID) { return touchHandler.getTouchX(pointerID); }
-    public int getTouchY(int pointerID) { return touchHandler.getTouchY(pointerID); }
-
     @Override
-    public List<InputEvent> getInputEvents()
+    public List<TouchEvent> getTouchEvents()
     {
         return touchHandler.getTouchEvents();
     }
+
+    @Override
+    public List<KeyboardEvent> getKeyEvents() { return keyboardHandler.getKeyEvents(); }
 }

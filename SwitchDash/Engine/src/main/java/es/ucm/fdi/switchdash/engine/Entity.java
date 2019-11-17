@@ -1,7 +1,8 @@
 package es.ucm.fdi.switchdash.engine;
 
-import es.ucm.fdi.switchdash.engine.Input.InputEvent;
-import es.ucm.fdi.switchdash.engine.utils.MyRect;
+import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
+import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
+
 
 import java.util.List;
 
@@ -23,7 +24,13 @@ public abstract class Entity
 
     public abstract void update(float deltaTime);
     public abstract void render(float deltaTime);
-    public abstract void handleInput(List<InputEvent> events, float deltaTime);
+    public abstract void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime);
+
+
+    protected boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        return (event.x > x && event.x < x + width - 1 &&
+                event.y > y && event.y < y + height - 1);
+    }
 
 
     public float getPosX() { return  posX; }

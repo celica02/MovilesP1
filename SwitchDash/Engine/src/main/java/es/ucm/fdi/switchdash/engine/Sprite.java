@@ -2,7 +2,8 @@ package es.ucm.fdi.switchdash.engine;
 
 import java.util.List;
 
-
+import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
+import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class Sprite extends Entity
@@ -58,8 +59,8 @@ public class Sprite extends Entity
 
 
     @Override
-    public void update(float deltaTime)
-    {
+    public void update(float deltaTime) {
+
     }
 
     @Override
@@ -70,10 +71,9 @@ public class Sprite extends Entity
     }
 
     @Override
-    public void handleInput(List<Input.InputEvent> events, float deltaTime)
-    {
-    }
+    public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime) {
 
+    }
 
     @Override
     public void setCentered() { posX = (g.getResWidth()/2) - (getWidth()/2); }
