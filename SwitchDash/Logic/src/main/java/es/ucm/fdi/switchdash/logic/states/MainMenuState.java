@@ -3,9 +3,9 @@ package es.ucm.fdi.switchdash.logic.states;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
-import es.ucm.fdi.switchdash.engine.utils.MyRect;
 import es.ucm.fdi.switchdash.logic.Assets;
-import es.ucm.fdi.switchdash.logic.entities.MainMenu;
+import es.ucm.fdi.switchdash.logic.entities.Sprite;
+import es.ucm.fdi.switchdash.logic.entities.SpriteSheet;
 
 public class MainMenuState extends GameState
 {
@@ -18,16 +18,13 @@ public class MainMenuState extends GameState
     @Override
     protected void init()
     {
-        MainMenu mainMenu = new MainMenu(Assets.logo, Assets.logo.getFullRect(), game.getGraphics());
-        //mainMenu.setSize(mainMenu.getWidth()/2,mainMenu.getHeight()/2);
+        Sprite logo = new Sprite(0, 356, Assets.logo, game.getGraphics());
 
-        mainMenu.setPosY(1500);
+        SpriteSheet player = new SpriteSheet(0, 700, Assets.players, game.getGraphics(), 2, 1);
+        player.setActiveSprite(1, 0);
 
-        MainMenu player = new MainMenu(Assets.players, Assets.players.getRect(0, 0,Assets.players.getWidth(),Assets.players.getHeight()/2), game.getGraphics());
-
-       // player.setPosY(100);
-        //addEntity(player);
-        addEntity(mainMenu);
+        addEntity(player);
+        addEntity(logo);
 
         for (Entity e: entities)
             e.setCentered();

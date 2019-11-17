@@ -55,7 +55,7 @@ public abstract class AbstractGraphics implements Graphics
         float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
         float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
 
-        float pResolution, scale;
+        float scale;
         int left = 0;
         int top = 0;
 
@@ -64,7 +64,7 @@ public abstract class AbstractGraphics implements Graphics
 
             a) Obtendremos entonces el factor de escala en función de la dimensión que no se ha sobreescalado (es decir, la que mantendría la relación de aspect ratio).
 
-            b) Por último, para posicionarnos en el centro obtendremos el valor físico que le correspondería a la altura o anchura para mantener el aspect ratio lógico.
+            b) A continuación obtendremos el valor físico que le correspondería a la altura o anchura para mantener el aspect ratio lógico.
               Es decir, generaríamos un "canvas interno" con dicho aspect ratio, y reescalaríamos la dimensión multiplicándola por el factor de escala obtenido.
 
             c) Una vez obtenido, simplemente calculamos el centro de la ventana real, y le restamos la mitad de la "ventana interna" con el aspect ratio correcto
@@ -74,22 +74,24 @@ public abstract class AbstractGraphics implements Graphics
         if(pAspectRatio > lAspectRatio)
         {
             scale = (float) getWidth()/resolutionWidth;
-            pResolution = scale * resolutionHeight;
+            float pHeightResolution = scale * resolutionHeight;
 
-            top = (int)(getHeight()/2 - pResolution/2);
+            top = (int)(getHeight()/2 - pHeightResolution/2);
         }
         else
         {
             scale = (float) getHeight()/resolutionHeight;
-            pResolution = scale * resolutionWidth;
+            float pWidthResolution = scale * resolutionWidth;
 
-            left = (int)(getWidth()/2 - pResolution/2);
+            left = (int)(getWidth()/2 - pWidthResolution/2);
         }
+
+        dest.left = (int)(left + (dest.left * scale));
+        dest.right = (int)(left + (dest.right * scale));
 
         dest.top = (int)(top + (dest.top * scale));
         dest.bottom = (int)(top + (dest.bottom * scale));
-        dest.left = (int)(left + (dest.left * scale));
-        dest.right = (int)(left + (dest.right * scale));
+
 
         drawImagePrivate(image, source, dest, alpha);
     }
