@@ -1,7 +1,5 @@
 package es.ucm.fdi.switchdash.engine;
 
-import org.w3c.dom.css.Rect;
-
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 public abstract class AbstractGraphics implements Graphics
 {
@@ -19,7 +17,7 @@ public abstract class AbstractGraphics implements Graphics
     }
 
     @Override
-    public void drawImage(Image image, int x, int y, int alpha)
+    public void drawImage(Image image, int x, int y, float alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
@@ -29,7 +27,7 @@ public abstract class AbstractGraphics implements Graphics
     }
 
     @Override
-    public void drawImage(Image image, MyRect dest, int alpha)
+    public void drawImage(Image image, MyRect dest, float alpha)
     {
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
         MyRect source = new MyRect(0, 0, image.getWidth(), image.getHeight());
@@ -38,7 +36,7 @@ public abstract class AbstractGraphics implements Graphics
     }
 
     @Override
-    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, int alpha)
+    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, float alpha)
     {
 
         // Operación para cambiar de coordenadas logicas a coordenadas fisicas
@@ -49,7 +47,7 @@ public abstract class AbstractGraphics implements Graphics
     }
 
     @Override
-    public void drawImage(Image image, MyRect source, MyRect dest, int alpha)
+    public void drawImage(Image image, MyRect source, MyRect dest, float alpha)
     {
         // 1) Primero obtenemos los ascpect ratio en función de la altura / anchura
         float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
@@ -98,5 +96,5 @@ public abstract class AbstractGraphics implements Graphics
 
 
     //abstract public void drawImagePrivate(Image image, int srcX, int srcY, int srcWidth, int srcHeight, int dstX, int dstY, int dstWidth, int destHeight, int alpha);
-    abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha);
+    abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst, float alpha);
 }

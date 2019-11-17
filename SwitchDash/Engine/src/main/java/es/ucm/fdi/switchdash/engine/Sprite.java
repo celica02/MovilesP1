@@ -14,7 +14,7 @@ public class Sprite extends Entity
     protected MyRect src;
     protected float width, height;
 
-    protected int alpha;
+    protected float alpha;
 
 
 
@@ -28,7 +28,7 @@ public class Sprite extends Entity
 
         g = graphics;
 
-        alpha = 255;
+        alpha = 1;
     }
     public Sprite(float posX, float posY, Image image, MyRect source, Graphics graphics)
     {
@@ -40,7 +40,7 @@ public class Sprite extends Entity
 
         g = graphics;
 
-        alpha = 255;
+        alpha = 1;
     }
 
     public Sprite(float posX, float posY, float width, float height, Image image, MyRect source, Graphics graphics)
@@ -53,7 +53,7 @@ public class Sprite extends Entity
         src = source;
         g = graphics;
 
-        alpha = 255;
+        alpha = 1;
     }
 
 
@@ -78,7 +78,7 @@ public class Sprite extends Entity
     @Override
     public void setCentered() { posX = (g.getResWidth()/2) - (getWidth()/2); }
 
-    public  void setAlpha(int a) { alpha = a; }
+    public  void setAlpha(float a) { alpha = a; }
 
     public float getWidth() { return width; }
     public float getHeight() { return  height; }

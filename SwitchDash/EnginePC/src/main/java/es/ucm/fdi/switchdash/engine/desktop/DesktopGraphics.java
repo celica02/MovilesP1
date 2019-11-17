@@ -2,10 +2,9 @@ package es.ucm.fdi.switchdash.engine.desktop;
 
 import java.awt.Color;
 import java.io.File;
-
-import javax.imageio.ImageIO;
 import java.awt.Graphics;
-import javax.swing.JFrame;
+import java.awt.Graphics2D;
+import java.awt.AlphaComposite;
 
 
 import es.ucm.fdi.switchdash.engine.AbstractGraphics;
@@ -73,9 +72,13 @@ public class DesktopGraphics extends AbstractGraphics
 
 
     @Override
-    public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)
+    public void drawImagePrivate(Image image, MyRect src, MyRect dst, float alpha)
     {
-        canvas.drawImage(((DesktopImage)image).getImage(), dst.left, dst.top, dst.right, dst.bottom,
+        Graphics2D g2d = (Graphics2D)canvas;
+
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
+        g2d.drawImage(((DesktopImage)image).getImage(), dst.left, dst.top, dst.right, dst.bottom,
                 src.left, src.top, src.right, src.bottom, null);
     }
 }
