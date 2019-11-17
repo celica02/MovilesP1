@@ -22,19 +22,17 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     Canvas canvas;
     Paint paint;
 
-    int resolutionWidth;
-    int resolutionHeight;
-
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight)
     {
+        super(resWidth, resHeight);
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
 
-        this.resolutionWidth = resWidth;
-        this.resolutionHeight = resHeight;
+        this.widthFactor =  (float)frameBuffer.getWidth()/resolutionWidth;
+        this.heightFactor = (float)frameBuffer.getHeight()/resolutionHeight;
     }
 
 
@@ -69,6 +67,8 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         canvas.drawRGB((color & 0xff0000) >> 16, (color & 0xff00) >> 8, (color & 0xff));
     }
 
+    @Override
+    public void dispose(){}
 
     @Override
     public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)

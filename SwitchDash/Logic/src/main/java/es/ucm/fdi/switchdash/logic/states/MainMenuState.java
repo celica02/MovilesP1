@@ -21,7 +21,7 @@ public class MainMenuState extends GameState
         MainMenu mainMenu = new MainMenu(Assets.logo, Assets.logo.getFullRect(), game.getGraphics());
         //mainMenu.setSize(mainMenu.getWidth()/2,mainMenu.getHeight()/2);
 
-        mainMenu.setPosY(1000);
+        mainMenu.setPosY(1500);
 
         MainMenu player = new MainMenu(Assets.players, Assets.players.getRect(0, 0,Assets.players.getWidth(),Assets.players.getHeight()/2), game.getGraphics());
 

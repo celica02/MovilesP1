@@ -63,6 +63,8 @@ public interface Graphics
     void clear(int color);
 
 
+    void dispose();
+
     /**
      *
      * @return the width of the window

@@ -1,6 +1,5 @@
 package es.ucm.fdi.switchdash.engine.desktop;
 
-import java.io.IOException;
 
 import es.ucm.fdi.switchdash.engine.FileIO;
 import es.ucm.fdi.switchdash.engine.Game;
@@ -16,7 +15,7 @@ public class DesktopGame implements Game
 
     java.awt.image.BufferStrategy renderBuffer;
 
-    public DesktopGame(String title, int windowWidth, int windowHeight)
+    public DesktopGame(String title, int windowWidth, int windowHeight, int resWidth, int resHeight)
     {
         Window window = new Window(title);
         window.init(windowWidth, windowHeight);
@@ -31,7 +30,7 @@ public class DesktopGame implements Game
 
         renderBuffer = window.getBufferStrategy();
 
-        graphics = new DesktopGraphics(renderBuffer.getDrawGraphics(),window, windowWidth, windowHeight);
+        graphics = new DesktopGraphics(renderBuffer.getDrawGraphics(), window, resWidth, resHeight);
         input = new DesktopInput();
 
         gameState = getStartState();
@@ -62,8 +61,18 @@ public class DesktopGame implements Game
 
    private void render(float deltaTime)
     {
-        getCurrentState().render(deltaTime);
-        renderBuffer.show();
+        do {
+            do {
+                graphics.setGraphics(renderBuffer.getDrawGraphics());
+                try {
+                    getCurrentState().render(deltaTime);
+                }
+                finally {
+                    graphics.dispose();
+                }
+            } while(renderBuffer.contentsRestored());
+            renderBuffer.show();
+        } while(renderBuffer.contentsLost());
     }
 
     private void handleInput(float deltaTime)

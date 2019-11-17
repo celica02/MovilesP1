@@ -4,14 +4,9 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-
-import android.util.DisplayMetrics;
-import android.graphics.Point;
-
 
 import es.ucm.fdi.switchdash.engine.FileIO;
 import es.ucm.fdi.switchdash.engine.Game;
@@ -27,6 +22,14 @@ public abstract class AndroidGame extends Activity implements Game
     AndroidFileIO fileIO;
     GameState gameState;
 
+    protected int resolutionWidth;
+    protected int resolutionHeight;
+
+    public AndroidGame(int resWidth, int resHeight)
+    {
+        this.resolutionWidth = resWidth;
+        this.resolutionHeight = resHeight;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -45,21 +48,6 @@ public abstract class AndroidGame extends Activity implements Game
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
 
-
-        // Obtenemos la resolución del dispositivo
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int resolutionWidth = metrics.widthPixels;
-        int resolutionHeight = metrics.heightPixels;
-
-
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
-            int swap = resolutionWidth;
-
-            resolutionHeight = resolutionWidth;
-            resolutionWidth = swap;
-        }
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight);

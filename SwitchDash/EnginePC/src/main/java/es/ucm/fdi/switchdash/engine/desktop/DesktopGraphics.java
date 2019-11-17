@@ -13,26 +13,22 @@ import es.ucm.fdi.switchdash.engine.Image;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 
-
-
 public class DesktopGraphics extends AbstractGraphics
 {
     private  final String assetsPath = "Assets/";
     private java.awt.Graphics canvas;
     private Window window;
 
-    int resolutionWidth;
-    int resolutionHeight;
-
-
 
     public DesktopGraphics(Graphics drawGraphics, Window window, int resWidth, int resHeight)
     {
+        super(resWidth, resHeight);
+
         this.canvas = drawGraphics;
         this.window = window;
 
-        this.resolutionWidth = resWidth;
-        this.resolutionHeight = resHeight;
+        this.widthFactor = (float)window.getWidth()/resolutionWidth;
+        this.heightFactor = (float)window.getHeight()/resolutionHeight;
     }
 
     @Override
@@ -48,17 +44,15 @@ public class DesktopGraphics extends AbstractGraphics
     }
 
 
-    public void drawLine(){
-        canvas.setColor(Color.black);
-        canvas.drawLine(1, 1, 400, 400);
-    }
-
     @Override
     public void clear(int color)
     {
         canvas.setColor(new Color((color)));
         canvas.fillRect(0, 0, getWidth(), getHeight());
     }
+
+    @Override
+    public void dispose() { canvas.dispose(); }
 
     @Override
     public int getWidth() {
@@ -74,6 +68,9 @@ public class DesktopGraphics extends AbstractGraphics
     public int getResHeight() { return resolutionHeight; }
 
 
+    public void setGraphics(java.awt.Graphics g) { canvas = g; }
+
+
 
     @Override
     public void drawImagePrivate(Image image, MyRect src, MyRect dst, int alpha)
@@ -82,4 +79,3 @@ public class DesktopGraphics extends AbstractGraphics
                 src.left, src.top, src.right, src.bottom, null);
     }
 }
-

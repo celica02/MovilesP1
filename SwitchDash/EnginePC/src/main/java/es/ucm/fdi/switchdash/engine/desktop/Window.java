@@ -10,7 +10,7 @@ public class Window extends JFrame
         super(title);
     }
 
-    public void /*boolean*/ init(int width, int weight)
+    public void  init(int width, int weight)
     {
         setSize(width, weight);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,8 +18,5 @@ public class Window extends JFrame
         setIgnoreRepaint(true);
         setVisible(true);
     }
-
-
-
 }
 

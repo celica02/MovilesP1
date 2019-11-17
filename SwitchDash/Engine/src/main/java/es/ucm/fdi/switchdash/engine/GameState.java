@@ -43,5 +43,5 @@ public abstract class GameState
     public abstract void pause();
     public abstract void resume();
 
-    public abstract void dispose();
+    public void dispose(){ game.getGraphics().dispose(); }
 }
