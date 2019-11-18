@@ -11,6 +11,7 @@ import es.ucm.fdi.switchdash.logic.Assets;
 public class Background extends Entity {
     Graphics g;
     protected List<ArrowsBG> backgrounds;
+    float arrowsHeight;
 
     public Background(Graphics graphics){
         g = graphics;
@@ -18,9 +19,20 @@ public class Background extends Entity {
 
     }
     public void init(){
-        for (int i = 0; i < 3; i++) {
-            backgrounds.add(new ArrowsBG(0f, 0f, Assets.arrowsBackground, g));
-        }
+        float posY = 0;
+        int i = 1;
+        backgrounds.add(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
+        arrowsHeight = backgrounds.get(0).getHeight();
+        backgrounds.get(0).setPosY(-backgrounds.get(0).getHeight());
+        do{
+            backgrounds.add(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
+            posY += backgrounds.get(0).getHeight();
+            backgrounds.get(i).setID(i);
+            i++;
+
+        } while(posY < (g.getHeight()+ arrowsHeight));
+
+        System.out.println((g.getHeight()));
 
             /*ArrowsBG arrowsBG0 = new ArrowsBG(0f, Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g);
             ArrowsBG arrowsBG1 = new ArrowsBG(0f, 0F, Assets.arrowsBackground, g);
@@ -29,16 +41,21 @@ public class Background extends Entity {
             backgrounds.add(new ArrowsBG(0f, 0F, Assets.arrowsBackground, g));
             backgrounds.add(new ArrowsBG(0f, -Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g));
         //}*/
-        backgrounds.get(0).setPosY(Assets.backgrounds.getHeight() * g.getResHeight());
-        backgrounds.get(2).setPosY(-(Assets.backgrounds.getHeight() * g.getResHeight()));
+        //backgrounds.get(0).setPosY(-backgrounds.get(0).getHeight());
     }
 
     @Override
     public void update(float deltaTime) {
-        for(ArrowsBG a: backgrounds){
-            a.update(deltaTime);
-            if(a.getPosY() >= g.getHeight())
-                a.setPosY(-Assets.backgrounds.getHeight());
+        for(ArrowsBG currentArrow: backgrounds){ //Recorre todas las flechas para actualizarlas
+            currentArrow.update(deltaTime);
+
+            if(currentArrow.getPosY() >= (g.getHeight() + arrowsHeight)) { //Comprueba si alguna ya ha pasado el límite por abajo. Si es así:
+                System.out.println((currentArrow.getPosY()));
+                if (currentArrow.getID() == backgrounds.size() - 1)
+                    currentArrow.setPosY(backgrounds.get(0).getPosY() - arrowsHeight);
+                else
+                    currentArrow.setPosY(backgrounds.get(currentArrow.getID() + 1).getPosY() - arrowsHeight);
+            }
         }
     }
 
