@@ -25,7 +25,7 @@ public class ArrowsBG extends Sprite
     {
         super.update(deltaTime);
 
-        posY  = posY+300 * deltaTime;
+        posY  = posY+50 * deltaTime;
     }
 
     public void setID(int id){index = id;}

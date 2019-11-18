@@ -21,6 +21,7 @@ public class Background extends Entity {
     public void init(){
         float posY = 0;
         int i = 1;
+        //Creación de las flechas, se colocan de arriba a abajo, teniendo la de arriba ID = 0
         backgrounds.add(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
         arrowsHeight = backgrounds.get(0).getHeight();
         backgrounds.get(0).setPosY(-backgrounds.get(0).getHeight());
@@ -31,27 +32,16 @@ public class Background extends Entity {
             i++;
 
         } while(posY < (g.getHeight()+ arrowsHeight));
-
-        System.out.println((g.getHeight()));
-
-            /*ArrowsBG arrowsBG0 = new ArrowsBG(0f, Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g);
-            ArrowsBG arrowsBG1 = new ArrowsBG(0f, 0F, Assets.arrowsBackground, g);
-            ArrowsBG arrowsBG2 = new ArrowsBG(0f, -Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g);
-            backgrounds.add(new ArrowsBG(0f, Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g));
-            backgrounds.add(new ArrowsBG(0f, 0F, Assets.arrowsBackground, g));
-            backgrounds.add(new ArrowsBG(0f, -Assets.arrowsBackground.getHeight(), Assets.arrowsBackground, g));
-        //}*/
-        //backgrounds.get(0).setPosY(-backgrounds.get(0).getHeight());
     }
 
     @Override
     public void update(float deltaTime) {
-        for(ArrowsBG currentArrow: backgrounds){ //Recorre todas las flechas para actualizarlas
+        for(ArrowsBG currentArrow: backgrounds){ //Recorre todas las flechas para actualizarlas.
             currentArrow.update(deltaTime);
 
-            if(currentArrow.getPosY() >= (g.getHeight() + arrowsHeight)) { //Comprueba si alguna ya ha pasado el límite por abajo. Si es así:
+            if(currentArrow.getPosY() >= (g.getHeight() + arrowsHeight)) { //Comprueba si alguna ya ha pasado el límite por abajo.
                 System.out.println((currentArrow.getPosY()));
-                if (currentArrow.getID() == backgrounds.size() - 1)
+                if (currentArrow.getID() == backgrounds.size() - 1) //Coloca la imagen encima de la que está más arriba
                     currentArrow.setPosY(backgrounds.get(0).getPosY() - arrowsHeight);
                 else
                     currentArrow.setPosY(backgrounds.get(currentArrow.getID() + 1).getPosY() - arrowsHeight);
