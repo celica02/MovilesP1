@@ -27,10 +27,6 @@ public class SpriteSheet extends Sprite
 
     }
 
-    @Override
-    public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime) {
-
-    }
 
     @Override
     public void render(float deltaTime) {

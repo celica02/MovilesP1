@@ -58,9 +58,19 @@ public class Background extends Entity {
 
     @Override
     public void handleInput(List<Input.TouchEvent> touchEvents, List<Input.KeyboardEvent> keyEvents, float deltaTime) {
-        for(ArrowsBG a: backgrounds){
+       /* for(ArrowsBG a: backgrounds){
             a.handleInput(touchEvents, keyEvents, deltaTime);
-        }
+        }*/
+    }
+
+    @Override
+    public void handleTouchEvent(Input.TouchEvent e) {
+
+    }
+
+    @Override
+    public void handleKeyEvent(Input.KeyboardEvent e) {
+
     }
 
     @Override

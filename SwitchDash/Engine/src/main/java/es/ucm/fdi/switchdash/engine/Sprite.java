@@ -13,7 +13,6 @@ public class Sprite extends Entity
     protected Image img;
 
     protected MyRect src;
-    protected float width, height;
 
     protected float alpha;
 
@@ -46,9 +45,7 @@ public class Sprite extends Entity
 
     public Sprite(float posX, float posY, float width, float height, Image image, MyRect source, Graphics graphics)
     {
-        super(posX, posY);
-        this.width = width;
-        this.height = height;
+        super(posX, posY, width, height);
 
         img = image;
         src = source;
@@ -71,7 +68,12 @@ public class Sprite extends Entity
     }
 
     @Override
-    public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime) {
+    protected void handleTouchEvent(TouchEvent e) {
+
+    }
+
+    @Override
+    protected void handleKeyEvent(KeyboardEvent e) {
 
     }
 
@@ -80,12 +82,7 @@ public class Sprite extends Entity
 
     public  void setAlpha(float a) { alpha = a; }
 
-    public float getWidth() { return width; }
-    public float getHeight() { return  height; }
-    public void setWidth(float w) { width = w; }
-    public void setHeight(float h) { height = h; }
 
-    public void setSize(float width, float height) { this.width = width; this.height = height; }
 
     public void setSourceRect(MyRect src) { this.src = src; }
     public void setDestRect(MyRect dest)

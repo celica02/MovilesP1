@@ -30,8 +30,8 @@ public class SingleTouchHandler implements TouchHandler
     private List<TouchEvent> touchEventsBuffer = new ArrayList<>();
 
     // Used to handle screen resolutions
-    private float resolutionWidth;
-    private float resolutionHeight;
+    private float widthScale;
+    private float heightScale;
 
 
     // ----------FUNCTIONS---------- //
@@ -40,10 +40,10 @@ public class SingleTouchHandler implements TouchHandler
     /**
      * Set up the handler to be used with touch events.
      * @param view the view where we register the handler as an OnTouchListener
-     * @param resolutionWidth screen scale X
-     * @param resolutionHeight screen scale Y
+     * @param widthScale screen scale X
+     * @param heightScale screen scale Y
      */
-    public SingleTouchHandler(View view, float resolutionWidth, float resolutionHeight)
+    public SingleTouchHandler(View view, float widthScale, float heightScale)
     {
 
         // 1) Set up the pool to be used with touch events
@@ -60,8 +60,8 @@ public class SingleTouchHandler implements TouchHandler
         view.setOnTouchListener(this);
 
         // 3) Store the scale values
-        this.resolutionWidth = resolutionWidth;
-        this.resolutionHeight = resolutionHeight;
+        this.widthScale = widthScale;
+        this.heightScale = heightScale;
     }
 
 
@@ -101,8 +101,8 @@ public class SingleTouchHandler implements TouchHandler
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = touchX = (int)(event.getX() * resolutionWidth);
-            touchEvent.y = touchY = (int)(event.getY() * resolutionHeight);
+            touchEvent.x = touchX = (int)(event.getX() * widthScale);
+            touchEvent.y = touchY = (int)(event.getY() * heightScale);
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             touchEventsBuffer.add(touchEvent);

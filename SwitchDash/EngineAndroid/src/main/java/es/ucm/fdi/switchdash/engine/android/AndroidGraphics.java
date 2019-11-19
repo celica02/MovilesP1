@@ -77,7 +77,7 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         Rect dstRect =transformRect(dst);
 
         Paint paint = new Paint();
-        paint.setAlpha((int)alpha*255);
+        paint.setAlpha((int)(alpha*255));
         canvas.drawBitmap(((AndroidImage)image).getBitmap(), srcRect, dstRect, paint);
     }
 
@@ -90,6 +90,11 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     public int getResWidth() { return resolutionWidth; }
     @Override
     public int getResHeight() { return resolutionHeight; }
+
+    @Override
+    public float getWidthScaleFactor() {return (float) resolutionWidth/getWidth(); }
+    @Override
+    public float getHeightScaleFactor() {return (float) resolutionHeight/getHeight(); }
 
 
     private Rect transformRect(MyRect rect) { return new Rect(rect.left, rect.top, rect.right, rect.bottom); }

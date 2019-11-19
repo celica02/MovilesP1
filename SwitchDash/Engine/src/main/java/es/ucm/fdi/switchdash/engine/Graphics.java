@@ -78,4 +78,7 @@ public interface Graphics
 
     int getResWidth();
     int getResHeight();
+
+    float getWidthScaleFactor();
+    float getHeightScaleFactor();
 }

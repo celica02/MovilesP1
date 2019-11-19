@@ -32,8 +32,11 @@ public abstract class GameState
     }
     public void handleInput(float deltaTime)
     {
+        List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+        List<Input.KeyboardEvent> keyEvents = game.getInput().getKeyEvents();
+
         for(Entity e: entities)
-            e.handleInput(game.getInput().getTouchEvents(),game.getInput().getKeyEvents(), deltaTime);
+            e.handleInput(touchEvents, keyEvents, deltaTime);
     }
 
     public void addEntity(Entity e) { entities.add(e); }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Image;
-import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
@@ -21,8 +20,18 @@ public class Player extends SpriteSheet
     }
 
     @Override
-    public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime) {
-        super.handleInput(touchEvents, keyEvents, deltaTime);
+    protected void handleTouchEvent(TouchEvent e)
+    {
+       if(e.type == TouchEvent.DOWN)
+           if(inBounds(e.x, e.y))
+           {
+               System.out.println("Me has tocado!");
+           }
+    }
+
+    @Override
+    protected void handleKeyEvent(KeyboardEvent e) {
+        super.handleKeyEvent(e);
     }
 
     @Override

@@ -23,9 +23,10 @@ public class AndroidInput implements es.ucm.fdi.switchdash.engine.Input
 
     // ----------FUNCTIONS---------- //
 
-    public AndroidInput(Context context, View view, float resolutionWidth, float resolutionHeight)
+    public AndroidInput(Context context, View view, float widthFactor, float heightFactor)
     {
-        touchHandler = new SingleTouchHandler(view, resolutionWidth, resolutionHeight);
+        touchHandler = new SingleTouchHandler(view, widthFactor, heightFactor);
+        keyboardHandler = new KeyboardHandler();
     }
 
 
