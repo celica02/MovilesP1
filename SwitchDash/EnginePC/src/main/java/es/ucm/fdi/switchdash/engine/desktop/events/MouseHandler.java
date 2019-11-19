@@ -1,9 +1,12 @@
 package es.ucm.fdi.switchdash.engine.desktop.events;
 
 import javax.swing.JFrame;
+
+import java.awt.Window;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 import es.ucm.fdi.switchdash.engine.utils.Pool;
 
@@ -21,11 +24,10 @@ public class MouseHandler extends JFrame implements MouseListener
     private List<TouchEvent> mouseEvents = new ArrayList<>();
 
     // Used to handle screen resolutions
-    private float resolutionWidth;
-    private float resolutionHeight;
+    private Graphics g;
 
 
-    public MouseHandler(float resolutionWidth, float resolutionHeight) {
+    public MouseHandler(Window window, Graphics graphics) {
         Pool.PoolObjectFactory<TouchEvent> factory = new Pool.PoolObjectFactory<TouchEvent>() {
             @Override
             public TouchEvent createObject() {
@@ -36,9 +38,9 @@ public class MouseHandler extends JFrame implements MouseListener
         mouseEventPool = new Pool<>(factory, 100);
 
         addMouseListener(this);
+        window.addMouseListener(this);
 
-        this.resolutionWidth = resolutionWidth;
-        this.resolutionHeight = resolutionHeight;
+        this.g = graphics;
     }
 
     public List<TouchEvent> getMouseEvents()
@@ -85,10 +87,9 @@ public class MouseHandler extends JFrame implements MouseListener
                     break;
             }
 
-
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = (int) (event.getX() * resolutionWidth);
-            touchEvent.y = (int) (event.getY() * resolutionHeight);
+            touchEvent.x = (int) (event.getX() * g.getWidthScaleFactor());
+            touchEvent.y = (int) (event.getY() * g.getHeightScaleFactor());
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             mouseEventsBuffer.add(touchEvent);

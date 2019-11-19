@@ -18,7 +18,7 @@ public class SwitchDashPC extends DesktopGame
 
     public static void main(String[] args)
     {
-        SwitchDashPC game = new SwitchDashPC("Switch Dash", 1920,1080, 1080, 1920);
+        SwitchDashPC game = new SwitchDashPC("Switch Dash", 500,500, 1080, 1920);
         game.run();
     } // main
 }
