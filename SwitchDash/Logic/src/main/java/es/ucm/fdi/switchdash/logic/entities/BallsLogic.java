@@ -12,6 +12,8 @@ public class BallsLogic extends EntitiesGroup {
 
     Ball b;
     float posYIni = -20;
+
+
     public BallsLogic(Graphics graphics){
         g = graphics;
         entities = new ArrayList<>();
@@ -26,7 +28,7 @@ public class BallsLogic extends EntitiesGroup {
     @Override
     public void update(float deltaTime) {
 
-        if(entities.get(entities.size() - 1).getPosY() >= 300){
+        if(entities.get(entities.size() - 1).getPosY() >= 395){
            b = new Ball(0, posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getColor()) ,0);
            addEntity(b);
            b.setCentered();
@@ -55,6 +57,12 @@ public class BallsLogic extends EntitiesGroup {
         super.setCentered();
     }
 
+    /**
+     * Method that returns randomly witch color will be the new ball.
+     * 70% of possibilities to be the same colour as the previous ball
+     * @param previous: color of the previous ball
+     * @return the new colour
+     */
     private int random(int previous){
         int newC = 0;
         if (previous == 0) newC = 1;
