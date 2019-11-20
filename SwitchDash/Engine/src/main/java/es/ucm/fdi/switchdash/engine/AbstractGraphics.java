@@ -16,6 +16,67 @@ public abstract class AbstractGraphics implements Graphics
         this.resolutionHeight = resHeight;
     }
 
+
+    public float scaleX(float x)
+    {
+        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
+        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
+
+        float scale;
+        int left = 0;
+
+        // Si nos sobra de alto
+        if(pAspectRatio > lAspectRatio)
+            scale = (float)resolutionWidth / getWidth();
+
+        // Si nos sobra de ancho
+        else
+        {
+            scale = (float) getHeight()/resolutionHeight;
+            float pWidthResolution = scale * resolutionWidth;
+
+            left = (int)(getWidth()/2 - pWidthResolution/2);
+
+            // Si estamos dentro del "canvas interno", entonces recalculamos la posición lógica
+            if (left < x && x < left + pWidthResolution)
+                scale = (float) resolutionWidth / pWidthResolution;
+            else
+                return -1;
+        }
+
+        return (x - left) * scale;
+    }
+
+    public float scaleY(float y)
+    {
+        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
+        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
+
+        float scale;
+        int top = 0;
+
+        // Si nos sobra de alto
+        if(pAspectRatio > lAspectRatio)
+        {
+            scale = (float) getWidth()/resolutionWidth;
+            float pHeightResolution = scale * resolutionHeight;
+
+            top = (int)(getHeight()/2 - pHeightResolution/2);
+
+            // Si estamos dentro del "canvas interno", entonces recalculamos la posición lógica
+            if (top < y && y < top + pHeightResolution)
+                scale = (float) resolutionHeight / pHeightResolution;
+            else
+                return -1;
+        }
+
+        // Si nos sobra de ancho
+        else
+            scale = (float) resolutionHeight / getHeight();
+
+        return (y - top) * scale;
+    }
+
     @Override
     public void drawImage(Image image, int x, int y, float alpha)
     {

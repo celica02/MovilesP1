@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.MotionEvent;
 
 import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
+import es.ucm.fdi.switchdash.engine.android.AndroidGraphics;
 import es.ucm.fdi.switchdash.engine.utils.Pool;
 
 import java.util.ArrayList;
@@ -30,8 +31,7 @@ public class SingleTouchHandler implements TouchHandler
     private List<TouchEvent> touchEventsBuffer = new ArrayList<>();
 
     // Used to handle screen resolutions
-    private float widthScale;
-    private float heightScale;
+    private AndroidGraphics g;
 
 
     // ----------FUNCTIONS---------- //
@@ -40,10 +40,8 @@ public class SingleTouchHandler implements TouchHandler
     /**
      * Set up the handler to be used with touch events.
      * @param view the view where we register the handler as an OnTouchListener
-     * @param widthScale screen scale X
-     * @param heightScale screen scale Y
      */
-    public SingleTouchHandler(View view, float widthScale, float heightScale)
+    public SingleTouchHandler(View view, AndroidGraphics graphics)
     {
 
         // 1) Set up the pool to be used with touch events
@@ -59,9 +57,7 @@ public class SingleTouchHandler implements TouchHandler
         // 2) Register the handler as an OnTouchListener
         view.setOnTouchListener(this);
 
-        // 3) Store the scale values
-        this.widthScale = widthScale;
-        this.heightScale = heightScale;
+        this.g = graphics;
     }
 
 
@@ -101,8 +97,8 @@ public class SingleTouchHandler implements TouchHandler
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = touchX = (int)(event.getX() * widthScale);
-            touchEvent.y = touchY = (int)(event.getY() * heightScale);
+            touchEvent.x = touchX = (int)g.scaleX(event.getX());
+            touchEvent.y = touchY = (int)g.scaleY(event.getY());
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             touchEventsBuffer.add(touchEvent);

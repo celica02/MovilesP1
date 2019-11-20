@@ -81,4 +81,7 @@ public interface Graphics
 
     float getWidthScaleFactor();
     float getHeightScaleFactor();
+
+    float scaleX(float x);
+    float scaleY(float y);
 }

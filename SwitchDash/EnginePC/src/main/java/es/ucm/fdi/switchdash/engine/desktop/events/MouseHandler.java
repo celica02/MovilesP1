@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
+import es.ucm.fdi.switchdash.engine.desktop.DesktopGraphics;
 import es.ucm.fdi.switchdash.engine.utils.Pool;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class MouseHandler extends JFrame implements MouseListener
     private Graphics g;
 
 
-    public MouseHandler(Window window, Graphics graphics) {
+    public MouseHandler(Window window, DesktopGraphics graphics) {
         Pool.PoolObjectFactory<TouchEvent> factory = new Pool.PoolObjectFactory<TouchEvent>() {
             @Override
             public TouchEvent createObject() {
@@ -88,8 +89,8 @@ public class MouseHandler extends JFrame implements MouseListener
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = (int) (event.getX() * g.getWidthScaleFactor());
-            touchEvent.y = (int) (event.getY() * g.getHeightScaleFactor());
+            touchEvent.x = (int)g.scaleX(event.getX()); //(int) (event.getX() * g.getWidthScaleFactor());
+            touchEvent.y = (int)g.scaleY(event.getY()); //(int) (event.getY() * g.getHeightScaleFactor());
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             mouseEventsBuffer.add(touchEvent);
