@@ -40,20 +40,13 @@ public abstract class AndroidGame extends Activity implements Game
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        int frameBufferWidth = getResources().getDisplayMetrics().widthPixels;
+        int frameBufferHeight = getResources().getDisplayMetrics().heightPixels;
 
-        int frameBufferWidth = isLandscape ? 480 : 320;
-        int frameBufferHeight = isLandscape ? 320 : 480;
-
-        Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
-                frameBufferHeight, Config.RGB_565);
-
-
-        int pWidth = getResources().getDisplayMetrics().widthPixels;
-        int pHeight = getResources().getDisplayMetrics().heightPixels;
+        Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth, frameBufferHeight, Config.RGB_565);
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
-        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight, pWidth, pHeight);
+        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight);
         fileIO = new AndroidFileIO(this);
         input = new AndroidInput(this, renderView, graphics);
 

@@ -22,28 +22,22 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     Canvas canvas;
     Paint paint;
 
-    int pWidth, pHeight;
 
-
-    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight, int pWidth, int pHeight)
+    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight)
     {
         super(resWidth, resHeight);
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
-
-        this.pWidth = pWidth;
-        this.pHeight = pHeight;
     }
 
 
-    @Override
     public Image newImage(String pathname)
     {
-        Options options = new Options();
         InputStream in = null;
-        Bitmap bitmap = null;
+        Bitmap bitmap;
+
         try {
             in = assets.open(pathname);
             bitmap = BitmapFactory.decodeStream(in);
@@ -63,13 +57,11 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         return new AndroidImage(bitmap);
     }
 
-    @Override
     public void clear(int color)
     {
         canvas.drawRGB((color & 0xff0000) >> 16, (color & 0xff00) >> 8, (color & 0xff));
     }
 
-    @Override
     public void dispose(){}
 
     @Override
@@ -83,18 +75,11 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         canvas.drawBitmap(((AndroidImage)image).getBitmap(), srcRect, dstRect, paint);
     }
 
-    @Override
+
     public int getWidth() { return frameBuffer.getWidth(); }
-    @Override
     public int getHeight() { return frameBuffer.getHeight(); }
 
-    public int getpWidth() { return pWidth; }
-    public int getpHeight(){ return  pHeight; }
-
-
-    @Override
     public int getResWidth() { return resolutionWidth; }
-    @Override
     public int getResHeight() { return resolutionHeight; }
 
 

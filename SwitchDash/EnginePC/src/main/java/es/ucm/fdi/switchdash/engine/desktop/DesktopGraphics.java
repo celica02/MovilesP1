@@ -27,7 +27,6 @@ public class DesktopGraphics extends AbstractGraphics
         this.window = window;
     }
 
-    @Override
     public Image newImage(String pathname){
         try {
             java.awt.Image img = javax.imageio.ImageIO.read(new File(assetsPath + pathname));
@@ -39,27 +38,20 @@ public class DesktopGraphics extends AbstractGraphics
         }
     }
 
-
-    @Override
     public void clear(int color)
     {
         canvas.setColor(new Color((color)));
         canvas.fillRect(0, 0, getWidth(), getHeight());
     }
 
-    @Override
     public void dispose() { canvas.dispose(); }
 
-    @Override
     public int getWidth() {
         return window.getWidth();
     }
-    @Override
     public int getHeight() { return window.getHeight(); }
 
-    @Override
     public int getResWidth() { return resolutionWidth; }
-    @Override
     public int getResHeight() { return resolutionHeight; }
 
 
