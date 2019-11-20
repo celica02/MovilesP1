@@ -10,6 +10,8 @@ public abstract class Entity
 {
     protected float posX, posY;
     protected float width, height;
+    protected int ID;
+
 
 
     public Entity()
@@ -72,4 +74,7 @@ public abstract class Entity
     public void setSize(float width, float height) { this.width = width; this.height = height; }
 
     public abstract void setCentered();
+
+    public void setID(int id){ID = id;}
+    public int getID(){return ID;}
 }

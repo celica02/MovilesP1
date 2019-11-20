@@ -7,7 +7,6 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class ArrowsBG extends Sprite
 {
-    int index;
     public ArrowsBG(float posX, float posY, Image image, Graphics graphics) {
         super(posX, posY, image, graphics);
     }
@@ -27,7 +26,4 @@ public class ArrowsBG extends Sprite
 
         posY  = posY+50 * deltaTime;
     }
-
-    public void setID(int id){index = id;}
-    public int getID(){return index;}
 }

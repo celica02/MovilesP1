@@ -39,7 +39,10 @@ public abstract class GameState
             e.handleInput(touchEvents, keyEvents, deltaTime);
     }
 
-    public void addEntity(Entity e) { entities.add(e); }
+    public void addEntity(Entity e) {
+        e.setID(entities.size());
+        entities.add(e);
+    }
 
     public abstract void pause();
     public abstract void resume();

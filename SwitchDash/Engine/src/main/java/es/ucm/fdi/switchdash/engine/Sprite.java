@@ -16,6 +16,9 @@ public class Sprite extends Entity
 
     protected float alpha;
 
+    protected boolean visible = true;
+
+
 
 
     public Sprite(float posX, float posY, Image image, Graphics graphics)
@@ -63,8 +66,10 @@ public class Sprite extends Entity
     @Override
     public void render(float deltaTime)
     {
-        MyRect dst = new MyRect((int)posX, (int)posY, (int)(posX + width), (int)(posY + height));
-        g.drawImage(img, src, dst, alpha);
+        if(isVisible()){
+            MyRect dst = new MyRect((int)posX, (int)posY, (int)(posX + width), (int)(posY + height));
+            g.drawImage(img, src, dst, alpha);
+        }
     }
 
     @Override
@@ -81,6 +86,9 @@ public class Sprite extends Entity
     public void setCentered() { posX = (g.getResWidth()/2) - (getWidth()/2); }
 
     public  void setAlpha(float a) { alpha = a; }
+
+    public void setVisible(boolean _visible) { visible = _visible; }
+    public boolean isVisible() { return visible; }
 
 
 

@@ -21,6 +21,19 @@ public class SpriteSheet extends Sprite
         height = srcHeight;
     }
 
+    public SpriteSheet(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols, int row, int col)
+    {
+        super(posX, posY, image, graphics);
+
+        srcWidth = image.getWidth()/nCols;
+        srcHeight = image.getHeight()/nRows;
+
+        width = srcWidth;
+        height = srcHeight;
+
+        setActiveSprite(row, col);
+    }
+
 
     @Override
     public void update(float deltaTime) {
