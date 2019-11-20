@@ -41,18 +41,18 @@ public class DesktopGraphics extends AbstractGraphics
     public void clear(int color)
     {
         canvas.setColor(new Color((color)));
-        canvas.fillRect(0, 0, getWidth(), getHeight());
+        canvas.fillRect(0, 0, getWindowWidth(), getWindowHeight());
     }
 
     public void dispose() { canvas.dispose(); }
 
-    public int getWidth() {
+    public int getWindowWidth() {
         return window.getWidth();
     }
-    public int getHeight() { return window.getHeight(); }
+    public int getWindowHeight() { return window.getHeight(); }
 
-    public int getResWidth() { return resolutionWidth; }
-    public int getResHeight() { return resolutionHeight; }
+    public int getWidth() { return resolutionWidth; }
+    public int getHeight() { return resolutionHeight; }
 
 
 

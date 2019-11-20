@@ -97,10 +97,6 @@ public class SingleTouchHandler implements TouchHandler
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-
-            float scaleX = (float) g.getWidth()/g.getResWidth();
-            float scaleY = (float) g.getHeight()/g.getResHeight();
-
             touchEvent.x = touchX = (int)g.logicX(event.getX());
             touchEvent.y = touchY = (int)g.logicY(event.getY());
 

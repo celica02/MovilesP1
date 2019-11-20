@@ -83,7 +83,7 @@ public class Sprite extends Entity
     }
 
     @Override
-    public void setCentered() { posX = (g.getResWidth()/2) - (getWidth()/2); }
+    public void setCentered() { posX = (g.getWidth()/2) - (getWidth()/2); }
 
     public  void setAlpha(float a) { alpha = a; }
 

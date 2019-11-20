@@ -20,22 +20,22 @@ public abstract class AbstractGraphics implements Graphics
 
     public float logicX(float x)
     {
-        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
+        float pAspectRatio = (float) getWindowHeight()/ getWindowWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
         int left = 0;
 
         // Si nos sobra de alto
         if(pAspectRatio > lAspectRatio)
-            scale = (float)resolutionWidth / getWidth();
+            scale = (float)resolutionWidth / getWindowWidth();
 
         // Si nos sobra de ancho
         else
         {
-            scale = (float) resolutionHeight / getHeight();
+            scale = (float) resolutionHeight / getWindowHeight();
             float pWidthResolution = resolutionWidth / scale;
 
-            left = (int)(getWidth()/2 - pWidthResolution/2);
+            left = (int)(getWindowWidth()/2 - pWidthResolution/2);
         }
 
         return (x - left) * scale;
@@ -43,7 +43,7 @@ public abstract class AbstractGraphics implements Graphics
 
     public float logicY(float y)
     {
-        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
+        float pAspectRatio = (float) getWindowHeight()/ getWindowWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
         int top = 0;
@@ -51,14 +51,14 @@ public abstract class AbstractGraphics implements Graphics
         // Si nos sobra de alto
         if(pAspectRatio > lAspectRatio)
         {
-            scale = (float) resolutionWidth / getWidth();
+            scale = (float) resolutionWidth / getWindowWidth();
             float pHeightResolution = resolutionHeight / scale;
 
-            top = (int)(getHeight()/2 - pHeightResolution/2);
+            top = (int)(getWindowHeight()/2 - pHeightResolution/2);
         }
         // Si nos sobra de ancho
         else
-            scale = (float) resolutionHeight / getHeight();
+            scale = (float) resolutionHeight / getWindowHeight();
 
         return (y - top) * scale;
     }
@@ -97,7 +97,7 @@ public abstract class AbstractGraphics implements Graphics
     public void drawImage(Image image, MyRect source, MyRect dest, float alpha)
     {
         // 1) Primero obtenemos el ascpect ratio en función de la altura / anchura
-        float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
+        float pAspectRatio = (float) getWindowHeight()/ getWindowWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
         int left = 0;
@@ -117,17 +117,17 @@ public abstract class AbstractGraphics implements Graphics
          */
         if(pAspectRatio > lAspectRatio)
         {
-            scale = (float) getWidth()/resolutionWidth;
+            scale = (float) getWindowWidth()/resolutionWidth;
             float pHeightResolution = scale * resolutionHeight;
 
-            top = (int)(getHeight()/2 - pHeightResolution/2);
+            top = (int)(getWindowHeight()/2 - pHeightResolution/2);
         }
         else
         {
-            scale = (float) getHeight()/resolutionHeight;
+            scale = (float) getWindowHeight()/resolutionHeight;
             float pWidthResolution = scale * resolutionWidth;
 
-            left = (int)(getWidth()/2 - pWidthResolution/2);
+            left = (int)(getWindowWidth()/2 - pWidthResolution/2);
         }
 
         dest.left = (int)(left + (dest.left * scale));
@@ -135,7 +135,6 @@ public abstract class AbstractGraphics implements Graphics
 
         dest.top = (int)(top + (dest.top * scale));
         dest.bottom = (int)(top + (dest.bottom * scale));
-
 
         drawImagePrivate(image, source, dest, alpha);
     }

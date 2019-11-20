@@ -76,11 +76,11 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     }
 
 
-    public int getWidth() { return frameBuffer.getWidth(); }
-    public int getHeight() { return frameBuffer.getHeight(); }
+    public int getWindowWidth() { return frameBuffer.getWidth(); }
+    public int getWindowHeight() { return frameBuffer.getHeight(); }
 
-    public int getResWidth() { return resolutionWidth; }
-    public int getResHeight() { return resolutionHeight; }
+    public int getWidth() { return resolutionWidth; }
+    public int getHeight() { return resolutionHeight; }
 
 
     private Rect transformRect(MyRect rect) { return new Rect(rect.left, rect.top, rect.right, rect.bottom); }

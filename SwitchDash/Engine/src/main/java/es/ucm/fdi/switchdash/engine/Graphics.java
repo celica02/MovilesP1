@@ -67,17 +67,17 @@ public interface Graphics
      *
      * @return the width of the window
      */
-    int getWidth();
+    int getWindowWidth();
 
     /**
      *
      * @return  the height of the window
      */
+    int getWindowHeight();
+
+
+    int getWidth();
     int getHeight();
-
-
-    int getResWidth();
-    int getResHeight();
 
 
     float logicX(float x);
