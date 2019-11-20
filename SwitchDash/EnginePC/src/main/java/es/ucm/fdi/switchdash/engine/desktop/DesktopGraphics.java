@@ -25,9 +25,6 @@ public class DesktopGraphics extends AbstractGraphics
 
         this.canvas = drawGraphics;
         this.window = window;
-
-        this.widthFactor = (float)window.getWidth()/resolutionWidth;
-        this.heightFactor = (float)window.getHeight()/resolutionHeight;
     }
 
     @Override
@@ -65,26 +62,9 @@ public class DesktopGraphics extends AbstractGraphics
     @Override
     public int getResHeight() { return resolutionHeight; }
 
-    @Override
-    public float getWidthScaleFactor()
-    {
-        if(resolutionWidth > getWidth())
-        return (float) resolutionWidth/getWidth();
-        else
-            return 1;
-    }
-    @Override
-    public float getHeightScaleFactor()
-    {
-        if(resolutionHeight > getHeight())
-        return (float) resolutionHeight/getHeight();
-        else
-            return 1;
-    }
 
 
     public void setGraphics(java.awt.Graphics g) { canvas = g; }
-
 
 
     @Override

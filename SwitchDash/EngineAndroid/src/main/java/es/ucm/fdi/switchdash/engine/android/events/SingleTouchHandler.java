@@ -97,8 +97,11 @@ public class SingleTouchHandler implements TouchHandler
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = touchX = (int)g.scaleX(event.getX());
-            touchEvent.y = touchY = (int)g.scaleY(event.getY());
+
+            float scaleX = (float) g.getWidth()/g.getpWidth();
+            float scaleY = (float) g.getHeight()/g.getpHeight();
+            touchEvent.x = touchX = (int)g.logicX(event.getX() * scaleX);
+            touchEvent.y = touchY = (int)g.logicY(event.getY() * scaleY);
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             touchEventsBuffer.add(touchEvent);

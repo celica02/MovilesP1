@@ -89,8 +89,8 @@ public class MouseHandler extends JFrame implements MouseListener
             }
 
             // 3) Lastly, we multiply the coordinates by the scale
-            touchEvent.x = (int)g.scaleX(event.getX()); //(int) (event.getX() * g.getWidthScaleFactor());
-            touchEvent.y = (int)g.scaleY(event.getY()); //(int) (event.getY() * g.getHeightScaleFactor());
+            touchEvent.x = (int)g.logicX(event.getX()); //(int) (event.getX() * g.getWidthScaleFactor());
+            touchEvent.y = (int)g.logicY(event.getY()); //(int) (event.getY() * g.getHeightScaleFactor());
 
             // 4) Then, we just add the event to the list of events waiting to get handled
             mouseEventsBuffer.add(touchEvent);

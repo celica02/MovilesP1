@@ -79,9 +79,7 @@ public interface Graphics
     int getResWidth();
     int getResHeight();
 
-    float getWidthScaleFactor();
-    float getHeightScaleFactor();
 
-    float scaleX(float x);
-    float scaleY(float y);
+    float logicX(float x);
+    float logicY(float y);
 }

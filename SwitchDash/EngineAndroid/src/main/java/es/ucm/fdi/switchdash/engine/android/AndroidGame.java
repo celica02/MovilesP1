@@ -49,11 +49,11 @@ public abstract class AndroidGame extends Activity implements Game
                 frameBufferHeight, Config.RGB_565);
 
 
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels;
+        int pWidth = getResources().getDisplayMetrics().widthPixels;
+        int pHeight = getResources().getDisplayMetrics().heightPixels;
 
         renderView = new AndroidFastRenderView(this, frameBuffer);
-        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight);
+        graphics = new AndroidGraphics(getAssets(), frameBuffer, resolutionWidth, resolutionHeight, pWidth, pHeight);
         fileIO = new AndroidFileIO(this);
         input = new AndroidInput(this, renderView, graphics);
 

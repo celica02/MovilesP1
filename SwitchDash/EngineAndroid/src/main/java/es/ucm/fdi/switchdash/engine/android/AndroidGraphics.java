@@ -22,8 +22,10 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     Canvas canvas;
     Paint paint;
 
+    int pWidth, pHeight;
 
-    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight)
+
+    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, int resWidth, int resHeight, int pWidth, int pHeight)
     {
         super(resWidth, resHeight);
         this.assets = assets;
@@ -31,8 +33,8 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
 
-        this.widthFactor =  (float)frameBuffer.getWidth()/resolutionWidth;
-        this.heightFactor = (float)frameBuffer.getHeight()/resolutionHeight;
+        this.pWidth = pWidth;
+        this.pHeight = pHeight;
     }
 
 
@@ -74,7 +76,7 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     public void drawImagePrivate(Image image, MyRect src, MyRect dst, float alpha)
     {
         Rect srcRect = transformRect(src);
-        Rect dstRect =transformRect(dst);
+        Rect dstRect = transformRect(dst);
 
         Paint paint = new Paint();
         paint.setAlpha((int)(alpha*255));
@@ -86,15 +88,14 @@ public class AndroidGraphics extends es.ucm.fdi.switchdash.engine.AbstractGraphi
     @Override
     public int getHeight() { return frameBuffer.getHeight(); }
 
+    public int getpWidth() { return pWidth; }
+    public int getpHeight(){ return  pHeight; }
+
+
     @Override
     public int getResWidth() { return resolutionWidth; }
     @Override
     public int getResHeight() { return resolutionHeight; }
-
-    @Override
-    public float getWidthScaleFactor() {return (float) resolutionWidth/getWidth(); }
-    @Override
-    public float getHeightScaleFactor() {return (float) resolutionHeight/getHeight(); }
 
 
     private Rect transformRect(MyRect rect) { return new Rect(rect.left, rect.top, rect.right, rect.bottom); }

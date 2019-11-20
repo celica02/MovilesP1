@@ -7,19 +7,19 @@ public abstract class AbstractGraphics implements Graphics
     protected int resolutionWidth;
     protected int resolutionHeight;
 
-    protected float widthFactor;
-    protected float heightFactor;
+    protected float lAspectRatio;
 
     public AbstractGraphics(int resWidth, int resHeight)
     {
         this.resolutionWidth = resWidth;
         this.resolutionHeight = resHeight;
+
+        this.lAspectRatio = (float) resHeight / resWidth;
     }
 
 
-    public float scaleX(float x)
+    public float logicX(float x)
     {
-        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
         float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
@@ -32,24 +32,17 @@ public abstract class AbstractGraphics implements Graphics
         // Si nos sobra de ancho
         else
         {
-            scale = (float) getHeight()/resolutionHeight;
-            float pWidthResolution = scale * resolutionWidth;
+            scale = (float) resolutionHeight / getHeight();
+            float pWidthResolution = resolutionWidth / scale;
 
             left = (int)(getWidth()/2 - pWidthResolution/2);
-
-            // Si estamos dentro del "canvas interno", entonces recalculamos la posición lógica
-            if (left < x && x < left + pWidthResolution)
-                scale = (float) resolutionWidth / pWidthResolution;
-            else
-                return -1;
         }
 
         return (x - left) * scale;
     }
 
-    public float scaleY(float y)
+    public float logicY(float y)
     {
-        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
         float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
@@ -58,18 +51,11 @@ public abstract class AbstractGraphics implements Graphics
         // Si nos sobra de alto
         if(pAspectRatio > lAspectRatio)
         {
-            scale = (float) getWidth()/resolutionWidth;
-            float pHeightResolution = scale * resolutionHeight;
+            scale = (float) resolutionWidth / getWidth();
+            float pHeightResolution = resolutionHeight / scale;
 
             top = (int)(getHeight()/2 - pHeightResolution/2);
-
-            // Si estamos dentro del "canvas interno", entonces recalculamos la posición lógica
-            if (top < y && y < top + pHeightResolution)
-                scale = (float) resolutionHeight / pHeightResolution;
-            else
-                return -1;
         }
-
         // Si nos sobra de ancho
         else
             scale = (float) resolutionHeight / getHeight();
@@ -110,8 +96,7 @@ public abstract class AbstractGraphics implements Graphics
     @Override
     public void drawImage(Image image, MyRect source, MyRect dest, float alpha)
     {
-        // 1) Primero obtenemos los ascpect ratio en función de la altura / anchura
-        float lAspectRatio = (float) resolutionHeight/resolutionWidth; // Aspect ratio en el que queremos pintar
+        // 1) Primero obtenemos el ascpect ratio en función de la altura / anchura
         float pAspectRatio = (float) getHeight()/getWidth(); // Aspect ratio real de nuestra ventana
 
         float scale;
