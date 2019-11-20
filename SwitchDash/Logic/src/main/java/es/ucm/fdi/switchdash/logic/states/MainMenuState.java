@@ -12,6 +12,7 @@ import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallsLogic;
 import es.ucm.fdi.switchdash.logic.entities.Player;
+import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class MainMenuState extends GameState
 {
@@ -39,24 +40,11 @@ public class MainMenuState extends GameState
         addEntity(player);
 
 
-//        Pool.PoolObjectFactory<Ball> ballsFactory = new Pool.PoolObjectFactory<Ball>() {
-//            @Override
-//            public Ball createObject() {
-//                Ball b = new Ball(0, posIniBalls, Assets.balls, game.getGraphics(), 2, 10);
-//                b.setCentered();
-//                return b;
-//            }
-//        };
-
-
-//        Pool <Ball> balls = new Pool<>(ballsFactory, 20);
-//
-//        ball = balls.newObject();
-//        ball.setActiveSprite((int) (Math.random() * 1), 0);
-//        addEntity(ball);
-
         BallsLogic balls = new BallsLogic(game.getGraphics());
         addEntity(balls);
+
+        Points points = new Points(950, 100, game.getGraphics());
+        addEntity(points);
 
 
         for (Entity e: entities)

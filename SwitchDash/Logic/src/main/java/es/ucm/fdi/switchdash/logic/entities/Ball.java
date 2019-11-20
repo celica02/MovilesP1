@@ -17,7 +17,7 @@ public class Ball extends SpriteSheet {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        posY  = posY+80 * deltaTime;
+        posY  = posY+430 * deltaTime;
     }
 
     @Override

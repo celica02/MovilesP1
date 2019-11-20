@@ -24,6 +24,6 @@ public class ArrowsBG extends Sprite
     {
         super.update(deltaTime);
 
-        posY  = posY+50 * deltaTime;
+        posY  = posY+430 * deltaTime;
     }
 }
