@@ -3,6 +3,7 @@ package es.ucm.fdi.switchdash.engine.desktop;
 import java.util.List;
 import java.util.ArrayList;
 
+import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.desktop.events.KeyboardHandler;
 import es.ucm.fdi.switchdash.engine.desktop.events.MouseHandler;
 
@@ -17,9 +18,9 @@ public class DesktopInput implements es.ucm.fdi.switchdash.engine.Input
 
     // ----------FUNCTIONS---------- //
 
-    public DesktopInput(float resolutionWidth, float resolutionHeight)
+    public DesktopInput(Window window, Graphics graphics)
     {
-        mouseHandler = new MouseHandler(resolutionWidth, resolutionHeight);
+        mouseHandler = new MouseHandler(window, graphics);
         keyHandler = new KeyboardHandler();
     }
 

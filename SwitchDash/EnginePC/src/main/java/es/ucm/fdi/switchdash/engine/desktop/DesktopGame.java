@@ -31,7 +31,7 @@ public class DesktopGame implements Game
         renderBuffer = window.getBufferStrategy();
 
         graphics = new DesktopGraphics(renderBuffer.getDrawGraphics(), window, resWidth, resHeight);
-        input = new DesktopInput(resWidth, resHeight);
+        input = new DesktopInput(window, graphics);
 
         gameState = getStartState();
     }

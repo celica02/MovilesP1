@@ -16,8 +16,8 @@ public class AndroidInput implements es.ucm.fdi.switchdash.engine.Input
 
     // ----------ATTRIBUTES---------- //
 
-    SingleTouchHandler touchHandler;
-    KeyboardHandler keyboardHandler;
+    private SingleTouchHandler touchHandler;
+    private KeyboardHandler keyboardHandler;
 
 
 
