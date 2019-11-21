@@ -10,32 +10,35 @@ import es.ucm.fdi.switchdash.engine.SpriteSheet;
 
 public class Player extends SpriteSheet
 {
-    public Player(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols) {
-        super(posX, posY, image, graphics, nRows, nCols);
-    }
 
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
+    int currentColor;
+
+    public Player(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols)
+    {
+        super(posX, posY, image, graphics, nRows, nCols);
+
+        currentColor = activeRow;
     }
 
     @Override
     protected void handleTouchEvent(TouchEvent e)
     {
        if(e.type == TouchEvent.DOWN)
-           if(inBounds(e.x, e.y))
            {
+               currentColor = currentColor == 0 ? 1: 0;
+
+               setActiveSprite(currentColor, activeCol);
                System.out.println("Me has tocado!");
            }
     }
+
 
     @Override
     protected void handleKeyEvent(KeyboardEvent e) {
         super.handleKeyEvent(e);
     }
 
-    @Override
-    public void render(float deltaTime) {
-        super.render(deltaTime);
-    }
+
+    public int getCurrentColor() { return currentColor; }
+
 }

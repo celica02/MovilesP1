@@ -18,6 +18,13 @@ public abstract class GameState
         init();
     }
 
+   /* public GameState(Game game, List<Entity> ents)
+    {
+        this.game = game;
+
+        entities
+    }*/
+
     protected abstract void init();
 
     public void update(float deltaTime)

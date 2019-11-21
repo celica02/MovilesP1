@@ -65,14 +65,15 @@ public class BallsLogic extends EntitiesGroup {
         super.setCenteredX();
     }
 
-    private Ball newBall(){
+    private Ball newBall()
+    {
         for(Entity e: entities){
             if(!((Ball)e).isActive()){
                 b = (Ball)e;
 
                 moveToTop(b);
 
-                b.setActiveSprite(random(((Ball)entities.get(b.getID() - 1)).getColor()), _ballType);
+                b.setActiveSprite(random(((Ball)entities.get(b.getID() - 1)).getCurrentColor()), _ballType);
                 b.setPosY(_posYIni);
                 b.setActive(true);
 
@@ -80,11 +81,10 @@ public class BallsLogic extends EntitiesGroup {
             }
         }
 
-        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getColor()) ,_ballType);
+        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getCurrentColor()) ,_ballType);
         addEntity(b);
         b.setCentered();
         return b;
-
     }
 
     /**
@@ -101,5 +101,4 @@ public class BallsLogic extends EntitiesGroup {
         float a = (float)Math.random();
         return a < 0.7 ? previous : newC;
     }
-
 }

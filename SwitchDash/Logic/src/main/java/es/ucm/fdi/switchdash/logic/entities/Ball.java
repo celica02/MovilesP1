@@ -5,9 +5,8 @@ import es.ucm.fdi.switchdash.engine.Image;
 import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
 
-public class Ball extends SpriteSheet {
-
-    private boolean _active = true;
+public class Ball extends SpriteSheet
+{
 
     public Ball(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols) {
         super(posX, posY, image, graphics, nRows, nCols);
@@ -20,10 +19,8 @@ public class Ball extends SpriteSheet {
     public void updateEntity(float deltaTime)
     {
         posY  = posY+430 * deltaTime;
-        if(posY >1500)
-            setActive(false);
     }
 
 
-    public int getColor(){return src.top;}
+    public int getCurrentColor(){return activeRow; }
 }

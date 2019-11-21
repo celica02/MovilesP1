@@ -52,6 +52,7 @@ public class BallManager extends Entity
         }
         ball.setActiveSprite(randomColour(), ball.getActiveCol());
         ball.setCenteredX();
+        ball.setPosY(spawnPosY);
     }
 
     public void ballDestroyed(Ball b)
@@ -94,20 +95,12 @@ public class BallManager extends Entity
     public void updateEntity(float deltaTime)
     {
         spawnTimer(deltaTime);
-
-        for (Ball b: balls)
-        {
-            b.updateEntity(deltaTime);
-
-            if (b.collides(player))
-                ballDestroyed(b);
-        }
     }
 
     @Override
     public void render(float deltaTime)
     {
         for (Ball b: balls)
-            b.renderEntity(deltaTime);
+            b.render(deltaTime);
     }
 }

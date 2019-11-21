@@ -60,7 +60,7 @@ public class Sprite extends Entity
     public void render(float deltaTime)
     {
         if(visible)
-        renderEntity(deltaTime);
+            renderEntity(deltaTime);
     }
 
     public void renderEntity(float deltaTime)
