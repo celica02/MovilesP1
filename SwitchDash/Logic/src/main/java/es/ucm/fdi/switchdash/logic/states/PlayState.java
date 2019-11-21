@@ -3,13 +3,13 @@ package es.ucm.fdi.switchdash.logic.states;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
-import es.ucm.fdi.switchdash.engine.Sprite;
-import es.ucm.fdi.switchdash.engine.SpriteSheet;
 import es.ucm.fdi.switchdash.logic.Assets;
-import es.ucm.fdi.switchdash.logic.entities.ArrowsBG;
-
-import java.util.ArrayList;
-import java.util.List;
+import es.ucm.fdi.switchdash.engine.Sprite;
+import es.ucm.fdi.switchdash.logic.entities.Background;
+import es.ucm.fdi.switchdash.logic.entities.Ball;
+import es.ucm.fdi.switchdash.logic.entities.BallManager;
+import es.ucm.fdi.switchdash.logic.entities.Player;
+import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class PlayState extends GameState
 {
@@ -22,20 +22,30 @@ public class PlayState extends GameState
     @Override
     protected void init()
     {
-        ArrowsBG arrowsBackground = new ArrowsBG(0, -500, Assets.arrowsBackground, game.getGraphics());
+        Background arrowsBackground = new Background(game.getGraphics());
+        arrowsBackground.init();
         arrowsBackground.setAlpha(0.7f);
         addEntity(arrowsBackground);
 
         Sprite logo = new Sprite(0, 356, Assets.logo, game.getGraphics());
         addEntity(logo);
 
-        SpriteSheet player = new SpriteSheet(0, 1200, Assets.players, game.getGraphics(), 2, 1);
+        Player player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);
         player.setActiveSprite(1, 0);
         addEntity(player);
 
+
+        BallManager ballManager = new BallManager(1,-10, player, game.getGraphics());
+        addEntity(ballManager);
+
+        Points points = new Points(950, 100, game.getGraphics());
+        addEntity(points);
+
+
         for (Entity e: entities)
-            e.setCentered();
+            e.setCenteredX();
     }
+
 
     @Override
     public void render(float deltaTime)

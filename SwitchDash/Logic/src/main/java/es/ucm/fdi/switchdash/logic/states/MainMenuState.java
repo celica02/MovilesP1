@@ -3,21 +3,15 @@ package es.ucm.fdi.switchdash.logic.states;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
-import es.ucm.fdi.switchdash.engine.utils.Pool;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.engine.Sprite;
-import es.ucm.fdi.switchdash.engine.SpriteSheet;
-import es.ucm.fdi.switchdash.logic.entities.ArrowsBG;
 import es.ucm.fdi.switchdash.logic.entities.Background;
-import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallsLogic;
 import es.ucm.fdi.switchdash.logic.entities.Player;
 import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class MainMenuState extends GameState
 {
-    float posIniBalls = 10;
-    private Ball ball;
 
     public MainMenuState(Game game)
     {
@@ -40,22 +34,18 @@ public class MainMenuState extends GameState
         addEntity(player);
 
 
-        BallsLogic balls = new BallsLogic(-50, game.getGraphics());
+        BallsLogic balls = new BallsLogic(game.getGraphics(), -50);
         addEntity(balls);
+
 
         Points points = new Points(950, 100, game.getGraphics());
         addEntity(points);
 
 
         for (Entity e: entities)
-            e.setCentered();
+            e.setCenteredX();
     }
 
-    @Override
-    public void update(float deltaTime){
-
-        super.update(deltaTime);
-    }
 
     @Override
     public void render(float deltaTime)

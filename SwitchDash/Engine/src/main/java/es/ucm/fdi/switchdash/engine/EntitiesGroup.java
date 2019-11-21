@@ -3,8 +3,16 @@ package es.ucm.fdi.switchdash.engine;
 import java.util.List;
 
 public class EntitiesGroup extends Entity {
-    protected Graphics g;
     protected List<Entity> entities;
+
+    public EntitiesGroup(Graphics graphics) {
+        super(graphics);
+    }
+
+    @Override
+    public void updateEntity(float deltaTime) {
+
+    }
 
     @Override
     public void update(float deltaTime) {
@@ -35,9 +43,9 @@ public class EntitiesGroup extends Entity {
     }
 
     @Override
-    public void setCentered() {
+    public void setCenteredX() {
         for(Entity e: entities){
-            e.setCentered();
+            e.setCenteredX();
         }
     }
 

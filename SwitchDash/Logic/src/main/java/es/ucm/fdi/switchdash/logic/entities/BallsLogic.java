@@ -1,7 +1,6 @@
 package es.ucm.fdi.switchdash.logic.entities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.EntitiesGroup;
 import es.ucm.fdi.switchdash.engine.Entity;
@@ -15,14 +14,15 @@ public class BallsLogic extends EntitiesGroup {
     float _posYIni;
     int _ballType = 0;
 
-    public BallsLogic(float posYIni, Graphics graphics){
-        g = graphics;
+
+    public BallsLogic(Graphics graphics, float posYIni){
+        super(graphics);
         entities = new ArrayList<>();
         _posYIni = posYIni;
         init();
     }
     public BallsLogic(float posYIni, Graphics graphics, int ballType) {
-        g = graphics;
+        super(graphics);
         entities = new ArrayList<>();
         _posYIni = posYIni;
         _ballType = ballType;
@@ -61,8 +61,8 @@ public class BallsLogic extends EntitiesGroup {
     }
 
     @Override
-    public void setCentered() {
-        super.setCentered();
+    public void setCenteredX() {
+        super.setCenteredX();
     }
 
     private Ball newBall(){

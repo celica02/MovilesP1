@@ -22,7 +22,7 @@ public class Points extends EntitiesGroup {
     float increasingTime = 100, time = 0;
 
     public Points (float posX, float posY, Graphics graphics){
-        g = graphics;
+        super(graphics);
         entities = new ArrayList<>();
         _posX = posX;
         _posY = posY;
@@ -84,8 +84,8 @@ public class Points extends EntitiesGroup {
     }
 
     @Override
-    public void setCentered() {
-        //super.setCentered();
+    public void setCenteredX() {
+        //super.setCenteredX();
     }
 
     @Override

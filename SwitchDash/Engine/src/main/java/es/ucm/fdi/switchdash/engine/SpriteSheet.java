@@ -6,8 +6,11 @@ import java.util.List;
 
 public class SpriteSheet extends Sprite
 {
-    protected int srcWidth;
-    protected int srcHeight;
+    protected float srcWidth;
+    protected float srcHeight;
+
+    int activeRow;
+    int activeCol;
 
 
     public SpriteSheet(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols)
@@ -19,6 +22,8 @@ public class SpriteSheet extends Sprite
 
         width = srcWidth;
         height = srcHeight;
+
+       setActiveSprite(0, 0);
     }
 
     public SpriteSheet(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols, int row, int col)
@@ -34,24 +39,18 @@ public class SpriteSheet extends Sprite
         setActiveSprite(row, col);
     }
 
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
-
-    @Override
-    public void render(float deltaTime) {
-        super.render(deltaTime);
-    }
-
     public void setActiveSprite(int row, int col)
     {
-        src.left = srcWidth * col;
-        src.top = srcHeight * row;
+        activeRow = row;
+        activeCol = col;
 
-        src.right = src.left + srcWidth;
-        src.bottom = src.top + srcHeight;
+        src.left = (int)srcWidth * col;
+        src.top = (int)srcHeight * row;
+
+        src.right = (int)(src.left + srcWidth);
+        src.bottom = (int)(src.top + srcHeight);
     }
+
+    public int getActiveRow() { return activeRow; }
+    public int getActiveCol() { return activeCol; }
 }

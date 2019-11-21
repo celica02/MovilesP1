@@ -8,24 +8,34 @@ import java.util.List;
 
 public abstract class Entity
 {
+    protected final Graphics g;
+
     protected float posX, posY;
     protected float width, height;
     protected int ID;
 
+    boolean active = true;
 
 
-    public Entity()
+
+    public Entity(Graphics graphics)
     {
+        g = graphics;
+
         posX = 0;
         posY = 0;
     }
 
-    public Entity(float posX, float posY){
+    public Entity(float posX, float posY, Graphics graphics){
+        g = graphics;
+
         this.posX = posX;
         this.posY = posY;
     }
 
-    public Entity(float posX, float posY, float width, float height){
+    public Entity(float posX, float posY, float width, float height, Graphics graphics){
+        g = graphics;
+
         this.posX = posX;
         this.posY = posY;
 
@@ -33,27 +43,36 @@ public abstract class Entity
         this.height = height;
     }
 
-    public abstract void update(float deltaTime);
-    public abstract void render(float deltaTime);
+    public void update(float deltaTime)
+    {
+        if (active)
+            updateEntity(deltaTime);
+    }
+    public abstract void updateEntity(float deltaTime);
+
+    public void render(float deltaTime){}
     public void handleInput(List<TouchEvent> touchEvents, List<KeyboardEvent> keyEvents, float deltaTime)
     {
-        for (TouchEvent e: touchEvents)
-            handleTouchEvent(e);
+        if(active)
+        {
+            for (TouchEvent e : touchEvents)
+                handleTouchEvent(e);
 
-        for (KeyboardEvent e: keyEvents)
-            handleKeyEvent(e);
+            for (KeyboardEvent e : keyEvents)
+                handleKeyEvent(e);
+        }
     }
 
-    protected abstract void handleTouchEvent(TouchEvent e);
-    protected abstract void handleKeyEvent(KeyboardEvent e);
+    protected void handleTouchEvent(TouchEvent e){}
+    protected void handleKeyEvent(KeyboardEvent e){}
 
 
-    protected boolean inBounds(float x, float y) {
+    public boolean inBounds(float x, float y) {
         return (x > posX && x < posX + width - 1) &&
                 (y > posY && y < posY + height - 1);
     }
 
-    protected boolean collides(Entity e) {
+    public boolean collides(Entity e) {
         return (posX < e.posX + e.width &&
                 posX + width > e.posX &&
                 posY < e.posY + e.height &&
@@ -73,9 +92,21 @@ public abstract class Entity
 
     public void setSize(float width, float height) { this.width = width; this.height = height; }
 
-    public abstract void setCentered();
+    public void setCenteredX() { posX = (g.getWidth()/2) - (getWidth()/2); }
+    public void setCenteredY() { posY = (g.getHeight()/2) - (getHeight()/2);}
+    public void setCentered() { posX = (g.getWidth()/2) - (getWidth()/2); posY = (g.getHeight()/2) - (getHeight()/2); }
 
     public void setID(int id){ID = id;}
     public int getID(){return ID;}
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean a) { active = a; }
+
+    public void reset(float x, float y)
+    {
+        active = true;
+        posX = x;
+        posY = y;
+    }
     public  void decreaseID(){ID--;}
 }

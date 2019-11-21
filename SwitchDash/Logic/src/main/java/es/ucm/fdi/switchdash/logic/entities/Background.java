@@ -15,7 +15,7 @@ public class Background extends EntitiesGroup {
 
     public Background(Graphics graphics)
     {
-        g = graphics;
+        super(graphics);
         entities = new ArrayList<>();
 
     }
@@ -87,11 +87,11 @@ public class Background extends EntitiesGroup {
     }
 
     @Override
-    public void setCentered()
+    public void setCenteredX()
     {
         for(Entity a: entities)
         {
-            a.setCentered();
+            a.setCenteredX();
         }
 
     }
