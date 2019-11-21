@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.EntitiesGroup;
+import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.logic.Assets;
@@ -11,17 +12,25 @@ import es.ucm.fdi.switchdash.logic.Assets;
 public class BallsLogic extends EntitiesGroup {
 
     Ball b;
-    float posYIni = -20;
+    float _posYIni;
+    int _ballType = 0;
 
-
-    public BallsLogic(Graphics graphics){
+    public BallsLogic(float posYIni, Graphics graphics){
         g = graphics;
         entities = new ArrayList<>();
+        _posYIni = posYIni;
+        init();
+    }
+    public BallsLogic(float posYIni, Graphics graphics, int ballType) {
+        g = graphics;
+        entities = new ArrayList<>();
+        _posYIni = posYIni;
+        _ballType = ballType;
         init();
     }
 
     public void init(){
-        addEntity(new Ball(0, posYIni, Assets.balls, g, 2, 10, random(1), 0));
+        addEntity(new Ball(0, _posYIni, Assets.balls, g, 2, 10, random(1), _ballType));
     }
 
 
@@ -29,9 +38,8 @@ public class BallsLogic extends EntitiesGroup {
     public void update(float deltaTime) {
 
         if(entities.get(entities.size() - 1).getPosY() >= 395){
-           b = new Ball(0, posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getColor()) ,0);
-           addEntity(b);
-           b.setCentered();
+           newBall();
+           System.out.println(entities.size());
         }
 
         super.update(deltaTime);
@@ -55,6 +63,28 @@ public class BallsLogic extends EntitiesGroup {
     @Override
     public void setCentered() {
         super.setCentered();
+    }
+
+    private Ball newBall(){
+        for(Entity e: entities){
+            if(!((Ball)e).isActive()){
+                b = (Ball)e;
+
+                moveToTop(b);
+
+                b.setActiveSprite(random(((Ball)entities.get(b.getID() - 1)).getColor()), _ballType);
+                b.setPosY(_posYIni);
+                b.setActive(true);
+
+                return b;
+            }
+        }
+
+        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getColor()) ,_ballType);
+        addEntity(b);
+        b.setCentered();
+        return b;
+
     }
 
     /**

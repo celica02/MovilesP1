@@ -7,6 +7,8 @@ import es.ucm.fdi.switchdash.engine.SpriteSheet;
 
 public class Ball extends SpriteSheet {
 
+    private boolean _active = true;
+
     public Ball(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols) {
         super(posX, posY, image, graphics, nRows, nCols);
     }
@@ -18,6 +20,8 @@ public class Ball extends SpriteSheet {
     public void update(float deltaTime) {
         super.update(deltaTime);
         posY  = posY+430 * deltaTime;
+        if(posY >1500)
+            setActive(false);
     }
 
     @Override
@@ -30,8 +34,14 @@ public class Ball extends SpriteSheet {
 
     @Override
     public void render(float deltaTime) {
-        super.render(deltaTime);
+        if(isActive())
+            super.render(deltaTime);
     }
 
+    public void setActive(boolean active){
+        _active = active;
+    }
+
+    public boolean isActive(){ return _active; }
     public int getColor(){return src.top;}
 }

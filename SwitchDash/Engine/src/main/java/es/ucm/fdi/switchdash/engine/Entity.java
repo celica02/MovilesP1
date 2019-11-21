@@ -77,4 +77,5 @@ public abstract class Entity
 
     public void setID(int id){ID = id;}
     public int getID(){return ID;}
+    public  void decreaseID(){ID--;}
 }

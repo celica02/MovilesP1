@@ -45,4 +45,16 @@ public class EntitiesGroup extends Entity {
         e.setID(entities.size());
         entities.add(e);
     }
+
+    protected void removeEntity(Entity e){
+        entities.remove(e.getID());
+        for(int i = e.getID(); i < entities.size(); i++){
+            entities.get(i).decreaseID();
+        }
+    }
+
+    protected void moveToTop(Entity e){
+        removeEntity(e);
+        addEntity(e);
+    }
 }

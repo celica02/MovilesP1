@@ -40,7 +40,7 @@ public class MainMenuState extends GameState
         addEntity(player);
 
 
-        BallsLogic balls = new BallsLogic(game.getGraphics());
+        BallsLogic balls = new BallsLogic(-50, game.getGraphics());
         addEntity(balls);
 
         Points points = new Points(950, 100, game.getGraphics());

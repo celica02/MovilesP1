@@ -67,7 +67,6 @@ public class Points extends EntitiesGroup {
             ((SpriteSheet)entities.get(i)).setActiveSprite((map.get(Character.getNumericValue(number.charAt(i)))[0]), (map.get(Character.getNumericValue(number.charAt(i))))[1]);
             entities.get(i).setPosX(posX);
             posX -= entities.get(0).getWidth();
-            System.out.println(number.charAt(i));
         }
     }
 
