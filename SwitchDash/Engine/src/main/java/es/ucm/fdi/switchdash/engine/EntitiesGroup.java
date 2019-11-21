@@ -24,7 +24,8 @@ public class EntitiesGroup extends Entity {
     @Override
     public void render(float deltaTime) {
         for(Entity e: entities){
-            e.render(deltaTime);
+            if(e.isActive())
+                e.render(deltaTime);
         }
     }
 

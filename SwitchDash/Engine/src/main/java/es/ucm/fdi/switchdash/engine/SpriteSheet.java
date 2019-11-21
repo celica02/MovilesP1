@@ -51,6 +51,18 @@ public class SpriteSheet extends Sprite
         src.bottom = (int)(src.top + srcHeight);
     }
 
+    public void setActiveRow(int row){
+        activeRow = row;
+        src.top = (int)srcHeight * row;
+        src.bottom = (int)(src.top + srcHeight);
+    }
+
+    public void setActiveCol(int col){
+        activeCol = col;
+        src.left = (int)srcWidth * col;
+        src.right = (int)(src.left + srcWidth);
+    }
+
     public int getActiveRow() { return activeRow; }
     public int getActiveCol() { return activeCol; }
 }

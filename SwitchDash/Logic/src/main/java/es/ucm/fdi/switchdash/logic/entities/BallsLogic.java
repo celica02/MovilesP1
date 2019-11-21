@@ -67,20 +67,18 @@ public class BallsLogic extends EntitiesGroup {
 
     private Ball newBall(){
         for(Entity e: entities){
-            if(!((Ball)e).isActive()){
-                b = (Ball)e;
+            if(!e.isActive()){
+                moveToTop(e);
 
-                moveToTop(b);
+                ((Ball)e).setActiveSprite(random(((Ball)entities.get(e.getID() - 1)).getActiveRow()), _ballType);
+                e.setPosY(_posYIni);
+                e.setActive(true);
 
-                b.setActiveSprite(random(((Ball)entities.get(b.getID() - 1)).getColor()), _ballType);
-                b.setPosY(_posYIni);
-                b.setActive(true);
-
-                return b;
+                return (Ball)e;
             }
         }
 
-        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getColor()) ,_ballType);
+        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getActiveRow()) ,_ballType);
         addEntity(b);
         b.setCentered();
         return b;
@@ -96,7 +94,6 @@ public class BallsLogic extends EntitiesGroup {
     private int random(int previous){
         int newC = 0;
         if (previous == 0) newC = 1;
-        else previous /= previous;
 
         float a = (float)Math.random();
         return a < 0.7 ? previous : newC;

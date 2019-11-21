@@ -20,10 +20,7 @@ public class Ball extends SpriteSheet {
     public void updateEntity(float deltaTime)
     {
         posY  = posY+430 * deltaTime;
-        if(posY >1500)
+        if(posY > 1500)
             setActive(false);
     }
-
-
-    public int getColor(){return src.top;}
 }

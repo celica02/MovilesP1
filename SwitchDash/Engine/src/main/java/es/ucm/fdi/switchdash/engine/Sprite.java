@@ -81,6 +81,7 @@ public class Sprite extends Entity
 
 
     public  void setAlpha(float a) { alpha = a; }
+    public  float getAlpha() { return alpha; }
 
     public boolean isVisible() { return visible; }
     public void setVisible(boolean v) { visible = v; }

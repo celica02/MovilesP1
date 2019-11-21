@@ -108,5 +108,5 @@ public abstract class Entity
         posX = x;
         posY = y;
     }
-    public  void decreaseID(){ID--;}
+    public  void decreaseID(){ ID--; }
 }
