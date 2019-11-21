@@ -41,7 +41,6 @@ public class DesktopGame implements Game
     {
         long startTime = System.nanoTime();
 
-
         while (true)
         {
             float deltaTime = (System.nanoTime() - startTime) / 1000000000.0f;

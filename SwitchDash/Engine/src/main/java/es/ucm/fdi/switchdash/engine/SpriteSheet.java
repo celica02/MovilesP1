@@ -9,8 +9,8 @@ public class SpriteSheet extends Sprite
     protected float srcWidth;
     protected float srcHeight;
 
-    int activeRow;
-    int activeCol;
+    protected int activeRow;
+    protected int activeCol;
 
 
     public SpriteSheet(float posX, float posY, Image image, Graphics graphics, int nRows, int nCols)
