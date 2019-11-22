@@ -34,14 +34,14 @@ public class MainMenuState extends GameState
         tapToPlay = new Sprite(0,950,Assets.tapToPlay, game.getGraphics());
         addEntity(tapToPlay);
 
-        SoundButton sound = new SoundButton(100, game.getGraphics());
-        addEntity(sound);
-        InstructionsButton instructions= new InstructionsButton (900, game.getGraphics(), game);
-        addEntity(instructions);
-
+        SoundButton sound = new SoundButton(30, 30, game.getGraphics());
+        InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game);
 
         for (Entity e: entities)
             e.setCenteredX();
+
+        addEntity(sound);
+        addEntity(instructions);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class MainMenuState extends GameState
         tapToPlay.setAlpha(tapToPlayA);
         super.update(deltaTime);
     }
+
     @Override
     public void render(float deltaTime)
     {

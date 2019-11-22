@@ -18,12 +18,12 @@ public abstract class GameState
         init();
     }
 
-   /* public GameState(Game game, List<Entity> ents)
+    public GameState(Game game, List<Entity> entities)
     {
         this.game = game;
-
-        entities
-    }*/
+        this.entities = new ArrayList<>();
+        this.entities.addAll(entities);
+    }
 
     protected abstract void init();
 

@@ -1,5 +1,8 @@
 package es.ucm.fdi.switchdash.logic.states;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
@@ -12,6 +15,7 @@ import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class PlayState extends GameState
 {
+    Background arrowsBackground;
 
     BallManager ballMgr;
     Player player;
@@ -29,7 +33,7 @@ public class PlayState extends GameState
     @Override
     protected void init()
     {
-        Background arrowsBackground = new Background(game.getGraphics());
+        arrowsBackground = new Background(game.getGraphics());
         arrowsBackground.init();
         arrowsBackground.setAlpha(0.7f);
         addEntity(arrowsBackground);
@@ -40,17 +44,19 @@ public class PlayState extends GameState
         ballMgr = new BallManager(1,-10, player, game.getGraphics(), this);
         addEntity(ballMgr);
 
-        points = new Points(game.getGraphics().getWidth() -10, 100, game.getGraphics());
-        addEntity(points);
+        points = new Points(game.getGraphics().getWidth() - 5, 100, game.getGraphics());
 
-        for (Entity e: entities)
+        for(Entity e : entities)
             e.setCenteredX();
+
+        addEntity(points);
     }
 
     @Override
     public void update(float deltaTime)
     {
         super.update(deltaTime);
+
         if (!gameOver)
             checkCollision(ballMgr.getNextBall());
         else
@@ -61,9 +67,10 @@ public class PlayState extends GameState
     {
         gameOverTime -= deltaTime;
 
-        if(gameOverTime <= 0)
-        {
-            game.setState(new GameOverState(game, points.getPoints()));
+        if(gameOverTime <= 0) {
+            List<Entity> ents = new ArrayList<>();
+            ents.add(arrowsBackground);
+            game.setState(new GameOverState(game, ents, points.getPoints()));
         }
     }
 

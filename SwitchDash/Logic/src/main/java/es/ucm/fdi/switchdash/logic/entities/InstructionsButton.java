@@ -11,8 +11,8 @@ import es.ucm.fdi.switchdash.logic.states.PlayState;
 public class InstructionsButton extends SpriteSheet {
     private Game _game;
 
-    public InstructionsButton(float posX, Graphics graphics, Game game) {
-        super(posX, 30, Assets.buttons, graphics, 1, 10, 0, 1);
+    public InstructionsButton(float posX, float posY, Graphics graphics, Game game) {
+        super(posX, posY, Assets.buttons, graphics, 1, 10, 0, 1);
         _game = game;
     }
 

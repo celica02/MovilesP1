@@ -6,8 +6,8 @@ import es.ucm.fdi.switchdash.engine.SpriteSheet;
 import es.ucm.fdi.switchdash.logic.Assets;
 
 public class SoundButton extends SpriteSheet {
-    public SoundButton(float posX, Graphics graphics) {
-        super(posX, 30, Assets.buttons, graphics, 1, 10, 0, 2);
+    public SoundButton(float posX, float posY, Graphics graphics) {
+        super(posX, posY, Assets.buttons, graphics, 1, 10, 0, 2);
     }
 
     protected void handleTouchEvent(Input.TouchEvent e)
@@ -22,7 +22,4 @@ public class SoundButton extends SpriteSheet {
 
             }
     }
-    public void setCenteredX() { }
-    public void setCenteredY() { }
-    public void setCentered() { }
 }
