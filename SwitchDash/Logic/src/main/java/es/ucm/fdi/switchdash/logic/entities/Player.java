@@ -28,7 +28,6 @@ public class Player extends SpriteSheet
                currentColor = currentColor == 0 ? 1: 0;
 
                setActiveSprite(currentColor, activeCol);
-               System.out.println("Me has tocado!");
            }
     }
 

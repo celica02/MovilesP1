@@ -100,12 +100,10 @@ public class DesktopGame implements Game
         if (gameState == null)
             throw new IllegalArgumentException("GameState must not be null");
 
-        this.gameState.pause();
         this.gameState.dispose();
 
-        state.resume();
-        state.update(0);
-
         this.gameState = state;
+
+        this.gameState.update(0);
     }
 }

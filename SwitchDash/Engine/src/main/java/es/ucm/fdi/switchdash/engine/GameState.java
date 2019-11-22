@@ -29,30 +29,27 @@ public abstract class GameState
 
     public void update(float deltaTime)
     {
-        for(Entity e: entities)
-            e.update(deltaTime);
+        for(int i = 0; i < entities.size(); i++)
+            entities.get(i).update(deltaTime);
     }
     public void render(float deltaTime)
     {
-        for(Entity e: entities)
-            e.render(deltaTime);
+        for(int i = 0; i < entities.size(); i++)
+            entities.get(i).render(deltaTime);
     }
     public void handleInput(float deltaTime)
     {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         List<Input.KeyboardEvent> keyEvents = game.getInput().getKeyEvents();
 
-        for(Entity e: entities)
-            e.handleInput(touchEvents, keyEvents, deltaTime);
+        for(int i = 0; i < entities.size(); i++)
+            entities.get(i).handleInput(touchEvents, keyEvents, deltaTime);
     }
 
     public void addEntity(Entity e) {
         e.setID(entities.size());
         entities.add(e);
     }
-
-    public abstract void pause();
-    public abstract void resume();
 
     public void dispose(){ game.getGraphics().dispose(); }
 }

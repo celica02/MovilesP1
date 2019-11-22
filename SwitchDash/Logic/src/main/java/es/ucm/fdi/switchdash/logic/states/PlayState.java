@@ -4,7 +4,6 @@ import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.logic.Assets;
-import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallManager;
@@ -14,9 +13,13 @@ import es.ucm.fdi.switchdash.logic.entities.Points;
 public class PlayState extends GameState
 {
 
-    BallManager ballManager;
+    BallManager ballMgr;
     Player player;
     Points points;
+
+    boolean gameOver = false;
+
+    float gameOverTime = 2;
 
     public PlayState(Game game)
     {
@@ -26,8 +29,6 @@ public class PlayState extends GameState
     @Override
     protected void init()
     {
-
-
         Background arrowsBackground = new Background(game.getGraphics());
         arrowsBackground.init();
         arrowsBackground.setAlpha(0.7f);
@@ -36,8 +37,8 @@ public class PlayState extends GameState
         player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);
         addEntity(player);
 
-        ballManager = new BallManager(1,-10, player, game.getGraphics());
-        addEntity(ballManager);
+        ballMgr = new BallManager(1,-10, player, game.getGraphics(), this);
+        addEntity(ballMgr);
 
         points = new Points(game.getGraphics().getWidth() -10, 100, game.getGraphics());
         addEntity(points);
@@ -49,27 +50,39 @@ public class PlayState extends GameState
     @Override
     public void update(float deltaTime)
     {
-        for (Ball b: ballManager.getBalls())
-        {
-            b.update(deltaTime);
-            checkCollision(b);
-        }
         super.update(deltaTime);
+        if (!gameOver)
+            checkCollision(ballMgr.getNextBall());
+        else
+            gameOver(deltaTime);
+    }
+
+    private void gameOver(float deltaTime)
+    {
+        gameOverTime -= deltaTime;
+
+        if(gameOverTime <= 0)
+        {
+            game.setState(new GameOverState(game, points.getPoints()));
+        }
     }
 
 
-    public void checkCollision(Ball b)
+    private void checkCollision(Ball b)
     {
-        if (b.isActive() && b.collides(player))
+        if (b.isActive() && player.isActive() && b.collides(player))
         {
             if(b.getCurrentColor() != player.getCurrentColor())
             {
-                System.out.println("Has perdido!");
+                gameOver = true;
+                player.setActive(false);
+                player.setVisible(false);
             }
-
-            ballManager.ballDestroyed(b);
-            System.out.println("destroyed");
-            points.increasePoints(1);
+            else
+            {
+                ballMgr.ballDestroyed(b);
+                points.increasePoints(1);
+            }
         }
     }
 
@@ -78,20 +91,5 @@ public class PlayState extends GameState
     {
         game.getGraphics().clear(0x0000FF00);
         super.render(deltaTime);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }

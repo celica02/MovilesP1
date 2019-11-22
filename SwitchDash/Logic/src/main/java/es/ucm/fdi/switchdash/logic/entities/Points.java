@@ -44,16 +44,10 @@ public class Points extends EntitiesGroup {
         addEntity(new SpriteSheet(_posX, _posY, Assets.scoreFont, g, nRows, nCols, (map.get(0))[0], (map.get(0))[1]));
     }
 
-    public void increasePoints(int value){
+    public void increasePoints(int value)
+    {
         points += value;
         number(Integer.toString(points));
-    }
-
-    @Override
-    public void update(float deltaTime)
-    {
-
-        super.update(deltaTime);
     }
 
     public void number(String number)
@@ -70,28 +64,5 @@ public class Points extends EntitiesGroup {
         }
     }
 
-    @Override
-    protected void handleTouchEvent(Input.TouchEvent e)
-    {
-        increasePoints(1);
-
-        super.handleTouchEvent(e);
-    }
-
-    @Override
-    protected void handleKeyEvent(Input.KeyboardEvent e) {
-        super.handleKeyEvent(e);
-    }
-
-    @Override
-    public void setCenteredX() {
-        //super.setCenteredX();
-    }
-
-    @Override
-    public void render(float deltaTime) {
-        super.render(deltaTime);
-    }
-
-
+    public int getPoints() { return points; }
 }

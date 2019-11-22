@@ -43,19 +43,4 @@ public class LoadingState extends GameState
         // Loading Screen
         game.setState(new PlayState(game));
     }
-
-    @Override
-    public void render(float deltaTime) { }
-
-    @Override
-    public void handleInput(float deltaTime) { }
-
-    @Override
-    public void pause() { }
-
-    @Override
-    public void resume() { }
-
-    @Override
-    public void dispose() { }
 }

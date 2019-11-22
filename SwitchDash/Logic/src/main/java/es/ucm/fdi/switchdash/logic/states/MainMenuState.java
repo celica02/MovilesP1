@@ -59,23 +59,4 @@ public class MainMenuState extends GameState
         game.getGraphics().clear(0x0000FF00);
         super.render(deltaTime);
     }
-    @Override
-    public void handleInput(float deltaTime){
-        super.handleInput(deltaTime);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 }

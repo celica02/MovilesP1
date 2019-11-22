@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.Entity;
+import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.logic.Assets;
 
@@ -19,20 +20,22 @@ public class BallManager extends Entity
     int lastColour = 0;
 
     Entity player;
+    GameState state;
 
     private Deque<Ball> pool = new ArrayDeque<>();
 
-    private List<Ball> balls = new ArrayList<>();
+    private Deque<Ball> balls = new ArrayDeque<>();
 
-    public BallManager(float time,float spawnPos, Entity p, Graphics graphics)
+    public BallManager(float time,float spawnPos, Entity p, Graphics graphics, GameState gameState)
     {
         super(graphics);
         spawnTime = time;
-        timeCounter = time;
+        timeCounter = 0;
 
         spawnPosY = spawnPos;
 
         player = p;
+        state = gameState;
     }
 
     private void spawnBall()
@@ -40,16 +43,22 @@ public class BallManager extends Entity
         Ball ball;
         if(!pool.isEmpty())
         {
-            ball = pool.getFirst();
-            pool.remove();
-
+            ball = pool.getFirst(); pool.remove();
             ball.reset(0, spawnPosY);
         }
         else
         {
             ball = new Ball(0, spawnPosY, Assets.balls, g, 2, 10);
-            balls.add(ball);
+            state.addEntity(ball);
         }
+
+        newBall(ball);
+    }
+
+    private void newBall(Ball ball)
+    {
+        balls.addLast(ball);
+
         ball.setActiveSprite(randomColour(), ball.getActiveCol());
         ball.setCenteredX();
         ball.setPosY(spawnPosY);
@@ -57,12 +66,13 @@ public class BallManager extends Entity
 
     public void ballDestroyed(Ball b)
     {
+        balls.remove();
         b.setActive(false);
         b.setVisible(false);
         pool.addLast(b);
     }
 
-    public List<Ball> getBalls() { return balls; }
+    public Ball getNextBall() { return balls.getFirst(); }
 
     /**
      * Method that returns randomly witch color will be the new ball.
