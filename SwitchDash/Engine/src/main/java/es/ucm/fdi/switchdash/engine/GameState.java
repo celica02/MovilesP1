@@ -51,5 +51,8 @@ public abstract class GameState
         entities.add(e);
     }
 
+
+    public void resume() {}
+    public void pause() {}
     public void dispose(){ game.getGraphics().dispose(); }
 }
