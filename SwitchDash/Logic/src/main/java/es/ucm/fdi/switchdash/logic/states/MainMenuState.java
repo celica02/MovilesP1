@@ -22,7 +22,7 @@ public class MainMenuState extends GameState
     @Override
     protected void init()
     {
-        Background arrowsBackground = new Background(game.getGraphics());
+        Background arrowsBackground = new Background(400, game.getGraphics());
         arrowsBackground.init();
 //        ArrowsBG arrowsBackground = new ArrowsBG(0, -100, Assets.arrowsBackground, game.getGraphics());
         arrowsBackground.setAlpha(0.7f);

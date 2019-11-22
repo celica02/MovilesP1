@@ -30,7 +30,7 @@ public class BallsLogic extends EntitiesGroup {
     }
 
     public void init(){
-        addEntity(new Ball(0, _posYIni, Assets.balls, g, 2, 10, random(1), _ballType));
+        //addEntity(new Ball(0, _posYIni, Assets.balls, g, 2, 10, random(1), _ballType));
     }
 
 
@@ -79,7 +79,7 @@ public class BallsLogic extends EntitiesGroup {
             }
         }
 
-        b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getCurrentColor()) ,_ballType);
+       // b = new Ball(0, _posYIni, Assets.balls, g, 2, 10,random(((Ball)entities.get(entities.size() - 1)).getCurrentColor()) ,_ballType);
         addEntity(b);
         b.setCentered();
         return b;

@@ -7,16 +7,19 @@ import es.ucm.fdi.switchdash.engine.EntitiesGroup;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input;
+import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 
 public class Background extends EntitiesGroup {
 
     float arrowsHeight;
+    private float speed;
 
-    public Background(Graphics graphics)
+    public Background(float arrowSpeed, Graphics graphics)
     {
         super(graphics);
         entities = new ArrayList<>();
+        speed = arrowSpeed;
 
     }
 
@@ -25,14 +28,14 @@ public class Background extends EntitiesGroup {
         float posY = 0;
 
         //Creación de las flechas, se colocan de arriba a abajo, teniendo la de arriba ID = 0
-        addEntity(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
+        addEntity(new Sprite(0f, posY , Assets.arrowsBackground, g));
         entities.get(0).setPosY(-entities.get(0).getHeight());
 
         arrowsHeight = entities.get(0).getHeight(); //Guarda el tamaño de las flechas
 
         do { //Mientas no se haya completado el alto de la pantalla se siguen poniendo flechas
 
-            addEntity(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
+            addEntity(new Sprite(0f, posY, Assets.arrowsBackground, g));
             posY += arrowsHeight;
 
         } while(posY < (g.getHeight()+ arrowsHeight));
@@ -43,6 +46,9 @@ public class Background extends EntitiesGroup {
     {
         for(Entity currentArrow: entities)//Recorre todas las flechas para actualizarlas.
         {
+            float posY = currentArrow.getPosY() + speed * deltaTime;
+            currentArrow.setPosY(posY);
+
             currentArrow.update(deltaTime);
 
             if(currentArrow.getPosY() >= (g.getHeight() + arrowsHeight))  //Comprueba si alguna ya ha pasado el límite por abajo.
@@ -86,6 +92,9 @@ public class Background extends EntitiesGroup {
 
     }
 
+
+    public void setSpeed(float speed) { this.speed = speed; }
+
     @Override
     public void setCenteredX()
     {
@@ -100,9 +109,7 @@ public class Background extends EntitiesGroup {
     {
         for(Entity a: entities)
         {
-            ((ArrowsBG)a).setAlpha(alpha);
+            ((Sprite)a).setAlpha(alpha);
         }
     }
-
-
 }
