@@ -12,29 +12,36 @@ import es.ucm.fdi.switchdash.logic.Assets;
 
 public class BallManager extends Entity
 {
-    float spawnTime;
-    float timeCounter;
+    private float speed;
 
-    float spawnPosY;
+    private float spawnTime;
+    private float minSpawnTime;
+    private float spawnCounter;
+    private float increment;
 
-    int lastColour = 0;
 
-    Entity player;
-    GameState state;
+    private float spawnPosY;
+
+    private int lastColour = 0;
+
+    private GameState state;
 
     private Deque<Ball> pool = new ArrayDeque<>();
 
     private Deque<Ball> balls = new ArrayDeque<>();
 
-    public BallManager(float time,float spawnPos, Entity p, Graphics graphics, GameState gameState)
+    public BallManager(float spawnTime, float minSpawnTime, float timeToReach, float ballSpeed, float spawnPos, Entity p, Graphics graphics, GameState gameState)
     {
         super(graphics);
-        spawnTime = time;
-        timeCounter = 0;
+        this.spawnTime = spawnTime;
+        this.minSpawnTime = minSpawnTime;
+        spawnCounter = 0;
+
+        increment = (spawnTime - minSpawnTime) / timeToReach;
+        speed = ballSpeed;
 
         spawnPosY = spawnPos;
 
-        player = p;
         state = gameState;
     }
 
@@ -47,10 +54,7 @@ public class BallManager extends Entity
             ball.reset(0, spawnPosY);
         }
         else
-        {
-            ball = new Ball(0, spawnPosY, Assets.balls, g, 2, 10);
-            state.addEntity(ball);
-        }
+            ball = new Ball(0, spawnPosY, speed, Assets.balls, g, 2, 10);
 
         newBall(ball);
     }
@@ -92,19 +96,34 @@ public class BallManager extends Entity
 
     private void spawnTimer(float deltaTime)
     {
-        timeCounter -= deltaTime;
+        spawnCounter -= deltaTime;
 
-        if(timeCounter <= 0)
+        if(spawnCounter <= 0)
         {
-            timeCounter = spawnTime;
+            spawnCounter = spawnTime;
             spawnBall();
         }
     }
 
+    private void speedUp(float deltaTime)
+    {
+        if(spawnTime > minSpawnTime)
+        spawnTime -= (increment * deltaTime);
+    }
+
+    public void setSpeed(float speed) { this.speed = speed; }
+
     @Override
     public void updateEntity(float deltaTime)
     {
+        for (Ball b: balls)
+        {
+            b.setSpeed(speed);
+            b.updateEntity(deltaTime);
+        }
+
         spawnTimer(deltaTime);
+        speedUp(deltaTime);
     }
 
     @Override

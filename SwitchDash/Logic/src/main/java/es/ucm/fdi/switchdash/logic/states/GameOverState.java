@@ -10,8 +10,10 @@ import es.ucm.fdi.switchdash.logic.Assets;
 
 public class GameOverState extends GameState
 {
+    private Sprite playAgain;
+    private int points;
 
-    int points;
+    private boolean alphaUp;
 
     public GameOverState(Game game, int points)
     {
@@ -29,11 +31,38 @@ public class GameOverState extends GameState
     @Override
     protected void init()
     {
+        playAgain  = new Sprite(0, 1396, Assets.playAgain, game.getGraphics());
+        addEntity(playAgain);
+
         Sprite gameOver  = new Sprite(0, 364, Assets.gameOver, game.getGraphics());
         addEntity(gameOver);
 
         for(Entity e : entities)
             e.setCenteredX();
+    }
+
+    @Override
+    public void update(float deltaTime)
+    {
+        oscillateAlpha(playAgain, deltaTime);
+        super.update(deltaTime);
+    }
+
+
+    private void oscillateAlpha(Sprite sprite, float deltaTime)
+    {
+        float alphaIncrement = 0.8f;
+        float alpha = sprite.getAlpha();
+
+        if(alphaUp)
+            alpha += alphaIncrement * deltaTime;
+        else
+            alpha -= alphaIncrement * deltaTime;
+
+        if(alpha < 0.0f || alpha > 1.0f)
+            alphaUp = !alphaUp;
+
+        sprite.setAlpha(alpha);
     }
 
     @Override

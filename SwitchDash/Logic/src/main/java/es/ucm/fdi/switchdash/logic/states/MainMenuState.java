@@ -65,6 +65,22 @@ public class MainMenuState extends GameState
         super.update(deltaTime);
     }
 
+    private void oscillateAlpha(Sprite sprite, float deltaTime)
+    {
+        float alphaIncrement = 0.8f;
+        float alpha = sprite.getAlpha();
+
+        if(alphaUp)
+            alpha += alphaIncrement * deltaTime;
+        else
+            alpha -= alphaIncrement * deltaTime;
+
+        if(alpha < 0.0f || alpha > 1.0f)
+            alphaUp = !alphaUp;
+
+        sprite.setAlpha(alpha);
+    }
+
     @Override
     public void render(float deltaTime)
     {

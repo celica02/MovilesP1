@@ -15,15 +15,20 @@ import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class PlayState extends GameState
 {
-    Background arrowsBackground;
+    private Background arrowsBackground;
 
-    BallManager ballMgr;
-    Player player;
-    Points points;
+    private BallManager ballMgr;
+    private Player player;
+    private Points points;
 
-    boolean gameOver = false;
+    private boolean gameOver = false;
 
-    float gameOverTime = 2;
+    private float speed;
+    private float maxSpeed;
+    private float speedIncrement;
+    private float timeToReach;
+
+    private float gameOverTime;
 
     public PlayState(Game game)
     {
@@ -33,7 +38,15 @@ public class PlayState extends GameState
     @Override
     protected void init()
     {
-        arrowsBackground = new Background(game.getGraphics());
+         speed = 400;
+         maxSpeed = 1800;
+         timeToReach = 20;
+
+         speedIncrement = (maxSpeed - speed) / timeToReach;
+
+         gameOverTime = 2;
+
+        arrowsBackground = new Background(speed, game.getGraphics());
         arrowsBackground.init();
         //arrowsBackground.setAlpha(0.7f);
         addEntity(arrowsBackground);
@@ -41,7 +54,7 @@ public class PlayState extends GameState
         player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);
         addEntity(player);
 
-        ballMgr = new BallManager(1,-10, player, game.getGraphics(), this);
+        ballMgr = new BallManager(1f, 0.2f, timeToReach, speed,0, player, game.getGraphics(), this);
         addEntity(ballMgr);
 
         points = new Points(game.getGraphics().getWidth() - 5, 100, game.getGraphics());
@@ -50,6 +63,8 @@ public class PlayState extends GameState
             e.setCenteredX();
 
         addEntity(points);
+
+        speed = 450;
     }
 
     @Override
@@ -57,11 +72,20 @@ public class PlayState extends GameState
     {
         super.update(deltaTime);
 
+        if(speed < maxSpeed)
+        {
+            speed += (speedIncrement * deltaTime);
+            arrowsBackground.setSpeed(speed);
+            ballMgr.setSpeed(speed);
+        }
+
         if (!gameOver)
             checkCollision(ballMgr.getNextBall());
         else
             gameOver(deltaTime);
     }
+
+
 
     private void gameOver(float deltaTime)
     {
