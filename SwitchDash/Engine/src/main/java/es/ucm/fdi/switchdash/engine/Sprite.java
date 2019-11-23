@@ -80,7 +80,15 @@ public class Sprite extends Entity
     }
 
 
-    public  void setAlpha(float a) { alpha = a; }
+    public  void setAlpha(float a)
+    {
+        if(a > 1.0f)
+            alpha = 1.0f;
+        else if(a < 0.0f)
+            alpha = 0.0f;
+        else
+            alpha = a;
+    }
     public  float getAlpha() { return alpha; }
 
     public boolean isVisible() { return visible; }

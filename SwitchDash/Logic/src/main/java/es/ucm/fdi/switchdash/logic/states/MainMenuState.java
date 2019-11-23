@@ -12,8 +12,10 @@ import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 
 public class MainMenuState extends GameState
 {
-    Sprite tapToPlay;
-    float tapToPlayA = 1, ttpChange = 0.5f;
+    private Sprite tapToPlay;
+
+    private boolean alphaUp;
+
     public MainMenuState(Game game)
     {
         super(game);
@@ -46,12 +48,24 @@ public class MainMenuState extends GameState
 
     @Override
     public void update(float deltaTime){
-        if(((tapToPlay.getAlpha() <= 0.15) && (ttpChange > 0)) || ((tapToPlay.getAlpha() >= 0.85) && (ttpChange < 0)))
-            ttpChange = -ttpChange;
-        System.out.println(tapToPlayA);
-        tapToPlayA = tapToPlayA - ttpChange *deltaTime;
-        tapToPlay.setAlpha(tapToPlayA);
+       oscillateAlpha(tapToPlay, deltaTime);
         super.update(deltaTime);
+    }
+
+    private void oscillateAlpha(Sprite sprite, float deltaTime)
+    {
+        float alphaIncrement = 0.8f;
+        float alpha = sprite.getAlpha();
+
+        if(alphaUp)
+            alpha += alphaIncrement * deltaTime;
+        else
+            alpha -= alphaIncrement * deltaTime;
+
+        if(alpha < 0.0f || alpha > 1.0f)
+            alphaUp = !alphaUp;
+
+        sprite.setAlpha(alpha);
     }
 
     @Override

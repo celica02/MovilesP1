@@ -22,6 +22,8 @@ public abstract class GameState
     {
         this.game = game;
         this.entities = new ArrayList<>();
+        init();
+
         this.entities.addAll(entities);
     }
 
