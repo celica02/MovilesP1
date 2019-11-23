@@ -1,5 +1,6 @@
 package es.ucm.fdi.switchdash.logic.states;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.ucm.fdi.switchdash.engine.Entity;
@@ -9,7 +10,10 @@ import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
+import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
 import es.ucm.fdi.switchdash.logic.entities.Points;
+import es.ucm.fdi.switchdash.logic.entities.SoundButton;
+import es.ucm.fdi.switchdash.logic.entities.Text;
 
 public class GameOverState extends GameState
 {
@@ -45,12 +49,26 @@ public class GameOverState extends GameState
         Sprite gameOver  = new Sprite(0, 364, Assets.gameOver, game.getGraphics());
         addEntity(gameOver);
 
-        Points points = new Points(0, 1000, game.getGraphics());
-        points.setCentered();
-        addEntity(points);
+        Text points = new Text(0, 1000, Integer.toString(_points), game.getGraphics());
+        Text pointsTxt = new Text(0, points.getPosY() + points.getHeight(), "points", game.getGraphics());
 
-        for(Entity e : entities)
+        addEntity(points);
+        addEntity(pointsTxt);
+
+        SoundButton sound = new SoundButton(30, 30, game.getGraphics());
+
+
+        List<Entity> ents = new ArrayList<>();
+        ents.add(background);
+
+        InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
+
+
+        for (Entity e: entities)
             e.setCenteredX();
+
+        addEntity(sound);
+        addEntity(instructions);
     }
 
     @Override

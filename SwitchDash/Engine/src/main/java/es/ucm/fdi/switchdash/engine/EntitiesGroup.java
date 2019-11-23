@@ -53,6 +53,11 @@ public class EntitiesGroup extends Entity {
     protected void addEntity(Entity e){
         e.setID(entities.size());
         entities.add(e);
+
+        if(e.getHeight() > getHeight())
+            setHeight(e.getHeight());
+        if(e.getWidth() > getWidth())
+            setWidth(e.getWidth());
     }
 
     protected void removeEntity(Entity e){

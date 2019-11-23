@@ -97,7 +97,7 @@ public class PlayState extends GameState
         if(gameOverTime <= 0) {
             List<Entity> ents = new ArrayList<>();
             ents.add(background);
-            game.setState(new GameOverState(game, ents, points/*.getPoints()*/));
+            game.setState(new GameOverState(game, ents, pointsTxt.getPoints()));
         }
     }
 
