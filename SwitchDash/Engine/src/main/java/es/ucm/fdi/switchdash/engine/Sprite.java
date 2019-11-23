@@ -97,7 +97,11 @@ public class Sprite extends Entity
 
 
 
-    public void setSourceRect(MyRect src) { this.src = src; }
+    public void setSourceRect(MyRect src) {
+        this.src = src;
+        width = src.right - src.left;
+        height = src.bottom - src.top;
+    }
     public void setDestRect(MyRect dest)
     {
         posX = dest.left;

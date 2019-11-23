@@ -17,7 +17,7 @@ public class MainMenuState extends GameState
 {
 
 
-    Background background;
+    private Background background;
 
     public MainMenuState(Game game)
     {
@@ -48,9 +48,9 @@ public class MainMenuState extends GameState
 
         List<Entity> ents = new ArrayList<>();
         ents.add(background);
-//        System.out.println("Nº entidades a pasar desde MM:" + ents.size());
 
         InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
+
 
         for (Entity e: entities)
             e.setCenteredX();

@@ -12,14 +12,17 @@ import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallManager;
 import es.ucm.fdi.switchdash.logic.entities.Player;
 import es.ucm.fdi.switchdash.logic.entities.Points;
+import es.ucm.fdi.switchdash.logic.entities.Text;
 
 public class PlayState extends GameState
 {
-    private Background arrowsBackground;
+    private Background background;
 
     private BallManager ballMgr;
     private Player player;
-    private Points points;
+    private Points pointsTxt;
+//    private Text pointsTxt;
+    private int points = 0;
 
     private boolean gameOver = false;
 
@@ -46,8 +49,8 @@ public class PlayState extends GameState
 
          gameOverTime = 2;
 
-        arrowsBackground = new Background(speed, game.getGraphics());
-        addEntity(arrowsBackground);
+        background = new Background(speed, game.getGraphics());
+        addEntity(background);
 
         player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);
         addEntity(player);
@@ -55,12 +58,14 @@ public class PlayState extends GameState
         ballMgr = new BallManager(1f, 0.2f, timeToReach, speed,0, player, game.getGraphics(), this);
         addEntity(ballMgr);
 
-        points = new Points(game.getGraphics().getWidth() - 5, 100, game.getGraphics());
+        pointsTxt = new Points(game.getGraphics().getWidth() - 5, 100, game.getGraphics());
+        //pointsTxt = new Text(game.getGraphics().getWidth() - 5, 100, Integer.toString(points), game.getGraphics());
 
         for(Entity e : entities)
             e.setCenteredX();
 
-        addEntity(points);
+//        addEntity(points);
+        addEntity(pointsTxt);
 
         speed = 450;
     }
@@ -73,7 +78,7 @@ public class PlayState extends GameState
         if(speed < maxSpeed)
         {
             speed += (speedIncrement * deltaTime);
-            arrowsBackground.setSpeed(speed);
+            background.setSpeed(speed);
             ballMgr.setSpeed(speed);
         }
 
@@ -91,8 +96,8 @@ public class PlayState extends GameState
 
         if(gameOverTime <= 0) {
             List<Entity> ents = new ArrayList<>();
-            ents.add(arrowsBackground);
-            game.setState(new GameOverState(game, ents, points.getPoints()));
+            ents.add(background);
+            game.setState(new GameOverState(game, ents, points/*.getPoints()*/));
         }
     }
 
@@ -110,7 +115,7 @@ public class PlayState extends GameState
             else
             {
                 ballMgr.ballDestroyed(b);
-                points.increasePoints(1);
+                pointsTxt.increasePoints(1);
             }
         }
     }
@@ -118,7 +123,7 @@ public class PlayState extends GameState
     @Override
     public void render(float deltaTime)
     {
-        game.getGraphics().clear(0x0000FF00);
+        game.getGraphics().clear(background.getColor());
         super.render(deltaTime);
     }
 }

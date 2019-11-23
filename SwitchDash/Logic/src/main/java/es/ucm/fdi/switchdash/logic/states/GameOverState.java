@@ -7,25 +7,31 @@ import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
+import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
+import es.ucm.fdi.switchdash.logic.entities.Points;
 
 public class GameOverState extends GameState
 {
+    private Background background;
     private Sprite playAgain;
-    private int points;
+    private int _points;
 
     private boolean alphaUp;
+
+
 
     public GameOverState(Game game, int points)
     {
         super(game);
-        this.points = points;
+        _points = points;
     }
 
     public GameOverState(Game game, List<Entity> entities, int points)
     {
         super(game, entities);
-        this.points = points;
+        _points = points;
+        background = (Background)entities.get(0);
         init();
     }
 
@@ -38,6 +44,10 @@ public class GameOverState extends GameState
 
         Sprite gameOver  = new Sprite(0, 364, Assets.gameOver, game.getGraphics());
         addEntity(gameOver);
+
+        Points points = new Points(0, 1000, game.getGraphics());
+        points.setCentered();
+        addEntity(points);
 
         for(Entity e : entities)
             e.setCenteredX();

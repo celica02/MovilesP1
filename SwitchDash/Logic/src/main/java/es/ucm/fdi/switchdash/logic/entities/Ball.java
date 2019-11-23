@@ -30,7 +30,7 @@ public class Ball extends SpriteSheet
     {
         posY  = posY + speed * deltaTime;
 
-        System.out.println("Speed: " + speed);
+//        System.out.println("Speed: " + speed);
     }
 
     public void setSpeed(float s) { speed = s; }

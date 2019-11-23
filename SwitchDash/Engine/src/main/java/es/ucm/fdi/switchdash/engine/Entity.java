@@ -14,7 +14,7 @@ public abstract class Entity
     protected float width, height;
     protected int ID;
 
-    boolean active = true;
+    protected boolean active = true;
 
 
 

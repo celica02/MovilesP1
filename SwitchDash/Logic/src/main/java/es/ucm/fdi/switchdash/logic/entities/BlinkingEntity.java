@@ -17,12 +17,6 @@ public class BlinkingEntity extends Sprite {
             alphaChange = -alphaChange;
 
         alpha = alpha - alphaChange *deltaTime;
-
-        if(alpha < 0)
-            alpha = 0.0f;
-        if(alpha > 1)
-            alpha = 1f;
-
         setAlpha(alpha);
     }
 }

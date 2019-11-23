@@ -14,7 +14,8 @@ import es.ucm.fdi.switchdash.logic.entities.MainMenuButton;
 
 public class InstructionsState extends GameState {
 
-    Background background;
+    private Background background;
+    
     public InstructionsState(Game game, List<Entity> entities) {
         super(game, entities);
         background = (Background)entities.get(0);
