@@ -35,7 +35,7 @@ public class PlayState extends GameState
     {
         arrowsBackground = new Background(game.getGraphics());
         arrowsBackground.init();
-        arrowsBackground.setAlpha(0.7f);
+        //arrowsBackground.setAlpha(0.7f);
         addEntity(arrowsBackground);
 
         player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);

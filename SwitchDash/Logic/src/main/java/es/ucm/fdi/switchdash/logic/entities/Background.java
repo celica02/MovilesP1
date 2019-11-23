@@ -2,107 +2,66 @@ package es.ucm.fdi.switchdash.logic.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import es.ucm.fdi.switchdash.engine.EntitiesGroup;
-import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input;
+import es.ucm.fdi.switchdash.engine.SpriteSheet;
+import es.ucm.fdi.switchdash.engine.utils.MyRect;
 import es.ucm.fdi.switchdash.logic.Assets;
 
 public class Background extends EntitiesGroup {
 
-    float arrowsHeight;
+    Integer[] clearColors = new Integer[]{0x41a85f, 0x00a885, 0x3d8eb9, 0x2969b0, 0x553982, 0x28324e, 0xf37934, 0xd14b41, 0x75706b};
+    int _color;
 
     public Background(Graphics graphics)
     {
         super(graphics);
         entities = new ArrayList<>();
-
+        init();
     }
 
     public void init()
     {
-        float posY = 0;
+        newColor();
+        SpriteSheet bgColor = new SpriteSheet(0,0, Assets.backgrounds, g, 1, 9, 0, _color);
+        bgColor.setDestRect(new MyRect(0,0, Assets.arrowsBackground.getWidth(), Assets.arrowsBackground.getHeight()));
+        addEntity(bgColor);
 
-        //Creación de las flechas, se colocan de arriba a abajo, teniendo la de arriba ID = 0
-        addEntity(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
-        entities.get(0).setPosY(-entities.get(0).getHeight());
+        ArrowsBG arrowsBackground = new ArrowsBG(0, -Assets.arrowsBackground.getHeight()/5, Assets.arrowsBackground, g);
+        arrowsBackground.setAlpha(0.7f);
+        addEntity(arrowsBackground);
 
-        arrowsHeight = entities.get(0).getHeight(); //Guarda el tamaño de las flechas
-
-        do { //Mientas no se haya completado el alto de la pantalla se siguen poniendo flechas
-
-            addEntity(new ArrowsBG(0f, posY, Assets.arrowsBackground, g));
-            posY += arrowsHeight;
-
-        } while(posY < (g.getHeight()+ arrowsHeight));
+    }
+    public void setColor(int color){
+        _color = color;
+    }
+    public void newColor(){
+        _color = clearColors[new Random().nextInt(9)];
+    }
+    public int getColor(){
+        return _color;
     }
 
     @Override
-    public void update(float deltaTime)
-    {
-        for(Entity currentArrow: entities)//Recorre todas las flechas para actualizarlas.
-        {
-            currentArrow.update(deltaTime);
-
-            if(currentArrow.getPosY() >= (g.getHeight() + arrowsHeight))  //Comprueba si alguna ya ha pasado el límite por abajo.
-            {
-                System.out.println((currentArrow.getPosY()));
-                if (currentArrow.getID() == entities.size() - 1) //Coloca la imagen encima de la que está más arriba
-                    currentArrow.setPosY(entities.get(0).getPosY() - arrowsHeight);
-
-                else
-                    currentArrow.setPosY(entities.get(currentArrow.getID() + 1).getPosY() - arrowsHeight);
-            }
-        }
+    public void update(float deltaTime) {
+        super.update(deltaTime);
     }
 
     @Override
-    public void render(float deltaTime)
-    {
-        for(Entity a: entities)
-        {
-            a.render(deltaTime);
-        }
+    public void render(float deltaTime) {
+        super.render(deltaTime);
     }
 
     @Override
-    public void handleInput(List<Input.TouchEvent> touchEvents, List<Input.KeyboardEvent> keyEvents, float deltaTime)
-    {
-       /* for(ArrowsBG a: entities){
-            a.handleInput(touchEvents, keyEvents, deltaTime);
-        }*/
+    protected void handleTouchEvent(Input.TouchEvent e) {
+        super.handleTouchEvent(e);
     }
 
     @Override
-    public void handleTouchEvent(Input.TouchEvent e)
-    {
-
+    protected void handleKeyEvent(Input.KeyboardEvent e) {
+        super.handleKeyEvent(e);
     }
-
-    @Override
-    public void handleKeyEvent(Input.KeyboardEvent e)
-    {
-
-    }
-
-    @Override
-    public void setCenteredX()
-    {
-        for(Entity a: entities)
-        {
-            a.setCenteredX();
-        }
-
-    }
-
-    public void setAlpha(float alpha)
-    {
-        for(Entity a: entities)
-        {
-            ((ArrowsBG)a).setAlpha(alpha);
-        }
-    }
-
-
 }
