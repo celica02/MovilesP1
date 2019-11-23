@@ -27,7 +27,6 @@ public class MainMenuState extends GameState
     {
         super(game, entities);
         background = (Background)entities.get(0);
-
         init();
     }
 
@@ -35,7 +34,7 @@ public class MainMenuState extends GameState
     protected void init()
     {
         if(background == null){
-            background = new Background(game.getGraphics());
+            background = new Background(384, game.getGraphics());
             addEntity(background);
         }
 
@@ -49,6 +48,7 @@ public class MainMenuState extends GameState
 
         List<Entity> ents = new ArrayList<>();
         ents.add(background);
+//        System.out.println("Nº entidades a pasar desde MM:" + ents.size());
 
         InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
 
@@ -63,22 +63,6 @@ public class MainMenuState extends GameState
     public void update(float deltaTime){
 
         super.update(deltaTime);
-    }
-
-    private void oscillateAlpha(Sprite sprite, float deltaTime)
-    {
-        float alphaIncrement = 0.8f;
-        float alpha = sprite.getAlpha();
-
-        if(alphaUp)
-            alpha += alphaIncrement * deltaTime;
-        else
-            alpha -= alphaIncrement * deltaTime;
-
-        if(alpha < 0.0f || alpha > 1.0f)
-            alphaUp = !alphaUp;
-
-        sprite.setAlpha(alpha);
     }
 
     @Override

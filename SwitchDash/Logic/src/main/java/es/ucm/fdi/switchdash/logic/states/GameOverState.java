@@ -7,6 +7,7 @@ import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
+import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
 
 public class GameOverState extends GameState
 {
@@ -25,13 +26,14 @@ public class GameOverState extends GameState
     {
         super(game, entities);
         this.points = points;
+        init();
     }
 
 
     @Override
     protected void init()
     {
-        playAgain  = new Sprite(0, 1396, Assets.playAgain, game.getGraphics());
+        BlinkingEntity playAgain  = new BlinkingEntity(0, 1396, Assets.playAgain, game.getGraphics());
         addEntity(playAgain);
 
         Sprite gameOver  = new Sprite(0, 364, Assets.gameOver, game.getGraphics());
@@ -44,25 +46,7 @@ public class GameOverState extends GameState
     @Override
     public void update(float deltaTime)
     {
-        oscillateAlpha(playAgain, deltaTime);
         super.update(deltaTime);
-    }
-
-
-    private void oscillateAlpha(Sprite sprite, float deltaTime)
-    {
-        float alphaIncrement = 0.8f;
-        float alpha = sprite.getAlpha();
-
-        if(alphaUp)
-            alpha += alphaIncrement * deltaTime;
-        else
-            alpha -= alphaIncrement * deltaTime;
-
-        if(alpha < 0.0f || alpha > 1.0f)
-            alphaUp = !alphaUp;
-
-        sprite.setAlpha(alpha);
     }
 
     @Override

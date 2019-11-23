@@ -22,9 +22,9 @@ public abstract class GameState
     {
         this.game = game;
         this.entities = new ArrayList<>();
-        init();
-
         this.entities.addAll(entities);
+        System.out.println(entities.size());
+//        init();
     }
 
     protected abstract void init();

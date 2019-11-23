@@ -8,8 +8,10 @@ import es.ucm.fdi.switchdash.logic.Assets;
 
 public class ArrowsBG extends Sprite
 {
-    public ArrowsBG(float posX, float posY, Image image, Graphics graphics) {
+    float _speed;
+    public ArrowsBG(float posX, float posY, Image image, Graphics graphics, float speed) {
         super(posX, posY, image, graphics);
+        _speed = speed;
     }
 
     @Override
@@ -17,8 +19,11 @@ public class ArrowsBG extends Sprite
     {
         super.update(deltaTime);
 
-        posY  = posY+430 * deltaTime;
+        posY  = posY+_speed * deltaTime;
         if(posY >= -10)
             posY = -Assets.arrowsBackground.getHeight()/5;
     }
+
+    public void setSpeed(float speed){ _speed = speed; }
+    public float getSpeed(){ return _speed; }
 }

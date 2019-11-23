@@ -27,17 +27,16 @@ public class InstructionsState extends GameState {
         Sprite title = new Sprite(0, 290, Assets.howToPlay, game.getGraphics());
         addEntity(title);
 
+        Sprite instructions = new Sprite(0, 768, Assets.instructions, game.getGraphics());
+        addEntity(instructions);
+
         List<Entity> ents = new ArrayList<>();
         ents.add(background);
 
         MainMenuButton mainMenuButton = new MainMenuButton(900,30, game.getGraphics(), game, ents);
 
-        Sprite instructions = new Sprite(0, 768, Assets.instructions, game.getGraphics());
-        addEntity(instructions);
-
         BlinkingEntity tapToPlay= new BlinkingEntity(0, 1464, Assets.tapToPlay, game.getGraphics());
         addEntity(tapToPlay);
-
 
         for (Entity e: entities)
             e.setCenteredX();
@@ -49,7 +48,7 @@ public class InstructionsState extends GameState {
     public void update(float deltaTime){
         super.update(deltaTime);
     }
-    
+
     @Override
     public void render(float deltaTime)
     {

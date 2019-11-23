@@ -41,6 +41,6 @@ public class LoadingState extends GameState
     public void update(float deltaTime)
     {
         // Loading Screen
-        game.setState(new MainMenuState(game));
+        game.setState(new PlayState(game));
     }
 }

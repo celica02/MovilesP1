@@ -16,15 +16,15 @@ public class Background extends EntitiesGroup {
 
     Integer[] clearColors = new Integer[]{0x41a85f, 0x00a885, 0x3d8eb9, 0x2969b0, 0x553982, 0x28324e, 0xf37934, 0xd14b41, 0x75706b};
     int _color;
-    float arrowsHeight;
-    private float speed;
+    private float _speed;
+    ArrowsBG arrowsBackground;
 
     public Background(float arrowSpeed, Graphics graphics)
     {
         super(graphics);
         entities = new ArrayList<>();
+        _speed = arrowSpeed;
         init();
-        speed = arrowSpeed;
 
     }
 
@@ -35,7 +35,7 @@ public class Background extends EntitiesGroup {
         bgColor.setDestRect(new MyRect(0,0, Assets.arrowsBackground.getWidth(), Assets.arrowsBackground.getHeight()));
         addEntity(bgColor);
 
-        ArrowsBG arrowsBackground = new ArrowsBG(0, -Assets.arrowsBackground.getHeight()/5, Assets.arrowsBackground, g);
+        arrowsBackground = new ArrowsBG(0, -Assets.arrowsBackground.getHeight()/5, Assets.arrowsBackground, g, _speed);
         arrowsBackground.setAlpha(0.7f);
         addEntity(arrowsBackground);
 
@@ -66,7 +66,12 @@ public class Background extends EntitiesGroup {
     }
 
 
-    public void setSpeed(float speed) { this.speed = speed; }
+    public void setSpeed(float speed) {
+        _speed = speed;
+        arrowsBackground.setSpeed(_speed);
+    }
+
+    public float getSpeed (){return arrowsBackground.getSpeed(); }
 
     @Override
     protected void handleKeyEvent(Input.KeyboardEvent e) {
