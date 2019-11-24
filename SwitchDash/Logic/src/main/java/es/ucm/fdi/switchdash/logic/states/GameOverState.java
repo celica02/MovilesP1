@@ -11,11 +11,13 @@ import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
-import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
 import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 import es.ucm.fdi.switchdash.logic.entities.Text;
 
+/**
+ * Estado de fin de partida
+ */
 public class GameOverState extends GameState
 {
    private Sprite flash;
@@ -25,12 +27,7 @@ public class GameOverState extends GameState
     private SoundButton soundButton;
     private int _points;
 
-    public GameOverState(Game game, int points)
-    {
-        super(game);
-        _points = points;
-    }
-
+    // ---------- CONSTRUTORA ---------- //
     public GameOverState(Game game, List<Entity> entities, int points)
     {
         super(game, entities);
@@ -72,7 +69,9 @@ public class GameOverState extends GameState
 
         addEntity(soundButton);
         addEntity(instructionsButton);
-    }
+    }//init
+
+    // ---------- FUNCIONES ---------- //
 
     @Override
     public void update(float deltaTime)
@@ -91,20 +90,34 @@ public class GameOverState extends GameState
     {
         super.handleInput(deltaTime);
 
-        if(touchEvents.size() > 0){ //Mira si se ha tocado la pantalla
+        //Comprueba si se ha tocado la pantalla
+        if(touchEvents.size() > 0){
             boolean entityTouched = false;
             boolean touched = false;
+
             int i = 0;
-            while(i < touchEvents.size() && !entityTouched){
-                if(touchEvents.get(i).type == Input.TouchEvent.DOWN){
+            //1. Recorre todos eventos mientras no se haya interaccionado con ningún botón
+            while(i < touchEvents.size() && !entityTouched)
+            {
+                //2. Comprueba que el evento sea de haber tocado la pantalla
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN)
+                {
+                    //Si es así guarda que se ha tocado la pantalla y comprueba si ha sido en algún botón
                     touched = true;
-                    if(instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) || soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
+
+                    if(instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) ||
+                            soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
                         entityTouched = true;
-                }//If comprobación tipo de evento
+                }//if
+
                 i++;
-            }//While de eventos
+
+            }//while
+
+            //3. Si se ha tocado la pantalla y no ha sido sobre ningún botón, cambia de estado
             if(!entityTouched &&touched)
                 game.setState(new PlayState(game));
-        }//If si hay eventos de haber tocado
+
+        }//if
     }//handleInput
 }

@@ -15,6 +15,9 @@ import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
 import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 
+/**
+ * Estado del menú principal
+ */
 public class MainMenuState extends GameState
 {
     private Flash flash;
@@ -22,6 +25,8 @@ public class MainMenuState extends GameState
     private SoundButton soundButton;
     private InstructionsButton instructionsButton;
     private List<Entity> ents;
+
+    // ---------- CONSTRUTORAS ---------- //
 
     public MainMenuState(Game game)
     {
@@ -65,7 +70,9 @@ public class MainMenuState extends GameState
 
         addEntity(soundButton);
         addEntity(instructionsButton);
-    }
+    }//init
+
+    // ---------- FUNCIONES ---------- //
 
     @Override
     public void update(float deltaTime){
@@ -85,22 +92,33 @@ public class MainMenuState extends GameState
     {
         super.handleInput(deltaTime);
 
+        //Comprueba si se ha tocado la pantalla
         if(touchEvents.size() > 0){
             boolean entityTouched = false;
             boolean touched = false;
+
             int i = 0;
-            while(i < touchEvents.size() && !entityTouched){
-                if(touchEvents.get(i).type == Input.TouchEvent.DOWN){
+            //1. Recorre todos eventos mientras no se haya interaccionado con ningún botón
+            while(i < touchEvents.size() && !entityTouched)
+            {
+                //2. Comprueba que el evento sea de haber tocado la pantalla
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN)
+                {
+                    //Si es así guarda que se ha tocado la pantalla y comprueba si ha sido en algún botón
                     touched = true;
-                    if(soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) || instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
+
+                    if(soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) ||
+                            instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
                         entityTouched = true;
-                }//If comprobación tipo de evento
+                }//if
+
                 i++;
-            }//While de eventos
 
+            }//while
 
+            //3. Si se ha tocado la pantalla y no ha sido sobre ningún botón, cambia de estado
             if(!entityTouched && touched)
                 game.setState(new InstructionsState(game, ents));
-        }
-    }
+        }//if
+    }//handleInput
 }

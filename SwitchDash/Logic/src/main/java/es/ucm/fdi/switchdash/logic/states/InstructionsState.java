@@ -14,11 +14,15 @@ import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
 import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.MainMenuButton;
 
+/**
+ * Estado de las instrucciones
+ */
 public class InstructionsState extends GameState {
 
     private Background background;
     private MainMenuButton mainMenuButton;
 
+    // ---------- CONSTRUTORA ---------- //
     public InstructionsState(Game game, List<Entity> entities) {
         super(game, entities);
         background = (Background)entities.get(0);
@@ -51,6 +55,9 @@ public class InstructionsState extends GameState {
         addEntity(mainMenuButton);
     }//init
 
+
+    // ---------- FUNCIONES ---------- //
+
     @Override
     public void update(float deltaTime){
         super.update(deltaTime);
@@ -68,22 +75,35 @@ public class InstructionsState extends GameState {
     {
         super.handleInput(deltaTime);
 
-        if(touchEvents.size() > 0){
+        //Comprueba si se ha tocado la pantalla
+        if(touchEvents.size() > 0)
+        {
             boolean entityTouched = false;
             boolean touched = false;
             int i = 0;
+
+            //1. Recorre todos eventos mientras no se haya interaccionado con el botón
             while(i < touchEvents.size() && !entityTouched){
-                if(touchEvents.get(i).type == Input.TouchEvent.DOWN){
+
+                //2. Comprueba que el evento sea de haber tocado la pantalla
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN)
+                {
+                    //Si es así guarda que se ha tocado la pantalla y comprueba si ha sido en el botón
                     touched = true;
+
                     if(mainMenuButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
                         entityTouched = true;
-                }//If comprobación tipo de evento
+                }//if
+
                 i++;
+
             }//While de eventos
 
 
+            //3. Si se ha tocado la pantalla y no ha sido sobre ningún botón, cambia de estado
             if(!entityTouched &&touched)
                 game.setState(new PlayState(game));
-        }//If si hay eventos de haber tocado
+
+        }//if
     }//handleInput
-}//clase
+}

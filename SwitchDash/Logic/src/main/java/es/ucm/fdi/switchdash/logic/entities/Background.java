@@ -9,9 +9,11 @@ import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
-import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 
+/**
+ * Clase que gestiona los elementos del fondo (color del clear, las flechas y su color de fondo)
+ */
 public class Background extends EntitiesGroup {
 
     Integer[] clearColors = new Integer[]{0x41a85f, 0x00a885, 0x3d8eb9, 0x2969b0, 0x553982, 0x28324e, 0xf37934, 0xd14b41, 0x75706b};
@@ -19,6 +21,7 @@ public class Background extends EntitiesGroup {
     private float _speed;
     ArrowsBG arrowsBackground;
 
+    // ---------- CONSTRUCTORA ---------- //
     public Background(float arrowSpeed, Graphics graphics)
     {
         super(graphics);
@@ -40,6 +43,9 @@ public class Background extends EntitiesGroup {
         addEntity(arrowsBackground);
 
     }
+
+    // ---------- FUNCIONES ---------- //
+
     public void setColor(int color){
         _color = color;
     }
@@ -49,6 +55,16 @@ public class Background extends EntitiesGroup {
     public int getColor(){
         return _color;
     }
+
+
+
+    public void setSpeed(float speed) {
+        _speed = speed;
+        arrowsBackground.setSpeed(_speed);
+    }
+
+    public float getSpeed (){return arrowsBackground.getSpeed(); }
+
 
     @Override
     public void update(float deltaTime) {
@@ -65,13 +81,6 @@ public class Background extends EntitiesGroup {
         super.handleTouchEvent(e);
     }
 
-
-    public void setSpeed(float speed) {
-        _speed = speed;
-        arrowsBackground.setSpeed(_speed);
-    }
-
-    public float getSpeed (){return arrowsBackground.getSpeed(); }
 
     @Override
     protected void handleKeyEvent(Input.KeyboardEvent e) {

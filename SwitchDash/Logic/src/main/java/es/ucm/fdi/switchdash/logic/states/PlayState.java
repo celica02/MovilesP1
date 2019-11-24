@@ -70,7 +70,7 @@ public class PlayState extends GameState
 
         pointsTxt = new Points(game.getGraphics().getWidth() - 100, 100, game.getGraphics());
 
-        particlesManager = new ParticlesManager(1200, game.getGraphics());
+        particlesManager = new ParticlesManager(game.getGraphics());
         addEntity( particlesManager);
 
         for(Entity e : entities)

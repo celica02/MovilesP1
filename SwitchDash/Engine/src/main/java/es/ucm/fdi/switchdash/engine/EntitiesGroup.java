@@ -5,9 +5,13 @@ import java.util.List;
 public class EntitiesGroup extends Entity {
     protected List<Entity> entities;
 
+    // ---------- CONSTRUCTORA ---------- //
+
     public EntitiesGroup(Graphics graphics) {
         super(graphics);
     }
+
+    // ---------- FUNCIONES ---------- //
 
     @Override
     public void updateEntity(float deltaTime) {

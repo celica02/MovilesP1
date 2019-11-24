@@ -53,7 +53,7 @@ public class BallManager extends Entity
     private void spawnBall()
     {
         Ball ball;
-        // 1) Miramos si la pool de pelotas inactivas no está vacía para reutiizar una de ellas
+        // 1) Miramos si la pool de pelotas inactivas no está vacía para reutilizar una de ellas
         if(!pool.isEmpty())
         {
             ball = pool.getFirst(); pool.remove();
