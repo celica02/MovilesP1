@@ -58,8 +58,14 @@ public class ParticlesManager extends Entity {
             particle.setVelocity(randomDirX(), randomDirY());
         }
         // Si no hubiera, entonces simplemente creamos una nueva.
-        else
+        else {
             particle = new Particle(posX, _posY, randomDirX(),randomDirY(), Assets.balls, g, 2, 10);
+
+            //Establece una escala más pequeña a la partícula
+            float a = (float)Math.random() + 1;
+            particle.setHeight(particle.getHeight()/a);
+            particle.setWidth(particle.getWidth()/a);
+        }
 
         // 2) Creamos la nueva partícula.
         newParticle(particle, color, _posY);
@@ -86,8 +92,7 @@ public class ParticlesManager extends Entity {
     }
 
     /**
-     * Crea y resetea la patícula con el color y la posición oportunos. Y la escala más pequeña,
-     * a un tamaño aleatorio entre el tamaño actual y la mitad
+     * Crea y resetea la patícula con el color y la posición oportunos
      *
      * @param particle partícula a resetear
      * @param color color de la partícula
@@ -103,10 +108,6 @@ public class ParticlesManager extends Entity {
         particle.setPosY(posY);
 
         particle.setAlpha(0.5f);
-
-        float a = (float)Math.random() + 1;
-        particle.setHeight(particle.getHeight()/a);
-        particle.setWidth(particle.getWidth()/a);
     }
 
     /**
