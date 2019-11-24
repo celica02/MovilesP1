@@ -22,15 +22,12 @@ public class PlayState extends GameState
     private BallManager ballMgr;
     private Player player;
     private Points pointsTxt;
-//    private Text pointsTxt;
-    private int points = 0;
+
+    private int ballCounter = 0;
 
     private boolean gameOver = false;
 
-    private float speed;
-    private float maxSpeed;
     private float speedIncrement;
-    private float timeToReach;
 
     private float gameOverTime;
 
@@ -42,21 +39,16 @@ public class PlayState extends GameState
     @Override
     protected void init()
     {
-         speed = 384;
-         maxSpeed = 1800;
-         timeToReach = 20;
-
-         speedIncrement = (maxSpeed - speed) / timeToReach;
-
+         speedIncrement = 90;
          gameOverTime = 2;
 
-        background = new Background(speed, game.getGraphics());
+        background = new Background(384, game.getGraphics());
         addEntity(background);
 
         player = new Player(0, 1200, Assets.players, game.getGraphics(), 2, 1);
         addEntity(player);
 
-        ballMgr = new BallManager(1f, 0.2f, timeToReach, speed,0, player, game.getGraphics(), this);
+        ballMgr = new BallManager(430, 395, 0, player, game.getGraphics(), this);
         addEntity(ballMgr);
 
         pointsTxt = new Points(game.getGraphics().getWidth() - 100, 100, game.getGraphics());
@@ -65,21 +57,12 @@ public class PlayState extends GameState
             e.setCenteredX();
 
         addEntity(pointsTxt);
-
-        speed = 450;
     }
 
     @Override
     public void update(float deltaTime)
     {
         super.update(deltaTime);
-
-        if(speed < maxSpeed)
-        {
-            speed += (speedIncrement * deltaTime);
-            background.setSpeed(speed);
-            ballMgr.setSpeed(speed);
-        }
 
         if (!gameOver)
             checkCollision(ballMgr.getNextBall());
@@ -115,6 +98,12 @@ public class PlayState extends GameState
             {
                 ballMgr.ballDestroyed(b);
                 pointsTxt.increasePoints(1);
+
+                if(pointsTxt.getPoints() % 10 == 0)
+                {
+                    background.setSpeed(background.getSpeed() + speedIncrement);
+                    ballMgr.setSpeed(ballMgr.getSpeed() + speedIncrement);
+                }
             }
         }
     }

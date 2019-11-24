@@ -13,12 +13,7 @@ import es.ucm.fdi.switchdash.logic.Assets;
 public class BallManager extends Entity
 {
     private float speed;
-
-    private float spawnTime;
-    private float minSpawnTime;
-    private float spawnCounter;
-    private float increment;
-
+    private float ballDistance;
 
     private float spawnPosY;
 
@@ -30,19 +25,18 @@ public class BallManager extends Entity
 
     private Deque<Ball> balls = new ArrayDeque<>();
 
-    public BallManager(float spawnTime, float minSpawnTime, float timeToReach, float ballSpeed, float spawnPos, Entity p, Graphics graphics, GameState gameState)
+    public BallManager(float ballSpeed, float distanceDiff, float spawnPos, Entity p, Graphics graphics, GameState gameState)
     {
         super(graphics);
-        this.spawnTime = spawnTime;
-        this.minSpawnTime = minSpawnTime;
-        spawnCounter = 0;
 
-        increment = (spawnTime - minSpawnTime) / timeToReach;
         speed = ballSpeed;
+        ballDistance = distanceDiff;
 
         spawnPosY = spawnPos;
 
         state = gameState;
+
+        spawnBall();
     }
 
     private void spawnBall()
@@ -52,6 +46,7 @@ public class BallManager extends Entity
         {
             ball = pool.getFirst(); pool.remove();
             ball.reset(0, spawnPosY);
+            ball.setSpeed(speed);
         }
         else
             ball = new Ball(0, spawnPosY, speed, Assets.balls, g, 2, 10);
@@ -94,36 +89,25 @@ public class BallManager extends Entity
         return lastColour = a < 0.7 ? lastColour : newC;
     }
 
-    private void spawnTimer(float deltaTime)
+    private void spawnTimer()
     {
-        spawnCounter -= deltaTime;
+        float pos =  balls.getLast().getPosY();
 
-        if(spawnCounter <= 0)
-        {
-            spawnCounter = spawnTime;
+        if(pos >= ballDistance + spawnPosY)
             spawnBall();
-        }
     }
 
-    private void speedUp(float deltaTime)
-    {
-        if(spawnTime > minSpawnTime)
-        spawnTime -= (increment * deltaTime);
-    }
 
-    public void setSpeed(float speed) { this.speed = speed; }
+    public void setSpeed(float speed) { this.speed = speed;   for (Ball b: balls)  b.setSpeed(speed); }
+    public float getSpeed() { return speed; }
 
     @Override
     public void updateEntity(float deltaTime)
     {
         for (Ball b: balls)
-        {
-            b.setSpeed(speed);
             b.updateEntity(deltaTime);
-        }
 
-        spawnTimer(deltaTime);
-        speedUp(deltaTime);
+        spawnTimer();
     }
 
     @Override

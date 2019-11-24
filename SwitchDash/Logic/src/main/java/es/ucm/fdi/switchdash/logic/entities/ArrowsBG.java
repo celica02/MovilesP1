@@ -20,6 +20,7 @@ public class ArrowsBG extends Sprite
         super.update(deltaTime);
 
         posY  = posY+_speed * deltaTime;
+
         if(posY >= -10)
             posY = -Assets.arrowsBackground.getHeight()/5;
     }
