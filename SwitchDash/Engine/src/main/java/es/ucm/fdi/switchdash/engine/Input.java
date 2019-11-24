@@ -2,15 +2,14 @@ package es.ucm.fdi.switchdash.engine;
 import java.util.List;
 
 /**
- * Provides basic input functionalities. The game does not require
- * a complex interface, so only screen touch (or mouse click) is used in this case.
+ * Provee funcionalidades básicas para el input.
  */
 public interface Input
 {
 
     /**
-     * Represents screen touch (or mouse event) information.
-     * Indicates which type (touch, release, drag), position, and identifier of the "finger" (or button).
+     * Representa la información de los eventos de pulsación (o de click del ratón)
+     * Indica el tipo (touch, release, drag), la posición, y el identificador del "dedo" (o el botón).
      */
     class TouchEvent
     {
@@ -24,6 +23,9 @@ public interface Input
         public int x, y;
     }
 
+    /**
+     * Representa la información de los eventos de teclado (pulsación de teclas).
+     */
      class KeyboardEvent
     {
         public static final int KEY_DOWN = 0;
@@ -36,10 +38,11 @@ public interface Input
 
 
     /**
-     *
-     * @return the list of events received since the last invocation
+     * @return la lista de eventos de pulsación recibidos desde la última invocación
      */
     List<TouchEvent> getTouchEvents();
-
+    /**
+     * @return la lista de eventos de teclado recibidos desde la última invocación
+     */
     List<KeyboardEvent> getKeyEvents();
 }

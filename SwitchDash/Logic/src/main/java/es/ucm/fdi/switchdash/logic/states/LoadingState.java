@@ -6,6 +6,9 @@ import es.ucm.fdi.switchdash.engine.Graphics;
 
 import es.ucm.fdi.switchdash.logic.Assets;
 
+/**
+ * Estado para la carga de recursos intermedia.
+ */
 public class LoadingState extends GameState
 {
 

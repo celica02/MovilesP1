@@ -4,6 +4,10 @@ import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 
+
+/**
+ * Entidad que simula un "flashazo" en toda ventana
+ */
 public class Flash extends BlinkingEntity
 {
 
@@ -19,8 +23,6 @@ public class Flash extends BlinkingEntity
 
         iniAlpha = alpha = 0.0f;
         alphaChange = 20.0f;
-
-        boolean cycle = false;
     }
 
     @Override

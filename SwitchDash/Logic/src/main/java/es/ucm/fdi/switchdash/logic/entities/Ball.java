@@ -5,14 +5,15 @@ import es.ucm.fdi.switchdash.engine.Image;
 import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
 
+/**
+ * Pelota que cae verticalmente a una velocidad específica
+ */
 public class Ball extends SpriteSheet
 {
-
-    float scaleFactor = 1.0f;
-
     private float speed;
-    float speedUpTime = 0.1f;
-    float speedUpCounter = 0;
+
+
+    // ---------- CONSTRUCTORAS ---------- //
 
     public Ball(float posX, float posY, float ballSpeed, Image image, Graphics graphics, int nRows, int nCols) {
         super(posX, posY, image, graphics, nRows, nCols);
@@ -24,6 +25,8 @@ public class Ball extends SpriteSheet
 
         speed = ballSpeed;
     }
+
+    // ---------- FUNCIONES ---------- //
 
     @Override
     public void updateEntity(float deltaTime)

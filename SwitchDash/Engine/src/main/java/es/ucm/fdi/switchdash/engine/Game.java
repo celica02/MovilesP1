@@ -1,26 +1,35 @@
 package es.ucm.fdi.switchdash.engine;
 
 /**
- * Interface that brings together all other interfaces.
+     * Interfaz que aglomera todas las demás interfaces
  */
 public interface Game
 {
     /**
-     *
-     * @return the graphics engine instance
+     * @return la instancia del motor gráfico
      */
-    public Graphics getGraphics();
+    Graphics getGraphics();
 
     /**
-     *
-     * @return the input manager instance
+     * @return la instancia del Input manager
      */
-    public Input getInput();
+    Input getInput();
 
 
-    public FileIO getFileIO();
+    FileIO getFileIO();
 
-    public GameState getStartState();
-    public  GameState getCurrentState();
-    public void setState(GameState state);
+    /**
+     * @return el estado de comienzo de la app.
+     */
+    GameState getStartState();
+    /**
+     * @return el estado actual corriendo en la app.
+     */
+    GameState getCurrentState();
+    /**
+     * Selecciona el nuevo estado que va a correr la app.
+     *
+     * @param state el estado nuevo que se va a ejecutar
+     */
+    void setState(GameState state);
 }
