@@ -39,6 +39,16 @@ public class BallManager extends Entity
         spawnBall();
     }
 
+    public BallManager( float spawnPos, Graphics graphics)
+    {
+        super(graphics);
+
+
+        spawnPosY = spawnPos;
+
+        spawnBall();
+    }
+
     private void spawnBall()
     {
         Ball ball;

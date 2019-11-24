@@ -29,8 +29,6 @@ public class Ball extends SpriteSheet
     public void updateEntity(float deltaTime)
     {
         posY  = posY + speed * deltaTime;
-
-//        System.out.println("Speed: " + speed);
     }
 
     public void setSpeed(float s) { speed = s; }

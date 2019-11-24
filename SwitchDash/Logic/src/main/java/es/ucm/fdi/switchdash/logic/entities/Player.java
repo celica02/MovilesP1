@@ -1,10 +1,7 @@
 package es.ucm.fdi.switchdash.logic.entities;
 
-import java.util.List;
-
 import es.ucm.fdi.switchdash.engine.Graphics;
 import es.ucm.fdi.switchdash.engine.Image;
-import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 import es.ucm.fdi.switchdash.engine.Input.KeyboardEvent;
 import es.ucm.fdi.switchdash.engine.SpriteSheet;
 
