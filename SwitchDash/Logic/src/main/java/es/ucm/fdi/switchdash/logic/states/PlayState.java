@@ -13,6 +13,7 @@ import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallManager;
 import es.ucm.fdi.switchdash.logic.entities.Flash;
+import es.ucm.fdi.switchdash.logic.entities.ParticlesManager;
 import es.ucm.fdi.switchdash.logic.entities.Player;
 import es.ucm.fdi.switchdash.logic.entities.Points;
 import es.ucm.fdi.switchdash.logic.entities.Text;
@@ -28,6 +29,7 @@ public class PlayState extends GameState
     private BallManager ballMgr;
     private Player player;
     private Points pointsTxt;
+    private ParticlesManager particlesManager;
 
     private int ballCounter = 0;
 
@@ -67,6 +69,9 @@ public class PlayState extends GameState
         addEntity(ballMgr);
 
         pointsTxt = new Points(game.getGraphics().getWidth() - 100, 100, game.getGraphics());
+
+        particlesManager = new ParticlesManager(1200, game.getGraphics());
+        addEntity( particlesManager);
 
         for(Entity e : entities)
             e.setCenteredX();
@@ -112,6 +117,7 @@ public class PlayState extends GameState
             {
                 ballMgr.ballDestroyed(b);
                 pointsTxt.increasePoints(1);
+                particlesManager.createParticles( b.getPosY() + (b.getHeight())/2, b.getCurrentColor());
 
                 // c) Por último, hacemos que cada 10 pelotas destruidas aumente la velocidad de las mismas
                 if(pointsTxt.getPoints() % 10 == 0)
