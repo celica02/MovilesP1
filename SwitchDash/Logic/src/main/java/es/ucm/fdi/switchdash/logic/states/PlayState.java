@@ -7,10 +7,12 @@ import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
 import es.ucm.fdi.switchdash.engine.Input;
+import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.Ball;
 import es.ucm.fdi.switchdash.logic.entities.BallManager;
+import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.Player;
 import es.ucm.fdi.switchdash.logic.entities.Points;
 import es.ucm.fdi.switchdash.logic.entities.Text;
@@ -36,11 +38,18 @@ public class PlayState extends GameState
         super(game);
     }
 
+    public PlayState(Game game, List<Entity> entities) {
+        super(game, entities);
+    }
+
     @Override
     protected void init()
     {
          speedIncrement = 90;
          gameOverTime = 2;
+
+        Flash flash = new Flash(game.getGraphics());
+        addEntity(flash);
 
         background = new Background(384, game.getGraphics());
         addEntity(background);
@@ -58,6 +67,7 @@ public class PlayState extends GameState
 
         addEntity(pointsTxt);
     }
+
 
     @Override
     public void update(float deltaTime)

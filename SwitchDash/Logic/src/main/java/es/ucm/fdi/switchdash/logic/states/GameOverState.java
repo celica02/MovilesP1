@@ -11,12 +11,15 @@ import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
+import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
 import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 import es.ucm.fdi.switchdash.logic.entities.Text;
 
 public class GameOverState extends GameState
 {
+   private Sprite flash;
+
     private Background background;
     private InstructionsButton instructionsButton;
     private SoundButton soundButton;
@@ -40,6 +43,9 @@ public class GameOverState extends GameState
     @Override
     protected void init()
     {
+        flash = new Sprite(0,0, game.getGraphics().getWidth(), game.getGraphics().getHeight(), Assets.white, Assets.white.getFullRect(), game.getGraphics());
+        flash.setVisible(false);
+
         BlinkingEntity playAgain  = new BlinkingEntity(0, 1396, Assets.playAgain, game.getGraphics());
         addEntity(playAgain);
 

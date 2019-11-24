@@ -11,6 +11,7 @@ import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
+import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.MainMenuButton;
 
 public class InstructionsState extends GameState {
@@ -27,6 +28,8 @@ public class InstructionsState extends GameState {
 
     @Override
     protected void init() {
+        Flash flash = new Flash(game.getGraphics());
+        addEntity(flash);
 
         Sprite title = new Sprite(0, 290, Assets.howToPlay, game.getGraphics());
         addEntity(title);

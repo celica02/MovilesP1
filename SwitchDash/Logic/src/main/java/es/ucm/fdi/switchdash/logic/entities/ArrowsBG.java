@@ -21,7 +21,7 @@ public class ArrowsBG extends Sprite
 
         posY  = posY+_speed * deltaTime;
 
-        if(posY >= -10)
+        if(posY >= 0)
             posY = -Assets.arrowsBackground.getHeight()/5;
     }
 

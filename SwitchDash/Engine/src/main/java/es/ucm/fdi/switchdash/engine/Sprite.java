@@ -18,6 +18,10 @@ public class Sprite extends Entity
 
 
 
+    public Sprite(Graphics graphics)
+    {
+        super(graphics);
+    }
 
     public Sprite(float posX, float posY, Image image, Graphics graphics)
     {

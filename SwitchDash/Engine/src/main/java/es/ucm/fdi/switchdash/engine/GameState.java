@@ -5,23 +5,20 @@ import es.ucm.fdi.switchdash.engine.Input.TouchEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameState
-{
+public abstract class GameState {
     protected final Game game;
 
     protected List<Entity> entities;
     protected List<TouchEvent> touchEvents;
     protected List<Input.KeyboardEvent> keyEvents;
 
-    public GameState(Game game)
-    {
+    public GameState(Game game) {
         this.game = game;
         entities = new ArrayList<>();
         init();
     }
 
-    public GameState(Game game, List<Entity> entities)
-    {
+    public GameState(Game game, List<Entity> entities) {
         this.game = game;
         this.entities = new ArrayList<>();
         this.entities.addAll(entities);
@@ -29,22 +26,21 @@ public abstract class GameState
 
     protected abstract void init();
 
-    public void update(float deltaTime)
-    {
-        for(int i = 0; i < entities.size(); i++)
+    public void update(float deltaTime) {
+        for (int i = 0; i < entities.size(); i++)
             entities.get(i).update(deltaTime);
     }
-    public void render(float deltaTime)
-    {
-        for(int i = 0; i < entities.size(); i++)
+
+    public void render(float deltaTime) {
+        for (int i = 0; i < entities.size(); i++)
             entities.get(i).render(deltaTime);
     }
-    public void handleInput(float deltaTime)
-    {
+
+    public void handleInput(float deltaTime) {
         touchEvents = game.getInput().getTouchEvents();
         keyEvents = game.getInput().getKeyEvents();
 
-        for(int i = 0; i < entities.size(); i++)
+        for (int i = 0; i < entities.size(); i++)
             entities.get(i).handleInput(touchEvents, keyEvents, deltaTime);
     }
 
@@ -52,7 +48,6 @@ public abstract class GameState
         e.setID(entities.size());
         entities.add(e);
     }
-
 
     public void resume() {}
     public void pause() {}

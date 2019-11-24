@@ -11,6 +11,7 @@ import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
+import es.ucm.fdi.switchdash.logic.entities.Flash;
 import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
 import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 
@@ -52,6 +53,7 @@ public class MainMenuState extends GameState
 
         ents = new ArrayList<>();
         ents.add(background);
+        ents.add(new Flash(game.getGraphics()));
 
         instructionsButton = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
 
@@ -95,7 +97,7 @@ public class MainMenuState extends GameState
             }//While de eventos
 
 
-            if(!entityTouched &&touched)
+            if(!entityTouched && touched)
                 game.setState(new InstructionsState(game, ents));
         }
     }
