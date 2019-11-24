@@ -14,7 +14,7 @@ import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 public class DesktopGraphics extends AbstractGraphics
 {
-    private  final String assetsPath = "Assets/";
+    private  final String assetsPath = "assets/";
     private java.awt.Graphics canvas;
     private Window window;
 
