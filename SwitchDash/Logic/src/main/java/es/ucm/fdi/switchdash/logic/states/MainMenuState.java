@@ -17,8 +17,7 @@ import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 
 public class MainMenuState extends GameState
 {
-
-
+    private Flash flash;
     private Background background;
     private SoundButton soundButton;
     private InstructionsButton instructionsButton;
@@ -38,6 +37,9 @@ public class MainMenuState extends GameState
     @Override
     protected void init()
     {
+        flash = new Flash(game.getGraphics());
+        addEntity(flash);
+
         if(background == null){
             background = new Background(384, game.getGraphics());
             addEntity(background);

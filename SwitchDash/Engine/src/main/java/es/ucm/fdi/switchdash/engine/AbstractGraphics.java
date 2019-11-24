@@ -1,14 +1,25 @@
 package es.ucm.fdi.switchdash.engine;
 
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
+
+/**
+ * Capa intermedia para realizar la transformación de coordenadas de la ventana
+ */
 public abstract class AbstractGraphics implements Graphics
 {
-
+    // Resolución a mostrar en la ventana
     protected int resolutionWidth;
     protected int resolutionHeight;
 
     protected float lAspectRatio;
 
+
+    /**
+     * Obtiene la resolución lógica que se quiere mostrar en la ventana
+     *
+     * @param resWidth ancho lógico
+     * @param resHeight alto lógico
+     */
     public AbstractGraphics(int resWidth, int resHeight)
     {
         this.resolutionWidth = resWidth;
@@ -18,6 +29,12 @@ public abstract class AbstractGraphics implements Graphics
     }
 
 
+    /**
+     * Transforma coordenadas físicas en coordenadas lógicas en el eje X
+     *
+     * @param x el punto físico en el eje X a transformar
+     * @return el punto lógico en el eje X transformado
+     */
     public float logicX(float x)
     {
         float pAspectRatio = (float) getWindowHeight()/ getWindowWidth(); // Aspect ratio real de nuestra ventana
@@ -25,11 +42,12 @@ public abstract class AbstractGraphics implements Graphics
         float scale;
         int left = 0;
 
-        // Si nos sobra de alto
+        // Si nos sobra (o nos falta) de alto, entonces obtenemos la escala según el eje X, en el cual hay correspondencia de aspect ratio
         if(pAspectRatio > lAspectRatio)
             scale = (float)resolutionWidth / getWindowWidth();
 
-        // Si nos sobra de ancho
+        // Si nos sobra de ancho, entonces sería la situación contraria.
+        // También hacemos los cálculos para situar el punto centrado en la ventana
         else
         {
             scale = (float) resolutionHeight / getWindowHeight();
@@ -41,6 +59,12 @@ public abstract class AbstractGraphics implements Graphics
         return (x - left) * scale;
     }
 
+    /**
+     * Transforma coordenadas físicas en coordenadas lógicas en el eje Y
+     *
+     * @param y el punto físico en el eje Y a transformar
+     * @return el punto lógico en el eje Y transformado
+     */
     public float logicY(float y)
     {
         float pAspectRatio = (float) getWindowHeight()/ getWindowWidth(); // Aspect ratio real de nuestra ventana
@@ -48,7 +72,8 @@ public abstract class AbstractGraphics implements Graphics
         float scale;
         int top = 0;
 
-        // Si nos sobra de alto
+        // Si nos sobra de alto, entonces obtenemos la escala según el eje X, en el cual hay correspondencia de aspect ratio.
+        // También hacemos los cálculos para situar el punto centrado en la ventana
         if(pAspectRatio > lAspectRatio)
         {
             scale = (float) resolutionWidth / getWindowWidth();
@@ -56,43 +81,22 @@ public abstract class AbstractGraphics implements Graphics
 
             top = (int)(getWindowHeight()/2 - pHeightResolution/2);
         }
-        // Si nos sobra de ancho
+        // Si nos sobra (o nos falta) de ancho, entonces obtenemos la escala según el eje Y, en el cual hay correspondencia de aspect ratio
         else
             scale = (float) resolutionHeight / getWindowHeight();
 
         return (y - top) * scale;
     }
 
-    @Override
-    public void drawImage(Image image, int x, int y, float alpha)
-    {
-        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
-        MyRect dstRect = new MyRect(x, y, image.getWidth(), image.getHeight());
-
-        drawImagePrivate(image, srcRect, dstRect, alpha);
-    }
-
-    @Override
-    public void drawImage(Image image, MyRect dest, float alpha)
-    {
-        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        MyRect source = new MyRect(0, 0, image.getWidth(), image.getHeight());
-
-        drawImagePrivate(image, source, dest, alpha);
-    }
-
-    @Override
-    public void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, float alpha)
-    {
-
-        // Operación para cambiar de coordenadas logicas a coordenadas fisicas
-        MyRect srcRect = new MyRect(0, 0, image.getWidth(), image.getHeight());
-        MyRect dstRect = new MyRect(destX, destY, destWidth, destHeight);
-
-        drawImagePrivate(image,srcRect , dstRect, alpha);
-    }
-
+    /**
+     * Reescala las coordenadas para pasar de coordenandas lógicas a físicas,
+     * y luego pinta la imagen según el motor concreto
+     *
+     * @param image imagen a pintar
+     * @param source rect de origen de la imagen que pintaremos como tal
+     * @param dest rect de destino donde pintaremos el rect de origen escogido
+     * @param alpha transparencia con la que pintar la imagen
+     */
     @Override
     public void drawImage(Image image, MyRect source, MyRect dest, float alpha)
     {
@@ -130,16 +134,25 @@ public abstract class AbstractGraphics implements Graphics
             left = (int)(getWindowWidth()/2 - pWidthResolution/2);
         }
 
+        // 3) Situamos las coordenadas de destino ya con los cálculos realizados
         dest.left = (int)(left + (dest.left * scale));
         dest.right = (int)(left + (dest.right * scale));
 
         dest.top = (int)(top + (dest.top * scale));
         dest.bottom = (int)(top + (dest.bottom * scale));
 
+        // 4) Por último, pintamos la imagen como tal
         drawImagePrivate(image, source, dest, alpha);
     }
 
 
-    //abstract public void drawImagePrivate(Image image, int srcX, int srcY, int srcWidth, int srcHeight, int dstX, int dstY, int dstWidth, int destHeight, int alpha);
+    /**
+     * Llama al pintado de imagen del motor concreto que lo va a redefinir
+     *
+     * @param image imagen a pintar
+     * @param src rect de origen de la imagen que pintaremos como tal
+     * @param dst rect de destino donde pintaremos el rect de origen escogido
+     * @param alpha transparencia con la que pintar la imagen
+     */
     abstract public void drawImagePrivate(Image image, MyRect src, MyRect dst, float alpha);
 }

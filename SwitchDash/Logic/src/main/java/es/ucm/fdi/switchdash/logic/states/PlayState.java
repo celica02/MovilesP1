@@ -17,6 +17,10 @@ import es.ucm.fdi.switchdash.logic.entities.Player;
 import es.ucm.fdi.switchdash.logic.entities.Points;
 import es.ucm.fdi.switchdash.logic.entities.Text;
 
+
+/**
+ * Estado de la partida.
+ */
 public class PlayState extends GameState
 {
     private Background background;
@@ -32,6 +36,8 @@ public class PlayState extends GameState
     private float speedIncrement;
 
     private float gameOverTime;
+
+    // ---------- CONSTRUTORAS ---------- //
 
     public PlayState(Game game)
     {
@@ -69,6 +75,8 @@ public class PlayState extends GameState
     }
 
 
+    // ---------- FUNCIONES ---------- //
+
     @Override
     public void update(float deltaTime)
     {
@@ -81,7 +89,45 @@ public class PlayState extends GameState
     }
 
 
+    /**
+     * Comprueba que haya colisión entre la primera pelota (la más baja) y el jugador.
+     *
+     * @param b última pelota
+     */
+    private void checkCollision(Ball b)
+    {
+        if (b.isActive() && player.isActive() && b.collides(player))
+        {
+            // 1) Miramos que sean del mismo color
 
+            // a) Si no lo son, acaba la partida
+            if(b.getCurrentColor() != player.getCurrentColor())
+            {
+                gameOver = true;
+                player.setActive(false);
+                player.setVisible(false);
+            }
+            // b) Si lo son, entonces destruimos la pelota e incrementamos los puntos
+            else
+            {
+                ballMgr.ballDestroyed(b);
+                pointsTxt.increasePoints(1);
+
+                // c) Por último, hacemos que cada 10 pelotas destruidas aumente la velocidad de las mismas
+                if(pointsTxt.getPoints() % 10 == 0)
+                {
+                    background.setSpeed(background.getSpeed() + speedIncrement);
+                    ballMgr.setSpeed(ballMgr.getSpeed() + speedIncrement);
+                }
+            }
+        }
+    }
+
+    /**
+     * Espera unos segundos y luego termina la partida.
+     *
+     * @param deltaTime delta time del juego
+     */
     private void gameOver(float deltaTime)
     {
         gameOverTime -= deltaTime;
@@ -94,29 +140,7 @@ public class PlayState extends GameState
     }
 
 
-    private void checkCollision(Ball b)
-    {
-        if (b.isActive() && player.isActive() && b.collides(player))
-        {
-            if(b.getCurrentColor() != player.getCurrentColor())
-            {
-                gameOver = true;
-                player.setActive(false);
-                player.setVisible(false);
-            }
-            else
-            {
-                ballMgr.ballDestroyed(b);
-                pointsTxt.increasePoints(1);
 
-                if(pointsTxt.getPoints() % 10 == 0)
-                {
-                    background.setSpeed(background.getSpeed() + speedIncrement);
-                    ballMgr.setSpeed(ballMgr.getSpeed() + speedIncrement);
-                }
-            }
-        }
-    }
 
     @Override
     public void render(float deltaTime)
@@ -124,22 +148,4 @@ public class PlayState extends GameState
         game.getGraphics().clear(background.getColor());
         super.render(deltaTime);
     }
-
-    @Override
-    public void handleInput(float deltaTime)
-    {
-        super.handleInput(deltaTime);
-
-        if(touchEvents.size() > 0){ //Mira si se ha tocado la pantalla
-            boolean touched = false;
-            int i = 0;
-            while(i < touchEvents.size() && !touched){
-                if(touchEvents.get(i).type == Input.TouchEvent.DOWN) {
-                    touched = true;
-                    player.changeColor();
-                }
-                i++;
-            }
-        }//if
-    }//handleInput
 }

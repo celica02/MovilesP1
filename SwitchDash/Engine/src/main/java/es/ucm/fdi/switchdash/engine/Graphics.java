@@ -3,60 +3,33 @@ package es.ucm.fdi.switchdash.engine;
 import es.ucm.fdi.switchdash.engine.utils.MyRect;
 
 /**
- *  Provides the minimum graphic functionalities on the application window.
+ * Provee las funcionalidades gráficas mínimas en la aplicación de la ventana.
  */
 
 public interface Graphics
 {
     /**
-     * Loads an image from its name stored in the application's resource container.
+     * Carga una imagen dado el nombre del archivo.
      *
-     * @param pathname the pathname of the image to load
-     * @return the loaded image
+     * @param pathname el pathname de la imagen a cargar
+     * @return la imagen cargada
      */
     Image newImage(String pathname);
 
-
     /**
-     * Draws the entire image.
+     * Pinta la imagen dada (o parte de ella).
      *
-     * @param image the image to draw
-     * @param x the destiny x
-     * @param y the destiny y
-     */
-    public void drawImage(Image image, int x, int y, float alpha);
-
-    /**
-     *
-     * @param image
-     * @param dest
-     */
-    void drawImage(Image image, MyRect dest, float alpha);
-
-    /**
-     *
-     * @param image
-     * @param destX
-     * @param destY
-     * @param destWidth
-     * @param destHeight
-     */
-    void drawImage(Image image, int destX, int destY, int destWidth, int destHeight, float alpha);
-
-    /**
-     * Draws a given part of the image.
-     *  @param image the image to draw
-     * @param source the source rect from the image which will be drawn
-     * @param dest the dest rect where will be drawn
-     * @param alpha
+     * @param image la imagen a pintar
+     * @param source el rect de la imagen que queremos pintar como tal
+     * @param dest el rect destino donde pintaremos el rect de origen escogido
+     * @param alpha la transparencia con la que pintaremos la imagen
      */
     void drawImage(Image image, MyRect source, MyRect dest, float alpha);
 
-
     /**
-     * Deletes the entire contents of the window, filling it with a color received as a parameter.
+     * Borra por completo el contenido de la ventana, y lo rellena con un color dado.
      *
-     * @param color: the color with which to fill the screen
+     * @param color el color con el que rellenar la ventana
      */
     void clear(int color);
 
@@ -64,22 +37,38 @@ public interface Graphics
     void dispose();
 
     /**
-     *
-     * @return the width of the window
+     * @return el ancho físico de la ventana
      */
     int getWindowWidth();
-
     /**
      *
-     * @return  the height of the window
+     * @return el alto físico de la ventana
      */
     int getWindowHeight();
 
 
+    /**
+     * @return el ancho lógico de la ventana
+     */
     int getWidth();
+    /**
+     * @return el alto lógico de la ventana
+     */
     int getHeight();
 
 
+    /**
+     * Transforma coordenadas físicas en coordenadas lógicas en el eje X
+     *
+     * @param x el punto físico en el eje X a transformar
+     * @return el punto lógico en el eje X transformado
+     */
     float logicX(float x);
+    /**
+     * Transforma coordenadas físicas en coordenadas lógicas en el eje Y
+     *
+     * @param y el punto físico en el eje Y a transformar
+     * @return el punto lógico en el eje Y transformado
+     */
     float logicY(float y);
 }

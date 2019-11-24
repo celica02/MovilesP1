@@ -27,6 +27,7 @@ public class DesktopGraphics extends AbstractGraphics
         this.window = window;
     }
 
+
     public Image newImage(String pathname){
         try {
             java.awt.Image img = javax.imageio.ImageIO.read(new File(assetsPath + pathname));
@@ -55,9 +56,7 @@ public class DesktopGraphics extends AbstractGraphics
     public int getHeight() { return resolutionHeight; }
 
 
-
     public void setGraphics(java.awt.Graphics g) { canvas = g; }
-
 
     @Override
     public void drawImagePrivate(Image image, MyRect src, MyRect dst, float alpha)
