@@ -23,12 +23,11 @@ public class Player extends SpriteSheet
     @Override
     protected void handleTouchEvent(TouchEvent e)
     {
-       if(e.type == TouchEvent.DOWN)
-           {
-               currentColor = currentColor == 0 ? 1: 0;
+       if(e.type == TouchEvent.DOWN){
+           currentColor = currentColor == 0 ? 1: 0;
 
-               setActiveSprite(currentColor, activeCol);
-           }
+            setActiveSprite(currentColor, activeCol);
+       }
     }
 
 
@@ -37,6 +36,19 @@ public class Player extends SpriteSheet
         super.handleKeyEvent(e);
     }
 
+    public void changeColor(){
+        currentColor = (currentColor == 0 ? 0: 1);
+
+        setActiveSprite(currentColor, activeCol);
+
+    }
+    public void setCurrentColor(int color){
+        currentColor = color;
+//        System.out.println(currentColor);
+
+
+        setActiveSprite(currentColor, activeCol);
+    }
 
     public int getCurrentColor() { return currentColor; }
 

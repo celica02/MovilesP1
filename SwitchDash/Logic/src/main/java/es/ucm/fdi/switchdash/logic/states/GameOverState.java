@@ -6,24 +6,21 @@ import java.util.List;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
+import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.BlinkingEntity;
 import es.ucm.fdi.switchdash.logic.entities.InstructionsButton;
-import es.ucm.fdi.switchdash.logic.entities.Points;
 import es.ucm.fdi.switchdash.logic.entities.SoundButton;
 import es.ucm.fdi.switchdash.logic.entities.Text;
 
 public class GameOverState extends GameState
 {
     private Background background;
-    private Sprite playAgain;
+    private InstructionsButton instructionsButton;
+    private SoundButton soundButton;
     private int _points;
-
-    private boolean alphaUp;
-
-
 
     public GameOverState(Game game, int points)
     {
@@ -55,20 +52,20 @@ public class GameOverState extends GameState
         addEntity(points);
         addEntity(pointsTxt);
 
-        SoundButton sound = new SoundButton(30, 30, game.getGraphics());
+        soundButton = new SoundButton(30, 30, game.getGraphics());
 
 
         List<Entity> ents = new ArrayList<>();
         ents.add(background);
 
-        InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
+        instructionsButton = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
 
 
         for (Entity e: entities)
             e.setCenteredX();
 
-        addEntity(sound);
-        addEntity(instructions);
+        addEntity(soundButton);
+        addEntity(instructionsButton);
     }
 
     @Override
@@ -80,7 +77,28 @@ public class GameOverState extends GameState
     @Override
     public void render(float deltaTime)
     {
-        game.getGraphics().clear(0x0000FF00);
+        game.getGraphics().clear(background.getColor());
         super.render(deltaTime);
     }
+    @Override
+    public void handleInput(float deltaTime)
+    {
+        super.handleInput(deltaTime);
+
+        if(touchEvents.size() > 0){ //Mira si se ha tocado la pantalla
+            boolean entityTouched = false;
+            boolean touched = false;
+            int i = 0;
+            while(i < touchEvents.size() && !entityTouched){
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN){
+                    touched = true;
+                    if(instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) || soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
+                        entityTouched = true;
+                }//If comprobación tipo de evento
+                i++;
+            }//While de eventos
+            if(!entityTouched &&touched)
+                game.setState(new PlayState(game));
+        }//If si hay eventos de haber tocado
+    }//handleInput
 }

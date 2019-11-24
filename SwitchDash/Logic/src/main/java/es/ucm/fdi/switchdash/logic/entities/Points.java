@@ -26,7 +26,6 @@ public class Points extends Text {
     @Override
     public void setPositionX(float _posX){
         posX = _posX;
-        System.out.println(_posX);
 
         for(int i = entities.size() - 1; i >= 0; i--){
             entities.get(i).setPosX(_posX);

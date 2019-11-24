@@ -6,6 +6,7 @@ import java.util.List;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
+import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.engine.Sprite;
 import es.ucm.fdi.switchdash.logic.entities.Background;
@@ -18,6 +19,9 @@ public class MainMenuState extends GameState
 
 
     private Background background;
+    private SoundButton soundButton;
+    private InstructionsButton instructionsButton;
+    private List<Entity> ents;
 
     public MainMenuState(Game game)
     {
@@ -44,19 +48,19 @@ public class MainMenuState extends GameState
         BlinkingEntity tapToPlay = new BlinkingEntity(0,950,Assets.tapToPlay, game.getGraphics());
         addEntity(tapToPlay);
 
-        SoundButton sound = new SoundButton(30, 30, game.getGraphics());
+        soundButton = new SoundButton(30, 30, game.getGraphics());
 
-        List<Entity> ents = new ArrayList<>();
+        ents = new ArrayList<>();
         ents.add(background);
 
-        InstructionsButton instructions = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
+        instructionsButton = new InstructionsButton (900, 30, game.getGraphics(), game, ents);
 
 
         for (Entity e: entities)
             e.setCenteredX();
 
-        addEntity(sound);
-        addEntity(instructions);
+        addEntity(soundButton);
+        addEntity(instructionsButton);
     }
 
     @Override
@@ -70,5 +74,29 @@ public class MainMenuState extends GameState
     {
         game.getGraphics().clear(background.getColor());
         super.render(deltaTime);
+    }
+
+    @Override
+    public void handleInput(float deltaTime)
+    {
+        super.handleInput(deltaTime);
+
+        if(touchEvents.size() > 0){
+            boolean entityTouched = false;
+            boolean touched = false;
+            int i = 0;
+            while(i < touchEvents.size() && !entityTouched){
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN){
+                    touched = true;
+                    if(soundButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y) || instructionsButton.inBounds(touchEvents.get(i).x, touchEvents.get(i).y))
+                        entityTouched = true;
+                }//If comprobación tipo de evento
+                i++;
+            }//While de eventos
+
+
+            if(!entityTouched &&touched)
+                game.setState(new InstructionsState(game, ents));
+        }
     }
 }

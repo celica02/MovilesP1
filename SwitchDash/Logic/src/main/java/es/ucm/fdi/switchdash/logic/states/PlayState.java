@@ -6,6 +6,7 @@ import java.util.List;
 import es.ucm.fdi.switchdash.engine.Entity;
 import es.ucm.fdi.switchdash.engine.Game;
 import es.ucm.fdi.switchdash.engine.GameState;
+import es.ucm.fdi.switchdash.engine.Input;
 import es.ucm.fdi.switchdash.logic.Assets;
 import es.ucm.fdi.switchdash.logic.entities.Background;
 import es.ucm.fdi.switchdash.logic.entities.Ball;
@@ -58,13 +59,11 @@ public class PlayState extends GameState
         ballMgr = new BallManager(1f, 0.2f, timeToReach, speed,0, player, game.getGraphics(), this);
         addEntity(ballMgr);
 
-        pointsTxt = new Points(game.getGraphics().getWidth() - 5, 100, game.getGraphics());
-        //pointsTxt = new Text(game.getGraphics().getWidth() - 5, 100, Integer.toString(points), game.getGraphics());
+        pointsTxt = new Points(game.getGraphics().getWidth() - 100, 100, game.getGraphics());
 
         for(Entity e : entities)
             e.setCenteredX();
 
-//        addEntity(points);
         addEntity(pointsTxt);
 
         speed = 450;
@@ -126,4 +125,22 @@ public class PlayState extends GameState
         game.getGraphics().clear(background.getColor());
         super.render(deltaTime);
     }
+
+    @Override
+    public void handleInput(float deltaTime)
+    {
+        super.handleInput(deltaTime);
+
+        if(touchEvents.size() > 0){ //Mira si se ha tocado la pantalla
+            boolean touched = false;
+            int i = 0;
+            while(i < touchEvents.size() && !touched){
+                if(touchEvents.get(i).type == Input.TouchEvent.DOWN) {
+                    touched = true;
+                    player.changeColor();
+                }
+                i++;
+            }
+        }//if
+    }//handleInput
 }

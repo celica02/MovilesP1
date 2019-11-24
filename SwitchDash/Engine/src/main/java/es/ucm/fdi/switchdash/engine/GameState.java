@@ -10,6 +10,9 @@ public abstract class GameState
     protected final Game game;
 
     protected List<Entity> entities;
+    protected List<TouchEvent> touchEvents;
+    protected List<Input.KeyboardEvent> keyEvents;
+    protected boolean entityTouched;
 
     public GameState(Game game)
     {
@@ -23,8 +26,6 @@ public abstract class GameState
         this.game = game;
         this.entities = new ArrayList<>();
         this.entities.addAll(entities);
-        System.out.println(entities.size());
-//        init();
     }
 
     protected abstract void init();
@@ -41,8 +42,9 @@ public abstract class GameState
     }
     public void handleInput(float deltaTime)
     {
-        List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
-        List<Input.KeyboardEvent> keyEvents = game.getInput().getKeyEvents();
+        touchEvents = game.getInput().getTouchEvents();
+        keyEvents = game.getInput().getKeyEvents();
+        entityTouched = false;
 
         for(int i = 0; i < entities.size(); i++)
             entities.get(i).handleInput(touchEvents, keyEvents, deltaTime);
