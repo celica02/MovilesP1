@@ -12,7 +12,6 @@ public abstract class GameState
     protected List<Entity> entities;
     protected List<TouchEvent> touchEvents;
     protected List<Input.KeyboardEvent> keyEvents;
-    protected boolean entityTouched;
 
     public GameState(Game game)
     {
@@ -44,7 +43,6 @@ public abstract class GameState
     {
         touchEvents = game.getInput().getTouchEvents();
         keyEvents = game.getInput().getKeyEvents();
-        entityTouched = false;
 
         for(int i = 0; i < entities.size(); i++)
             entities.get(i).handleInput(touchEvents, keyEvents, deltaTime);

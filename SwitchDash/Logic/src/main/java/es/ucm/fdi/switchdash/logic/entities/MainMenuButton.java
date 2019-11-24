@@ -27,7 +27,7 @@ public class MainMenuButton extends SpriteSheet {
     protected void handleTouchEvent(Input.TouchEvent e)
     {
         if(e.type == Input.TouchEvent.DOWN)
-//            if(inBounds(e.x, e.y))
+            if(inBounds(e.x, e.y))
                 _game.setState(new MainMenuState(_game, _entities));
     }
 
